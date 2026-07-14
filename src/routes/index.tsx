@@ -3,13 +3,13 @@ import { motion, AnimatePresence } from "motion/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense, useState, useEffect } from "react";
 import { publishedBooksQuery } from "@/lib/books";
-import { BookCard } from "@/components/book-card";
 import { 
   ArrowRight, 
-  BookOpen, 
   Sparkles, 
   Search,
-  Compass
+  BookOpen,
+  Check,
+  Star
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -17,102 +17,33 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const TITLE = "Notestalgia";
-
-// Background falling leaves component
-function FallingLeaves() {
-  const [leaves, setLeaves] = useState<any[]>([]);
+// Floating particle drift animation component matching Fable
+function ParticleDrift() {
+  const [particles, setParticles] = useState<any[]>([]);
 
   useEffect(() => {
-    // Generate random leaves
-    const newLeaves = Array.from({ length: 12 }).map((_, i) => ({
+    const newParticles = Array.from({ length: 15 }).map((_, i) => ({
       id: i,
-      left: Math.random() * 100, // percentage width
-      delay: Math.random() * 10,  // seconds delay
-      duration: 10 + Math.random() * 15, // seconds speed
-      size: 10 + Math.random() * 15, // px size
-      color: Math.random() > 0.5 ? "text-sage" : "text-mustard",
-      rotateStart: Math.random() * 360,
+      left: Math.random() * 95,
+      delay: Math.random() * 8,
+      duration: 12 + Math.random() * 12,
+      size: 3 + Math.random() * 4,
     }));
-    setLeaves(newLeaves);
+    setParticles(newParticles);
   }, []);
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-10" aria-hidden="true">
-      {leaves.map((leaf) => (
-        <motion.svg
-          key={leaf.id}
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className={`absolute ${leaf.color} opacity-40`}
+    <div className="pointer-events-none absolute inset-0 overflow-hidden z-10" aria-hidden="true">
+      {particles.map((p) => (
+        <span
+          key={p.id}
+          className="absolute bottom-0 rounded-full bg-foreground/20"
           style={{
-            left: `${leaf.left}%`,
-            width: leaf.size,
-            height: leaf.size,
-            top: -20,
-          }}
-          initial={{ y: -50, x: 0, rotate: leaf.rotateStart, opacity: 0 }}
-          animate={{
-            y: "110vh",
-            x: [0, 40, -40, 20, 0],
-            rotate: [leaf.rotateStart, leaf.rotateStart + 180, leaf.rotateStart + 360],
-            opacity: [0, 0.4, 0.4, 0.2, 0],
-          }}
-          transition={{
-            duration: leaf.duration,
-            delay: leaf.delay,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        >
-          {/* Simple leaf outline */}
-          <path d="M12 2C6.5 2 2 6.5 2 12c0 3.5 1.8 6.6 4.5 8.5C7.2 21.2 8 22 8 22s0.8-0.8 1.5-1.5C12.2 18.6 14 15.5 14 12c0-5.5-4.5-10-10-10zm0 0c5.5 0 10 4.5 10 10 0 3.5-1.8 6.6-4.5 8.5C16.8 21.2 16 22 16 22s-0.8-0.8-1.5-1.5C11.8 18.6 10 15.5 10 12c0-5.5 4.5-10 10-10z" />
-        </motion.svg>
-      ))}
-    </div>
-  );
-}
-
-// Glowing background fireflies component
-function Fireflies() {
-  const [fireflies, setFireflies] = useState<any[]>([]);
-
-  useEffect(() => {
-    const newFireflies = Array.from({ length: 15 }).map((_, i) => ({
-      id: i,
-      left: 10 + Math.random() * 80,
-      top: 15 + Math.random() * 70,
-      delay: Math.random() * 4,
-      size: 4 + Math.random() * 4,
-    }));
-    setFireflies(newFireflies);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-10" aria-hidden="true">
-      {fireflies.map((ff) => (
-        <motion.div
-          key={ff.id}
-          className="absolute rounded-full bg-honey"
-          style={{
-            left: `${ff.left}%`,
-            top: `${ff.top}%`,
-            width: ff.size,
-            height: ff.size,
-            filter: "blur(1px)",
-            boxShadow: "0 0 8px #F2C14E, 0 0 16px #F2C14E",
-          }}
-          animate={{
-            y: [0, -15, 10, -5, 0],
-            x: [0, 10, -10, 5, 0],
-            opacity: [0.1, 0.9, 0.4, 0.9, 0.1],
-            scale: [0.8, 1.2, 0.9, 1.2, 0.8],
-          }}
-          transition={{
-            duration: 5 + Math.random() * 5,
-            delay: ff.delay,
-            repeat: Infinity,
-            ease: "easeInOut",
+            left: `${p.left}%`,
+            width: p.size,
+            height: p.size,
+            animation: `particle-drift ${p.duration}s linear ${p.delay}s infinite`,
+            filter: "blur(0.5px)",
           }}
         />
       ))}
@@ -120,264 +51,98 @@ function Fireflies() {
   );
 }
 
-// Sunbeams filtering through branches
-function Sunbeams() {
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 opacity-45" aria-hidden="true">
-      <div 
-        className="absolute top-0 left-1/4 w-[200px] h-[150%] bg-gradient-to-r from-honey/10 via-honey/5 to-transparent origin-top-left -rotate-45"
-        style={{ filter: "blur(40px)" }}
-      />
-      <div 
-        className="absolute top-0 left-1/2 w-[300px] h-[150%] bg-gradient-to-r from-honey/10 via-honey/3 to-transparent origin-top-left -rotate-40"
-        style={{ filter: "blur(60px)" }}
-      />
-    </div>
-  );
-}
-
 function Hero() {
   const { data: books } = useSuspenseQuery(publishedBooksQuery);
-  const [selectedBook, setSelectedBook] = useState<any>(null);
-
-  // Pre-defined branch coordinates for hanging fruits on the Tree of Knowledge (SVG dimensions: 800x600)
-  const hangingSpots = [
-    { x: "22%", y: "24%", name: "Branch A (Left High)", delay: "0.2s" },
-    { x: "74%", y: "28%", name: "Branch B (Right High)", delay: "0.8s" },
-    { x: "15%", y: "46%", name: "Branch C (Left Low)", delay: "1.4s" },
-    { x: "82%", y: "48%", name: "Branch D (Right Low)", delay: "0.5s" },
-    { x: "34%", y: "38%", name: "Branch E (Center Left)", delay: "1.1s" },
-    { x: "65%", y: "42%", name: "Branch F (Center Right)", delay: "1.7s" },
-  ];
+  const heroBook = books && books.length > 0 ? books[0] : null;
 
   return (
-    <section className="relative overflow-hidden pt-24 pb-28 min-h-[90vh] flex flex-col justify-center">
-      <Sunbeams />
-      <FallingLeaves />
-      <Fireflies />
-
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10 z-20 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <section className="relative pt-6">
+      <div className="mx-auto mt-6 w-[min(96%,1200px)]">
+        <div className="glass relative overflow-hidden rounded-[2.5rem] px-6 py-12 md:px-14 md:py-20">
           
-          {/* Left Column: Brand Info & Signpost */}
-          <div className="lg:col-span-6 space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-forest/20 bg-sage/10 backdrop-blur-sm text-[10px] font-display uppercase tracking-widest text-forest font-semibold"
-            >
-              <Sparkles className="w-3 h-3 text-honey animate-pulse" />
-              <span>THE TREE OF KNOWLEDGE</span>
-            </motion.div>
+          {/* Ambient Floating Blobs */}
+          <div className="float-blob absolute -left-24 -top-24 h-72 w-72 rounded-full bg-mustard/20 opacity-50 blur-3xl" />
+          <div 
+            className="float-blob absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-dusty/15 opacity-60 blur-3xl"
+            style={{ animationDelay: "3s" }}
+          />
 
-            <div className="space-y-4">
-              {/* Illustrated logo text styling */}
-              <h1 className="font-serif text-[12vw] sm:text-[8vw] lg:text-[5.5rem] leading-[0.95] tracking-[-0.03em] text-ink">
-                {TITLE.split("").map((letter, i) => {
-                  const isNote = i < 4;
-                  return (
-                    <motion.span
-                      key={i}
-                      initial={{ y: "80%", rotate: 4, opacity: 0 }}
-                      animate={{ y: "0%", rotate: 0, opacity: 1 }}
-                      transition={{
-                        delay: i * 0.04,
-                        duration: 0.8,
-                        ease: [0.16, 1, 0.3, 1],
-                      }}
-                      className={`inline-block font-bold ${isNote ? "text-mustard" : "text-dusty"}`}
-                      style={{ transformOrigin: "bottom left" }}
-                    >
-                      {letter}
-                    </motion.span>
-                  );
-                })}
-                <span className="text-mustard">.</span>
+          {/* Active Particles Background */}
+          <ParticleDrift />
+
+          {/* Core Content Grid */}
+          <div className="relative grid items-center gap-10 md:grid-cols-2">
+            <div className="reveal space-y-6">
+              
+              <div className="text-xs tracking-[0.3em] text-muted-foreground uppercase flex items-center gap-1.5 font-display">
+                Premium Digital Artifacts
+                <Sparkles className="w-3.5 h-3.5 text-mustard animate-pulse" />
+              </div>
+
+              <h1 className="font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl text-ink font-bold">
+                Read, Learn &amp;<br />CollectTimeless Guides
               </h1>
+              
+              <p className="max-w-md text-base text-muted-foreground md:text-lg font-serif italic">
+                Acquire beautifully crafted digital summaries, AI notes, and children's book classics. Formatted for timeless study, and made to last.
+              </p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="max-w-xl text-base md:text-lg text-ink/80 leading-relaxed font-serif italic"
-              >
-                "Step into the sacred orchard where books grow on branches. Harvest handpicked digital guides, notes, and children's stories curated with pure love."
-              </motion.p>
-            </div>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <a href="#collection" className="btn-primary group flex items-center gap-2">
+                  Explore Catalog
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </a>
+                <a href="#notebook" className="btn-ghost group flex items-center gap-2">
+                  Try Virtual Notebook
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              </div>
 
-            {/* Handcrafted wooden sign buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="flex flex-wrap items-center gap-4 pt-2"
-            >
-              <a 
-                href="#collection" 
-                className="relative inline-flex items-center gap-2 px-6 py-2.5 bg-walnut text-cream rounded-md font-serif text-sm border-b-4 border-stone-900 shadow-md hover:translate-y-[2px] hover:border-b-2 active:translate-y-[4px] active:border-b-0 transition-all cursor-pointer group"
-              >
-                <span>Harvest Catalog</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
-              <Link 
-                to="/about" 
-                className="relative inline-flex items-center justify-center px-6 py-2.5 bg-paper border border-walnut/20 text-walnut rounded-md font-serif text-sm hover:bg-sage/10 transition-colors"
-              >
-                Our Story
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* Right Column: Immersive Tree of Knowledge SVG & Hanging Books */}
-          <div className="lg:col-span-6 flex items-center justify-center min-h-[480px] relative">
-            
-            {/* The Tree of Knowledge Illustration (SVG) */}
-            <div className="w-full max-w-[500px] aspect-[4/5] relative">
-              <svg 
-                viewBox="0 0 400 500" 
-                className="w-full h-full text-walnut absolute inset-0 select-none animate-sway origin-bottom pointer-events-none"
-              >
-                {/* Roots */}
-                <path d="M160 480c5 5 25 20 40 20s35-15 40-20l-10-30h-60z" fill="currentColor" opacity="0.15" />
-                {/* Trunk */}
-                <path d="M180 480c-5-20-10-80-5-150s30-100 45-120c10-15 25-30 20-50s-20-30-35-15c-12 12-25 35-30 60s-5 80-15 120-30 70-35 90c-5 15-5 50-10 65z" fill="currentColor" />
-                {/* Branch Left */}
-                <path d="M175 320c-30-20-80-25-110 5-15 15-20 45-5 55s35-15 45-30c12-18 45-20 70-15z" fill="currentColor" />
-                {/* Branch Right */}
-                <path d="M205 310c30-20 90-15 115 15 15 18 10 45-5 50s-25-25-40-35c-15-10-50-15-70-10z" fill="currentColor" />
-                {/* Branch High Left */}
-                <path d="M185 240c-25-25-70-40-95-20-15 12-15 35-2 42s25-15 35-25c15-15 42-10 62-3z" fill="currentColor" />
-                {/* Branch High Right */}
-                <path d="M210 230c25-25 75-35 95-5 12 18 2 40-10 42s-22-22-35-27c-15-5-40-5-50-2z" fill="currentColor" />
-                
-                {/* Leaves clusters */}
-                <circle cx="95" cy="200" r="45" fill="currentColor" className="text-forest" opacity="0.35" />
-                <circle cx="310" cy="210" r="48" fill="currentColor" className="text-forest" opacity="0.35" />
-                <circle cx="50" cy="335" r="40" fill="currentColor" className="text-forest" opacity="0.35" />
-                <circle cx="330" cy="340" r="42" fill="currentColor" className="text-forest" opacity="0.35" />
-                <circle cx="205" cy="120" r="55" fill="currentColor" className="text-forest" opacity="0.4" />
-                
-                {/* Woven leaf details */}
-                <circle cx="205" cy="120" r="40" fill="currentColor" className="text-sage" opacity="0.25" />
-                <circle cx="95" cy="200" r="30" fill="currentColor" className="text-sage" opacity="0.25" />
-                <circle cx="310" cy="210" r="32" fill="currentColor" className="text-sage" opacity="0.25" />
-              </svg>
-
-              {/* Dynamic Hanging Book Items */}
-              {books && books.slice(0, 6).map((book, idx) => {
-                const spot = hangingSpots[idx];
-                return (
-                  <div
-                    key={book.id}
-                    className="absolute"
-                    style={{
-                      left: spot.x,
-                      top: spot.y,
-                      transform: "translate(-50%, -20%)",
-                    }}
-                  >
-                    {/* Hanging rope line */}
-                    <div className="w-[1.5px] bg-walnut/30 h-10 mx-auto origin-top" />
-
-                    {/* Hanging Fruit Container with swing animation */}
-                    <motion.div
-                      style={{ transformOrigin: "top center" }}
-                      animate={{
-                        rotate: [-2, 2, -2],
-                      }}
-                      transition={{
-                        duration: 5 + idx,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      onClick={() => setSelectedBook(book)}
-                      className="cursor-pointer relative group"
-                    >
-                      {/* Fruit shell / Lantern wrapper */}
-                      <div className="relative w-11 h-14 bg-berry/85 group-hover:bg-honey border border-walnut/20 rounded-b-full rounded-t-[50%] flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-115">
-                        {/* Glow backlighting */}
-                        <div className="absolute inset-0 bg-honey rounded-full filter blur-md opacity-0 group-hover:opacity-85 transition-opacity" />
-
-                        {/* Seed details / Book cover thumbnail */}
-                        {book.cover_image ? (
-                          <img 
-                            src={book.cover_image} 
-                            alt={book.title} 
-                            className="w-6 h-9 object-cover rounded shadow-sm border border-walnut/10 select-none pointer-events-none"
-                          />
-                        ) : (
-                          <div className="text-xs font-serif font-bold text-cream select-none pointer-events-none">
-                            📖
-                          </div>
-                        )}
-                        
-                        {/* Little leaf on top of fruit */}
-                        <div className="absolute -top-[5px] left-1/2 -translate-x-1/2 w-4 h-2 bg-sage rounded-full rotate-12 border border-walnut/10" />
-                      </div>
-
-                      {/* Tooltip on Hover */}
-                      <div className="absolute top-16 left-1/2 -translate-x-1/2 w-32 bg-ink/90 backdrop-blur-sm border border-walnut/20 text-cream p-2 rounded-lg text-center opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-300 shadow-xl z-30">
-                        <div className="text-[10px] font-serif font-bold line-clamp-1">{book.title}</div>
-                        <div className="text-[9px] font-display text-mustard mt-0.5">₹{Number(book.current_price).toFixed(0)}</div>
-                      </div>
-                    </motion.div>
+              {/* Student Trust Panel */}
+              <div className="mt-10 flex items-center gap-4 pt-4 border-t border-ink/5 max-w-sm">
+                <div className="flex -space-x-2">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-ink font-display uppercase tracking-wider">500+ Active Readers</div>
+                  <div className="flex items-center gap-0.5 text-mustard mt-0.5">
+                    <Star className="w-3.5 h-3.5 fill-current" />
+                    <Star className="w-3.5 h-3.5 fill-current" />
+                    <Star className="w-3.5 h-3.5 fill-current" />
+                    <Star className="w-3.5 h-3.5 fill-current" />
+                    <Star className="w-3.5 h-3.5 fill-current" />
                   </div>
-                );
-              })}
+                </div>
+              </div>
+
             </div>
 
-            {/* Immersive Overlay Panel when a hanging book is clicked */}
-            <AnimatePresence>
-              {selectedBook && (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  className="absolute inset-0 z-40 bg-paper/95 border border-walnut/15 rounded-2xl p-5 flex flex-col justify-between shadow-2xl backdrop-blur-sm"
-                >
-                  <div className="flex justify-between items-start">
-                    <span className="text-[9px] font-display uppercase tracking-widest bg-sage/20 text-forest px-2 py-0.5 rounded">
-                      {selectedBook.category}
+            {/* Right Panel: Hero book preview matching Fable image container */}
+            <div className="relative flex justify-center">
+              {heroBook ? (
+                <div className="relative group max-w-[280px] sm:max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border border-ink/10">
+                  <img 
+                    src={heroBook.cover_image || ""} 
+                    alt={heroBook.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-6 text-cream">
+                    <span className="text-[10px] font-display uppercase tracking-widest bg-mustard text-ink px-2 py-0.5 rounded w-fit mb-2">
+                      {heroBook.category}
                     </span>
-                    <button 
-                      onClick={() => setSelectedBook(null)}
-                      className="text-xs font-serif text-ink/50 hover:text-ink cursor-pointer bg-ink/5 px-2 py-0.5 rounded"
-                    >
-                      Close ✕
-                    </button>
+                    <h3 className="font-serif text-xl font-bold">{heroBook.title}</h3>
+                    <p className="text-xs text-cream/70 line-clamp-1 mt-1 font-serif italic">"{heroBook.tagline}"</p>
                   </div>
-
-                  <div className="flex gap-4 items-center my-3">
-                    <img 
-                      src={selectedBook.cover_image} 
-                      alt={selectedBook.title}
-                      className="w-16 h-24 object-cover rounded shadow border border-walnut/10"
-                    />
-                    <div className="space-y-1 min-w-0">
-                      <h4 className="font-serif text-lg font-bold text-ink truncate">{selectedBook.title}</h4>
-                      <p className="text-[11px] font-serif text-ink/70 italic line-clamp-2">
-                        "{selectedBook.tagline || selectedBook.description}"
-                      </p>
-                      <div className="font-display text-sm font-bold text-ink mt-1">
-                        ₹{Number(selectedBook.current_price).toFixed(0)}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 pt-2 border-t border-walnut/10">
-                    <Link
-                      to="/book/$slug"
-                      params={{ slug: selectedBook.slug }}
-                      className="flex-1 btn-ink text-xs py-2 text-center flex items-center justify-center gap-1 cursor-pointer"
-                    >
-                      Harvest PDF Details
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
-                </motion.div>
+                </div>
+              ) : (
+                <div className="w-[300px] h-[400px] rounded-3xl bg-paper border-2 border-dashed border-ink/20 flex flex-col items-center justify-center p-6 text-center shadow-inner">
+                  <BookOpen className="w-12 h-12 text-ink/30 mb-3" />
+                  <div className="font-serif text-sm font-semibold text-ink/80">No Books Seeded</div>
+                </div>
               )}
-            </AnimatePresence>
+            </div>
           </div>
 
         </div>
@@ -386,209 +151,494 @@ function Hero() {
   );
 }
 
-function WoodlandFeatures() {
-  const values = [
+// Playable Virtual Notebook Simulator (Bansuri equivalent)
+function NotebookSimulator() {
+  const [paperStyle, setPaperStyle] = useState<"lined" | "grid" | "dotted" | "blank">("lined");
+  const [activePageIndex, setActivePageIndex] = useState(0);
+
+  // Content pages of summary guides
+  const pagesContent = [
     {
-      icon: "🍄",
-      title: "Handcrafted Mushrooms",
-      desc: "Every digital notebook is structured like a beautiful woodland journal, packed with rich character blueprint lists and chapter summaries."
+      title: "The Secret Garden",
+      tagline: "Chapter 1: A Locked Sanctuary",
+      leftContent: "Mary Lennox discovers a rusted key buried in the soil. It matches the iron gate covered in wild ivy. A sense of magic spreads over the estate.",
+      rightContent: [
+        "Core Theme: Renewal & Healing",
+        "Key Symbol: The Key (Opportunity)",
+        "Key Symbol: Ivy (Hidden secrets)",
+        "Blueprints: Mary, Colin, Dickon"
+      ],
+      color: "bg-sage/10 text-forest"
     },
     {
-      icon: "🧺",
-      title: "Cozy Harvesting",
-      desc: "No corporate grids. Harvest your reads directly from the Tree of Knowledge. PDF links are packaged as forest seeds in your account."
+      title: "Alice in Wonderland",
+      tagline: "Chapter 2: Down the Rabbit Hole",
+      leftContent: "Tumbling down the endless rabbit hole, Alice passes bookshelves, maps, and floating jars. Logic bends, and nonsense begins to guide her path.",
+      rightContent: [
+        "Core Theme: Childhood Curiosity",
+        "Key Symbol: Pocket Watch (Time anxiety)",
+        "Key Symbol: Drink Me Bottle (Growth)",
+        "Blueprints: Alice, White Rabbit, Hatter"
+      ],
+      color: "bg-mustard/15 text-ink"
     },
     {
-      icon: "🦉",
-      title: "Wisdom of the Owl",
-      desc: "Classic children's stories, adventure journals, and editorial notes designed to preserve the timeless wonder of literature."
+      title: "Treasure Island",
+      tagline: "Chapter 3: The Map's Secret",
+      leftContent: "Jim Hawkins examines Captain Flint's parchment map. Three red crosses mark the spot of buried doubloons. The smell of salt water fills the air.",
+      rightContent: [
+        "Core Theme: Greed vs. Honor",
+        "Key Symbol: Skeleton Island (Danger)",
+        "Key Symbol: Spyglass (Perspective)",
+        "Blueprints: Jim, Long John Silver, Flint"
+      ],
+      color: "bg-dusty/10 text-dusty"
+    }
+  ];
+
+  const currentPage = pagesContent[activePageIndex];
+
+  // Helper to draw paper background styles dynamically
+  const renderPaperBackground = () => {
+    switch (paperStyle) {
+      case "lined":
+        return {
+          backgroundImage: "repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 23px, rgba(64,64,64,0.06) 24px)",
+          backgroundSize: "100% 24px",
+        };
+      case "grid":
+        return {
+          backgroundImage: "linear-gradient(rgba(64,64,64,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(64,64,64,0.05) 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
+        };
+      case "dotted":
+        return {
+          backgroundImage: "radial-gradient(rgba(64,64,64,0.15) 1px, transparent 1px)",
+          backgroundSize: "16px 16px",
+        };
+      case "blank":
+      default:
+        return {};
+    }
+  };
+
+  return (
+    <section id="notebook" className="mx-auto mt-12 w-[min(96%,1200px)]">
+      <div className="glass rounded-[2.25rem] p-8 text-center relative overflow-hidden border border-white/5 shadow-2xl">
+        
+        {/* Section Header */}
+        <div className="mb-6">
+          <div className="text-xs tracking-[0.3em] text-muted-foreground uppercase flex justify-center items-center gap-1.5 font-display">
+            Interactive Experience
+            <Sparkles className="w-3.5 h-3.5 text-mustard animate-pulse" />
+          </div>
+          <h2 className="mt-3 font-serif text-3xl md:text-5xl text-ink font-bold">Try the Journal.</h2>
+          <p className="mt-4 text-xs md:text-sm text-muted-foreground max-w-xl mx-auto">
+            Experience our premium paper layouts. Select your paper type below, or flip the pages to preview summaries of our classic volumes.
+          </p>
+        </div>
+
+        {/* Paper Style Selector Toggles */}
+        <div className="flex flex-wrap justify-center gap-2 mt-6 max-w-xl mx-auto select-none">
+          {(["lined", "grid", "dotted", "blank"] as const).map((style) => (
+            <button
+              key={style}
+              onClick={() => setPaperStyle(style)}
+              className={`px-4 py-2 rounded-2xl border text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
+                paperStyle === style
+                  ? "bg-ink text-cream border-ink shadow-sm"
+                  : "bg-white/5 border-white/5 text-muted-foreground hover:bg-white/10 hover:text-foreground"
+              }`}
+            >
+              {style} Paper
+            </button>
+          ))}
+        </div>
+
+        {/* Playable Book Binder Simulator (Double-Page Mockup) */}
+        <div className="mt-10 overflow-x-auto py-6 flex justify-center scrollbar-thin select-none">
+          <div className="relative w-[700px] h-[340px] shrink-0 select-none bg-paper border border-walnut/10 rounded-2xl shadow-xl p-6 flex flex-col justify-between" style={renderPaperBackground()}>
+            
+            {/* Book Spine Center Line */}
+            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1.5px] bg-walnut/15 shadow-inner" />
+
+            {/* Left and Right Page Contents */}
+            <div className="grid grid-cols-2 gap-12 h-full text-left pl-6 pr-6">
+              
+              {/* Left Page (Descriptive Text & Illustration Mockup) */}
+              <div className="space-y-4 flex flex-col justify-center border-r border-walnut/5 pr-6 h-full">
+                <div className="space-y-1">
+                  <span className="text-[10px] font-display uppercase tracking-widest bg-ink/5 px-2 py-0.5 rounded text-ink/60">
+                    {currentPage.title}
+                  </span>
+                  <h4 className="font-serif text-lg font-bold text-ink leading-tight">
+                    {currentPage.tagline}
+                  </h4>
+                </div>
+                <p className="text-xs text-ink/75 leading-relaxed font-serif italic select-text">
+                  "{currentPage.leftContent}"
+                </p>
+                <div className="text-[9px] font-mono text-ink/40">Page {activePageIndex * 2 + 1}</div>
+              </div>
+
+              {/* Right Page (Bullet blue-prints summary) */}
+              <div className="space-y-4 flex flex-col justify-center pl-6 h-full">
+                <h4 className="font-serif text-xs uppercase tracking-wider text-ink/50">
+                  AI Study Blueprint
+                </h4>
+                <ul className="space-y-2">
+                  {currentPage.rightContent.map((point, idx) => (
+                    <li key={idx} className="flex items-center gap-2 text-xs text-ink/80 font-sans">
+                      <Check className="w-3.5 h-3.5 text-mustard stroke-[3]" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="text-[9px] font-mono text-ink/40 text-right">Page {activePageIndex * 2 + 2}</div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        {/* Page Switcher controls */}
+        <div className="mt-6 flex items-center justify-center gap-4">
+          <button
+            onClick={() => setActivePageIndex((prev) => (prev - 1 + pagesContent.length) % pagesContent.length)}
+            className="px-4 py-2 rounded-xl border border-ink/15 text-xs font-serif text-ink hover:bg-ink hover:text-cream transition-colors cursor-pointer"
+          >
+            ◀ Turn Back
+          </button>
+          <span className="font-mono text-xs text-ink/60">
+            Guide {activePageIndex + 1} of {pagesContent.length}
+          </span>
+          <button
+            onClick={() => setActivePageIndex((prev) => (prev + 1) % pagesContent.length)}
+            className="px-4 py-2 rounded-xl border border-ink/15 text-xs font-serif text-ink hover:bg-ink hover:text-cream transition-colors cursor-pointer"
+          >
+            Next Page ▶
+          </button>
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+// 4-Column stats grid matching Fable
+function StatsBar() {
+  const stats = [
+    { value: "500+", label: "Happy Readers" },
+    { value: "6+", label: "Seeded Volumes" },
+    { value: "1000+", label: "Summaries & Notes" },
+    { value: "5★", label: "Average Review" }
+  ];
+
+  return (
+    <section className="mx-auto mt-8 w-[min(96%,1200px)]">
+      <div className="glass grid grid-cols-2 divide-foreground/10 rounded-[2rem] p-6 md:grid-cols-4 md:divide-x md:p-8">
+        {stats.map((s, idx) => (
+          <div key={idx} className="px-4 py-4 text-center">
+            <div className="font-serif text-4xl md:text-5xl text-ink font-bold">{s.value}</div>
+            <div className="mt-2 text-xs tracking-wider text-muted-foreground uppercase font-display">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// Features Section matching Fable
+function FeatureCards() {
+  const cards = [
+    {
+      title: "One-to-One Notes",
+      desc: "Each guide is hand-bound with personal margin summaries to ensure faster comprehension.",
+      icon: "📖"
+    },
+    {
+      title: "AI Blueprints",
+      desc: "Get instant character blueprints, map indexes, and thematic logs for active reference.",
+      icon: "✨"
+    },
+    {
+      title: "Curated Catalog",
+      desc: "Only the most timeless and beloved children's classics, structured for modern learning.",
+      icon: "🌿"
+    },
+    {
+      title: "Community Access",
+      desc: "Join a growing circle of digital collectors, students, and readers worldwide.",
+      icon: "👥"
     }
   ];
 
   return (
-    <section className="bg-paper/50 py-16 border-y border-walnut/10 relative">
-      <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {values.map((v, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="flex gap-4 p-6 rounded-xl bg-cream/70 border border-walnut/5 hover:border-walnut/10 transition-colors shadow-sm"
-            >
-              <div className="text-3xl p-2 bg-paper rounded-lg border border-walnut/5 h-fit select-none">
-                {v.icon}
-              </div>
-              <div className="space-y-1">
-                <h4 className="font-serif text-base font-bold text-ink">{v.title}</h4>
-                <p className="text-xs text-ink/75 leading-relaxed font-sans">{v.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+    <section className="mx-auto mt-8 w-[min(96%,1200px)]">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+        {cards.map((c, idx) => (
+          <div key={idx} className="glass group rounded-3xl p-6 text-center transition-all duration-500 hover:-translate-y-1">
+            <div className="mx-auto grid h-10 w-10 place-items-center rounded-xl bg-white/50 border border-ink/5 text-2xl select-none">
+              {c.icon}
+            </div>
+            <div className="mt-4 font-serif text-lg font-bold text-ink leading-snug">{c.title}</div>
+            <p className="mt-2 text-xs text-muted-foreground md:text-sm font-sans">{c.desc}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
 
+// Redesigned Catalog grid matching Fable's course layout
 function CollectionPreview() {
   const { data: books } = useSuspenseQuery(publishedBooksQuery);
-  const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const categories = ["all", "Kids", "Adventure", "Classics"];
-
-  // Filter books based on active category and search query
-  const filteredBooks = books.filter((b) => {
-    const matchesCategory = selectedCategory === "all" || b.category === selectedCategory;
-    const matchesSearch = b.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          (b.tagline && b.tagline.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesCategory && matchesSearch;
-  });
+  const filteredBooks = books.filter((b) => 
+    b.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (b.category && b.category.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
 
   return (
-    <section id="collection" className="relative mx-auto max-w-7xl px-6 md:px-10 py-24">
-      
-      {/* Search & Signboard Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        
-        {/* Left Column: Signboard Category Selector & Botanical Search */}
-        <div className="lg:col-span-4 space-y-10">
+    <section id="collection" className="mx-auto mt-12 w-[min(96%,1200px)]">
+      <div className="glass rounded-[2.5rem] p-6 md:p-10">
+        <div className="grid gap-8 lg:grid-cols-[1fr_2.5fr]">
           
-          {/* Botanical Search Journal */}
-          <div className="bg-paper p-5 rounded-2xl border border-walnut/10 shadow-md relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-16 h-16 bg-mustard/10 rounded-full filter blur-xl pointer-events-none" />
-            <h3 className="font-serif text-lg font-bold text-ink mb-3 flex items-center gap-1.5">
-              <span>📖 Botanical Search</span>
-            </h3>
-            <div className="relative">
+          {/* Left panel: Info & search box */}
+          <div className="space-y-6">
+            <div className="flex items-center gap-2 font-serif text-3xl md:text-4xl text-ink font-bold">
+              Popular Volumes
+              <Sparkles className="w-5 h-5 text-mustard" />
+            </div>
+            <p className="text-sm text-muted-foreground font-serif italic">
+              Begin your study journey with our most popular formatted guides.
+            </p>
+
+            {/* Botanical Search Box */}
+            <div className="relative pt-2">
               <input 
                 type="text" 
-                placeholder="Search forest volumes..."
+                placeholder="Search collection..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-cream pl-10 pr-4 py-2 border border-walnut/10 rounded-md font-sans text-xs focus:outline-none focus:border-walnut/30 text-ink"
+                className="w-full bg-cream pl-10 pr-4 py-2.5 border border-ink/10 rounded-full font-sans text-xs focus:outline-none focus:border-ink/20 text-ink shadow-sm"
               />
-              <Search className="w-4 h-4 text-ink/40 absolute left-3 top-2.5" />
-            </div>
-            <p className="text-[10px] text-ink/50 mt-2 font-serif italic">
-              "Type a volume title to filter matching forest leaves."
-            </p>
-          </div>
-
-          {/* Wooden Signboard Category Post */}
-          <div className="relative pl-6 py-2">
-            {/* Vertical Wood Pole */}
-            <div className="absolute left-[10px] top-0 bottom-0 w-2.5 bg-gradient-to-r from-walnut/80 to-walnut rounded-full shadow-inner" />
-            
-            <h3 className="font-serif text-sm uppercase tracking-wider text-ink/60 mb-6 pl-4 flex items-center gap-1.5">
-              <Compass className="w-4 h-4 text-walnut" />
-              <span>Forest Signpost</span>
-            </h3>
-
-            <div className="space-y-4 relative">
-              {categories.map((cat, idx) => {
-                const isSelected = selectedCategory === cat;
-                const areaNames: Record<string, string> = {
-                  all: "🌿 The Entire Forest",
-                  Kids: "🍄 Mushroom Garden",
-                  Adventure: "🍃 Whispering Canopy",
-                  Classics: "🌳 Ancient Roots",
-                };
-                
-                return (
-                  <motion.button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    whileHover={{ x: 6 }}
-                    className={`relative block w-full text-left px-5 py-3 rounded-r-md font-serif text-xs border-b-2 transition-all cursor-pointer ${
-                      isSelected
-                        ? "bg-walnut text-cream border-stone-900 shadow-md translate-x-2"
-                        : "bg-paper text-walnut border-walnut/10 hover:bg-sage/10"
-                    }`}
-                  >
-                    {/* Small wood knot design */}
-                    <div className="absolute left-2 top-4 w-1.5 h-1.5 rounded-full bg-walnut/20 border border-walnut/30" />
-                    <span className="font-bold pl-2">{areaNames[cat] || cat}</span>
-                  </motion.button>
-                );
-              })}
+              <Search className="w-4 h-4 text-ink/40 absolute left-3.5 top-[18px]" />
             </div>
           </div>
 
-        </div>
-
-        {/* Right Column: Catalog Grid */}
-        <div className="lg:col-span-8 space-y-8">
-          <div className="flex justify-between items-end border-b border-walnut/10 pb-4">
-            <div>
-              <div className="text-[10px] font-display uppercase tracking-[0.2em] text-ink/50">
-                Cozy Volumes
+          {/* Right panel: Course Cards matching Fable's Course layout */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredBooks.length === 0 ? (
+              <div className="sm:col-span-2 lg:col-span-3 text-center py-12 text-xs font-serif text-ink/40 italic">
+                No matching volumes found in the library.
               </div>
-              <h2 className="font-serif text-2xl font-bold text-ink">
-                Small Library. Big Attention to Detail.
-              </h2>
-            </div>
-            <Link 
-              to="/collection" 
-              className="text-xs font-serif text-ink/70 hover:text-ink link-underline"
-            >
-              All Volumes →
-            </Link>
+            ) : (
+              filteredBooks.map((book) => {
+                const discount = book.original_price && book.original_price > book.current_price
+                  ? Math.round(((book.original_price - book.current_price) / book.original_price) * 100)
+                  : null;
+
+                return (
+                  <article key={book.id} className="group glass-soft overflow-hidden rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between">
+                    <div>
+                      {/* Image Thumbnail */}
+                      <div className="aspect-[4/3] overflow-hidden relative border-b border-ink/5 bg-paper">
+                        <img 
+                          src={book.cover_image || ""} 
+                          alt={book.title}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-103"
+                        />
+                        {discount && (
+                          <span className="absolute top-3 left-3 bg-berry text-cream text-[9px] font-display tracking-wider uppercase px-2 py-0.5 rounded-full">
+                            -{discount}%
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Content details */}
+                      <div className="p-4 space-y-2">
+                        <span className="text-[9px] font-display uppercase tracking-widest bg-ink/5 px-2 py-0.5 rounded text-ink/60 w-fit block">
+                          {book.category}
+                        </span>
+                        <h3 className="font-serif text-lg leading-tight font-bold text-ink truncate">
+                          {book.title}
+                        </h3>
+                        <p className="text-xs text-muted-foreground line-clamp-2 h-8 font-serif italic">
+                          {book.tagline || book.description}
+                        </p>
+                        
+                        {/* Specs bullet list matching Fable */}
+                        <ul className="mt-3 space-y-1 pt-2 border-t border-ink/5">
+                          <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
+                            <Check className="w-3.5 h-3.5 text-mustard stroke-[3]" />
+                            <span>Pages: {book.pages || 48}</span>
+                          </li>
+                          <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
+                            <Check className="w-3.5 h-3.5 text-mustard stroke-[3]" />
+                            <span>Language: {book.language || "English"}</span>
+                          </li>
+                          <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
+                            <Check className="w-3.5 h-3.5 text-mustard stroke-[3]" />
+                            <span>Includes AI Blueprints</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Pricing & Footer Actions */}
+                    <div className="p-4 pt-0 border-t border-ink/5 mt-auto">
+                      <div className="flex items-center justify-between py-2.5">
+                        <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-display">Format: PDF</span>
+                        <div className="text-right">
+                          <span className="font-display font-bold text-ink">₹{Number(book.current_price).toFixed(0)}</span>
+                          {book.original_price && book.original_price > book.current_price && (
+                            <span className="text-[10px] text-muted-foreground line-through ml-1.5">₹{Number(book.original_price).toFixed(0)}</span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 mt-1">
+                        <a 
+                          href={book.superprofile_url || "https://superprofile.bio/in"} 
+                          target="_blank" 
+                          rel="noreferrer" 
+                          className="btn-primary !px-2 !py-2 text-[10px] text-center w-full shadow-sm"
+                        >
+                          Harvest
+                        </a>
+                        <Link 
+                          to="/book/$slug" 
+                          params={{ slug: book.slug }} 
+                          className="btn-ghost !px-2 !py-2 text-[10px] text-center w-full"
+                        >
+                          Explore
+                        </Link>
+                      </div>
+                    </div>
+
+                  </article>
+                );
+              })
+            )}
           </div>
 
-          {filteredBooks.length === 0 ? (
-            <EmptyState />
-          ) : (
-            <AnimatePresence mode="popLayout">
-              <motion.div 
-                layout
-                className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-10"
-              >
-                {filteredBooks.slice(0, 6).map((b, i) => (
-                  <BookCard key={b.id} book={b} index={i} />
-                ))}
-              </motion.div>
-            </AnimatePresence>
-          )}
         </div>
-
       </div>
     </section>
   );
 }
 
-function EmptyState() {
+// Curator Info Section matching Fable
+function CuratorShowcase() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="border border-dashed border-walnut/20 rounded-2xl py-24 text-center bg-paper/40"
-    >
-      <BookOpen className="w-10 h-10 text-walnut/30 mx-auto mb-3" />
-      <div className="font-serif text-xl text-ink font-semibold mb-2">Branch is empty</div>
-      <p className="text-xs text-ink/60 max-w-xs mx-auto font-serif italic">
-        "No knowledge fruits have grown in this corner of the forest yet. Try checking other categories or clear your search."
-      </p>
-    </motion.div>
+    <section id="about" className="mx-auto mt-8 w-[min(96%,1200px)]">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="glass overflow-hidden rounded-[2rem] p-2">
+          <div className="relative overflow-hidden rounded-[1.6rem]">
+            <img 
+              src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=600" 
+              alt="Notestalgia Curator Desk" 
+              loading="lazy" 
+              className="aspect-[4/3] w-full object-cover"
+            />
+          </div>
+        </div>
+        <div className="glass flex flex-col justify-center rounded-[2rem] p-8 md:p-12 space-y-4">
+          <div className="text-xs tracking-[0.2em] text-muted-foreground uppercase flex items-center gap-1 font-display">
+            About the Library
+            <Sparkles className="w-3 h-3 text-mustard" />
+          </div>
+          <h2 className="font-serif text-3xl leading-tight md:text-5xl text-ink font-bold">
+            Read, study &amp; reflect deeply.
+          </h2>
+          <p className="text-sm text-muted-foreground font-serif italic">
+            "At Notestalgia, we believe in restoring the magic of study. Our AI blueprints and children's book collection are designed to help students read deeply — not just pass tests — making high-quality notes universally accessible."
+          </p>
+          <div className="flex flex-wrap gap-3 pt-3">
+            <a 
+              href="https://wa.me/919645767284?text=I%27d%20like%20to%20learn%20more%20about%20Notestalgia%20guides" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="btn-primary flex items-center gap-1.5"
+            >
+              Meet the Curator
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <Link to="/collection" className="btn-ghost">
+              Read Our Blog
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Student results / Review Quotes matching Fable
+function Testimonials() {
+  const reviews = [
+    {
+      quote: "The formatted layout and AI Blueprints are incredibly detailed. I finished and understood the whole book in a single evening.",
+      author: "Anjali S.",
+      role: "Student"
+    },
+    {
+      quote: "These notes have restored my child's love for reading. The summaries are beautiful and so easy to follow.",
+      author: "Ravi K.",
+      role: "Parent"
+    }
+  ];
+
+  return (
+    <section className="mx-auto mt-12 w-[min(96%,1200px)] pb-12">
+      <div className="mb-8 flex items-end justify-between gap-4">
+        <h2 className="font-serif text-3xl md:text-5xl text-ink font-bold">Reader Results</h2>
+        <a 
+          href="https://wa.me/919645767284?text=I%27d%20like%20to%20know%20more%20about%20Notestalgia" 
+          target="_blank" 
+          rel="noreferrer" 
+          className="btn-ghost hidden md:inline-flex items-center gap-1.5"
+        >
+          Start Your Journey
+          <ArrowRight className="w-4 h-4" />
+        </a>
+      </div>
+      <div className="grid gap-4 md:grid-cols-2">
+        {reviews.map((r, idx) => (
+          <figure key={idx} className="glass rounded-[2rem] p-8 shadow-sm">
+            <div className="text-4xl font-serif leading-none text-foreground/20">“</div>
+            <blockquote className="mt-2 font-serif text-lg leading-snug md:text-xl text-ink italic">
+              {r.quote}
+            </blockquote>
+            <figcaption className="mt-6 flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-paper flex items-center justify-center border border-ink/10 font-serif font-bold text-ink">
+                {r.author.slice(0, 1)}
+              </div>
+              <div>
+                <div className="text-sm font-medium text-ink">{r.author}</div>
+                <div className="text-xs text-muted-foreground font-serif">{r.role}</div>
+              </div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
   );
 }
 
 function Home() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 pb-12">
       <Hero />
-      <WoodlandFeatures />
-      <Suspense fallback={
-        <div className="mx-auto max-w-7xl px-6 md:px-10 py-24 text-center text-xs font-serif text-walnut/60 tracking-wider italic">
-          Walking through the whispering forest...
-        </div>
-      }>
-        <CollectionPreview />
-      </Suspense>
+      <NotebookSimulator />
+      <FeatureCards />
+      <StatsBar />
+      <CuratorShowcase />
+      <CollectionPreview />
+      <Testimonials />
     </div>
   );
 }

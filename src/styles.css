@@ -48,6 +48,7 @@
   --color-walnut: var(--walnut);
   --color-honey: var(--honey);
   --color-berry: var(--berry);
+  --color-gold: var(--gold);
 
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -77,6 +78,7 @@
   --walnut: oklch(0.32 0.06 45);        /* #4E3629 Walnut */
   --honey: oklch(0.86 0.14 85);         /* #F2C14E Amber Honey */
   --berry: oklch(0.52 0.16 28);         /* #8B2635 Berry Red */
+  --gold: oklch(0.82 0.12 85);          /* #F2C14E Fable Gold */
 
   /* Semantic */
   --background: var(--cream);
@@ -252,4 +254,62 @@
   color: oklch(0.4 0.03 80);
   border-radius: 999px;
   border: 1px solid var(--border);
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(64, 64, 64, 0.15);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-1px);
+    background: oklch(0.25 0 0);
+    box-shadow: 0 6px 16px rgba(64, 64, 64, 0.25);
+  }
+}
+
+/* --- Fable Music inspired Glassmorphism and Blobs --- */
+@utility glass {
+  background: rgba(255, 253, 248, 0.45);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(64, 64, 64, 0.08);
+  box-shadow: 0 8px 32px -4px rgba(64, 64, 64, 0.05);
+}
+
+@utility glass-soft {
+  background: rgba(255, 253, 248, 0.25);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(64, 64, 64, 0.04);
+}
+
+@utility float-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+  animation: blob-float 12s ease-in-out infinite;
+}
+
+@keyframes blob-float {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.15); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+@keyframes particle-drift {
+  0% { transform: translateY(0px) translateX(0px) scale(0.8); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-500px) translateX(50px) scale(1.2); opacity: 0; }
 }
