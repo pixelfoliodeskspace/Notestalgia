@@ -96,7 +96,7 @@ function Hero() {
             </motion.div>
 
             <div className="space-y-4">
-              <h1 className="font-display text-[12vw] sm:text-[8vw] lg:text-[6.5rem] leading-[0.95] tracking-[-0.04em] text-ink">
+              <h1 className="font-serif text-[12vw] sm:text-[8vw] lg:text-[6.5rem] leading-[0.95] tracking-[-0.03em] text-ink">
                 {TITLE.split("").map((letter, i) => (
                   <motion.span
                     key={i}
@@ -127,7 +127,7 @@ function Hero() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
-                className="max-w-xl text-lg md:text-xl text-ink/80 leading-relaxed font-serif italic"
+                className="max-w-xl text-base md:text-lg text-ink/75 leading-relaxed font-sans"
               >
                 A carefully curated sanctuary of premium notes, guides, and timeless digital classics. Beautifully formatted, enriched with AI summaries, and made to last.
               </motion.p>
@@ -228,7 +228,7 @@ function Hero() {
                     <span className="text-xs text-ink/50 font-serif">· Featured Title</span>
                   </div>
 
-                  <h3 className="font-display text-xl text-ink font-semibold leading-tight line-clamp-1">
+                  <h3 className="font-serif text-xl text-ink font-semibold leading-tight line-clamp-1">
                     {activeBook.title}
                   </h3>
 
@@ -327,8 +327,8 @@ function FeaturesSection() {
                 {f.icon}
               </div>
               <div className="space-y-1">
-                <h4 className="font-display text-base font-semibold text-ink">{f.title}</h4>
-                <p className="text-xs text-ink/75 leading-relaxed font-serif">{f.desc}</p>
+                <h4 className="font-serif text-base font-semibold text-ink">{f.title}</h4>
+                <p className="text-xs text-ink/75 leading-relaxed font-sans">{f.desc}</p>
               </div>
             </motion.div>
           ))}
@@ -359,7 +359,7 @@ function CollectionPreview() {
           <div className="text-[10px] font-display tracking-[0.3em] uppercase text-ink/60 mb-2">
             The Catalog
           </div>
-          <h2 className="font-display text-3xl md:text-4xl leading-tight">
+          <h2 className="font-serif text-3xl md:text-4xl leading-tight">
             Small library.<br />Big attention to detail.
           </h2>
         </div>
@@ -416,8 +416,8 @@ function EmptyState() {
       className="border border-dashed border-ink/15 rounded-xl py-20 text-center bg-paper/50"
     >
       <BookOpen className="w-8 h-8 text-ink/30 mx-auto mb-3" />
-      <div className="font-display text-2xl text-ink font-semibold mb-2">Shelves being stocked.</div>
-      <p className="text-xs text-ink/60 max-w-sm mx-auto font-serif">
+      <div className="font-serif text-2xl text-ink font-semibold mb-2">Shelves being stocked.</div>
+      <p className="text-xs text-ink/60 max-w-sm mx-auto font-sans">
         The matching titles in this category are being formatted and will appear here shortly. Sign in as admin to manage.
       </p>
     </motion.div>
