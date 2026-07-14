@@ -18,7 +18,7 @@ import { Toaster } from "sonner";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center paper-bg px-4">
+    <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
         <div className="font-display text-[9rem] leading-none tracking-tighter text-foreground/90">404</div>
         <h2 className="mt-2 font-display text-2xl">Not in the library</h2>
@@ -41,7 +41,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center paper-bg px-4">
+    <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
         <h1 className="font-display text-2xl">Something slipped</h1>
         <p className="mt-2 text-sm text-muted-foreground">
