@@ -74,13 +74,28 @@ function NewBookPage() {
   return (
     <form onSubmit={submit} className="space-y-10 max-w-3xl">
       <Field label="Title *">
-        <input required value={form.title} onChange={(e) => update("title", e.target.value)} className={input} />
+        <input
+          required
+          value={form.title}
+          onChange={(e) => update("title", e.target.value)}
+          className={input}
+        />
       </Field>
       <Field label="Tagline">
-        <input value={form.tagline} onChange={(e) => update("tagline", e.target.value)} className={input} placeholder="One-line hook" />
+        <input
+          value={form.tagline}
+          onChange={(e) => update("tagline", e.target.value)}
+          className={input}
+          placeholder="One-line hook"
+        />
       </Field>
       <Field label="Description">
-        <textarea rows={6} value={form.description} onChange={(e) => update("description", e.target.value)} className={input} />
+        <textarea
+          rows={6}
+          value={form.description}
+          onChange={(e) => update("description", e.target.value)}
+          className={input}
+        />
       </Field>
       <Field label="Cover image URL">
         <input
@@ -97,25 +112,61 @@ function NewBookPage() {
 
       <div className="grid grid-cols-2 gap-6">
         <Field label="Category">
-          <input value={form.category} onChange={(e) => update("category", e.target.value)} className={input} placeholder="Guides" />
+          <input
+            value={form.category}
+            onChange={(e) => update("category", e.target.value)}
+            className={input}
+            placeholder="Guides"
+          />
         </Field>
         <Field label="Language">
-          <input value={form.language} onChange={(e) => update("language", e.target.value)} className={input} />
+          <input
+            value={form.language}
+            onChange={(e) => update("language", e.target.value)}
+            className={input}
+          />
         </Field>
         <Field label="Current price (₹)">
-          <input type="number" step="0.01" value={form.current_price} onChange={(e) => update("current_price", e.target.value)} className={input} />
+          <input
+            type="number"
+            step="0.01"
+            value={form.current_price}
+            onChange={(e) => update("current_price", e.target.value)}
+            className={input}
+          />
         </Field>
         <Field label="Original price (₹)">
-          <input type="number" step="0.01" value={form.original_price} onChange={(e) => update("original_price", e.target.value)} className={input} />
+          <input
+            type="number"
+            step="0.01"
+            value={form.original_price}
+            onChange={(e) => update("original_price", e.target.value)}
+            className={input}
+          />
         </Field>
         <Field label="Pages">
-          <input type="number" value={form.pages} onChange={(e) => update("pages", e.target.value)} className={input} />
+          <input
+            type="number"
+            value={form.pages}
+            onChange={(e) => update("pages", e.target.value)}
+            className={input}
+          />
         </Field>
         <Field label="Level">
-          <input value={form.level} onChange={(e) => update("level", e.target.value)} className={input} placeholder="Beginner" />
+          <input
+            value={form.level}
+            onChange={(e) => update("level", e.target.value)}
+            className={input}
+            placeholder="Beginner"
+          />
         </Field>
         <Field label="Updated date">
-          <input type="date" value={form.updated_date} onChange={(e) => update("updated_date", e.target.value)} className={input} />
+          <input
+            type="date"
+            value={form.updated_date}
+            onChange={(e) => update("updated_date", e.target.value)}
+            className={input}
+          />
         </Field>
       </div>
 
@@ -132,7 +183,11 @@ function NewBookPage() {
 
       <div className="flex items-center gap-8">
         <Toggle label="Featured" checked={form.featured} onChange={(v) => update("featured", v)} />
-        <Toggle label="Published" checked={form.published} onChange={(v) => update("published", v)} />
+        <Toggle
+          label="Published"
+          checked={form.published}
+          onChange={(v) => update("published", v)}
+        />
       </div>
 
       <div className="pt-4 flex gap-3">
@@ -153,13 +208,23 @@ const input =
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-foreground/60 mb-2">{label}</div>
+      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-foreground/60 mb-2">
+        {label}
+      </div>
       {children}
     </label>
   );
 }
 
-function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
+function Toggle({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
   return (
     <button
       type="button"

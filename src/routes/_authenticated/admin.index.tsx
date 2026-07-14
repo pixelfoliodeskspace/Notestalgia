@@ -36,8 +36,12 @@ function AdminDashboard() {
       ) : total === 0 ? (
         <div className="border border-dashed border-border rounded-lg py-16 text-center">
           <div className="font-display text-2xl mb-2">No books yet.</div>
-          <p className="text-muted-foreground mb-6">Add your first title to start the collection.</p>
-          <Link to="/admin/new" className="btn-ink">Add first book</Link>
+          <p className="text-muted-foreground mb-6">
+            Add your first title to start the collection.
+          </p>
+          <Link to="/admin/new" className="btn-ink">
+            Add first book
+          </Link>
         </div>
       ) : (
         <div className="border border-border rounded-lg overflow-hidden bg-card">
@@ -65,10 +69,16 @@ function AdminDashboard() {
                     <span className={`tag-pill ${b.published ? "" : "opacity-60"}`}>
                       {b.published ? "Published" : "Draft"}
                     </span>
-                    {b.featured && <span className="tag-pill ml-2 bg-mustard border-mustard">Featured</span>}
+                    {b.featured && (
+                      <span className="tag-pill ml-2 bg-mustard border-mustard">Featured</span>
+                    )}
                   </td>
                   <td className="text-right">
-                    <Link to="/admin/edit/$id" params={{ id: b.id }} className="text-xs link-underline">
+                    <Link
+                      to="/admin/edit/$id"
+                      params={{ id: b.id }}
+                      className="text-xs link-underline"
+                    >
                       Edit
                     </Link>
                   </td>
@@ -90,7 +100,9 @@ function Stat({ label, value }: { label: string; value: number | string }) {
       transition={{ duration: 0.5 }}
       className="rounded-lg border border-border bg-card p-6"
     >
-      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-foreground/60">{label}</div>
+      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-foreground/60">
+        {label}
+      </div>
       <div className="mt-3 font-display text-4xl">{value}</div>
     </motion.div>
   );

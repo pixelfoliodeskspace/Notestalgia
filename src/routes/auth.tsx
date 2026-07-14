@@ -92,8 +92,12 @@ function AuthPage() {
         <h1 className="font-display text-4xl mb-3">Signed in</h1>
         <p className="text-muted-foreground text-sm mb-8">{user.email}</p>
         <div className="flex justify-center gap-3">
-          <Link to="/collection" className="btn-ink">Browse collection</Link>
-          <button onClick={handleSignOut} className="btn-ghost">Sign out</button>
+          <Link to="/collection" className="btn-ink">
+            Browse collection
+          </Link>
+          <button onClick={handleSignOut} className="btn-ghost">
+            Sign out
+          </button>
         </div>
       </div>
     );
@@ -117,11 +121,7 @@ function AuthPage() {
         </p>
 
         <div className="mt-10 space-y-3">
-          <button
-            onClick={handleGoogle}
-            disabled={busy}
-            className="btn-ghost w-full py-3"
-          >
+          <button onClick={handleGoogle} disabled={busy} className="btn-ghost w-full py-3">
             Continue with Google
           </button>
         </div>
@@ -134,7 +134,9 @@ function AuthPage() {
 
         <form onSubmit={handleEmail} className="space-y-4">
           <div>
-            <label className="text-xs font-display tracking-widest uppercase text-foreground/60">Email</label>
+            <label className="text-xs font-display tracking-widest uppercase text-foreground/60">
+              Email
+            </label>
             <input
               type="email"
               required
@@ -144,7 +146,9 @@ function AuthPage() {
             />
           </div>
           <div>
-            <label className="text-xs font-display tracking-widest uppercase text-foreground/60">Password</label>
+            <label className="text-xs font-display tracking-widest uppercase text-foreground/60">
+              Password
+            </label>
             <input
               type="password"
               required
@@ -163,20 +167,14 @@ function AuthPage() {
           {mode === "signin" ? (
             <>
               Don't have an account?{" "}
-              <button
-                onClick={() => setMode("signup")}
-                className="link-underline text-foreground"
-              >
+              <button onClick={() => setMode("signup")} className="link-underline text-foreground">
                 Sign up
               </button>
             </>
           ) : (
             <>
               Already have an account?{" "}
-              <button
-                onClick={() => setMode("signin")}
-                className="link-underline text-foreground"
-              >
+              <button onClick={() => setMode("signin")} className="link-underline text-foreground">
                 Sign in
               </button>
             </>

@@ -11,13 +11,19 @@ export const Route = createFileRoute("/book/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Unavailable — Notestalgia" }, { name: "robots", content: "noindex" }] };
+      return {
+        meta: [{ title: "Unavailable — Notestalgia" }, { name: "robots", content: "noindex" }],
+      };
     }
     const b = loaderData.book;
     return {
       meta: [
         { title: `${b.title} — Notestalgia` },
-        { name: "description", content: b.tagline ?? b.description?.slice(0, 155) ?? "Premium AI notes and digital resources." },
+        {
+          name: "description",
+          content:
+            b.tagline ?? b.description?.slice(0, 155) ?? "Premium AI notes and digital resources.",
+        },
         { property: "og:title", content: `${b.title} — Notestalgia` },
         { property: "og:description", content: b.tagline ?? "" },
         ...(b.cover_image ? [{ property: "og:image" as const, content: b.cover_image }] : []),
@@ -30,7 +36,9 @@ export const Route = createFileRoute("/book/$slug")({
       <div className="font-display text-6xl">Not shelved.</div>
       <p className="mt-4 text-muted-foreground">This title isn't in the library.</p>
       <div className="mt-8">
-        <Link to="/collection" className="btn-ink">Back to collection</Link>
+        <Link to="/collection" className="btn-ink">
+          Back to collection
+        </Link>
       </div>
     </div>
   ),
@@ -54,7 +62,10 @@ function BookPage() {
         transition={{ duration: 0.5 }}
         className="mb-10"
       >
-        <Link to="/collection" className="text-xs font-display tracking-[0.2em] uppercase text-foreground/60 link-underline">
+        <Link
+          to="/collection"
+          className="text-xs font-display tracking-[0.2em] uppercase text-foreground/60 link-underline"
+        >
           ← Back to collection
         </Link>
       </motion.div>
@@ -98,9 +109,7 @@ function BookPage() {
           <div className="rule-hair my-10" />
 
           <div className="flex items-baseline gap-4">
-            <div className="font-display text-4xl">
-              ₹{Number(book.current_price).toFixed(0)}
-            </div>
+            <div className="font-display text-4xl">₹{Number(book.current_price).toFixed(0)}</div>
             {book.original_price && book.original_price > book.current_price && (
               <>
                 <div className="text-lg text-muted-foreground line-through">
@@ -147,7 +156,14 @@ function BookPage() {
             <Meta label="Language" value={book.language} />
             <Meta
               label="Updated"
-              value={book.updated_date ? new Date(book.updated_date).toLocaleDateString(undefined, { month: "short", year: "numeric" }) : null}
+              value={
+                book.updated_date
+                  ? new Date(book.updated_date).toLocaleDateString(undefined, {
+                      month: "short",
+                      year: "numeric",
+                    })
+                  : null
+              }
             />
           </div>
         </motion.div>
@@ -160,7 +176,9 @@ function Meta({ label, value }: { label: string; value: string | null | undefine
   if (!value) return null;
   return (
     <div>
-      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-foreground/50">{label}</div>
+      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-foreground/50">
+        {label}
+      </div>
       <div className="mt-1 font-display text-lg">{value}</div>
     </div>
   );

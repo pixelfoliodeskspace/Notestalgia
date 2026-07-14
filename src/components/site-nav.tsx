@@ -18,7 +18,6 @@ export function SiteNav() {
     <header className="sticky top-0 z-50">
       <div className="mx-auto mt-4 w-[min(96%,1200px)]">
         <div className="glass flex items-center justify-between rounded-full px-5 py-3">
-          
           {/* Logo Brand matching Fable style */}
           <Link to="/" className="flex items-center gap-2 group">
             <span className="grid h-9 w-9 place-items-center rounded-full bg-foreground text-background font-serif text-lg font-bold select-none">
@@ -29,23 +28,41 @@ export function SiteNav() {
                 <span className="text-mustard">Note</span>
                 <span className="text-dusty">stalgia</span>
               </span>
-              <span className="text-[9px] tracking-[0.32em] text-muted-foreground uppercase">Digital Library</span>
+              <span className="text-[9px] tracking-[0.32em] text-muted-foreground uppercase">
+                Digital Library
+              </span>
             </span>
           </Link>
 
           {/* Navigation links */}
           <nav className="hidden items-center gap-8 lg:flex">
-            <Link to="/" className="text-sm text-foreground/80 transition-colors hover:text-foreground" activeProps={{ className: "text-foreground font-semibold" }}>
+            <Link
+              to="/"
+              className="text-sm text-foreground/80 transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground font-semibold" }}
+            >
               Home
             </Link>
-            <Link to="/collection" className="text-sm text-foreground/80 transition-colors hover:text-foreground" activeProps={{ className: "text-foreground font-semibold" }}>
+            <Link
+              to="/collection"
+              className="text-sm text-foreground/80 transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground font-semibold" }}
+            >
               Collection
             </Link>
-            <Link to="/about" className="text-sm text-foreground/80 transition-colors hover:text-foreground" activeProps={{ className: "text-foreground font-semibold" }}>
+            <Link
+              to="/about"
+              className="text-sm text-foreground/80 transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground font-semibold" }}
+            >
               About
             </Link>
             {isAdmin && (
-              <Link to="/admin" className="text-sm text-foreground/80 transition-colors hover:text-foreground" activeProps={{ className: "text-foreground font-semibold" }}>
+              <Link
+                to="/admin"
+                className="text-sm text-foreground/80 transition-colors hover:text-foreground"
+                activeProps={{ className: "text-foreground font-semibold" }}
+              >
                 Admin
               </Link>
             )}
@@ -54,17 +71,17 @@ export function SiteNav() {
           {/* Action Cabin/Auth button */}
           <div className="flex items-center gap-2">
             {user ? (
-              <Link 
-                to="/auth" 
-                className="btn-primary text-xs hidden sm:inline-flex" 
+              <Link
+                to="/auth"
+                className="btn-primary text-xs hidden sm:inline-flex"
                 search={{ redirect: pathname }}
               >
                 My Account
               </Link>
             ) : (
-              <Link 
-                to="/auth" 
-                className="btn-primary text-xs hidden sm:inline-flex" 
+              <Link
+                to="/auth"
+                className="btn-primary text-xs hidden sm:inline-flex"
                 search={{ redirect: pathname }}
               >
                 Enter Cabin
@@ -101,30 +118,44 @@ export function SiteNav() {
                           <span className="text-mustard">Note</span>
                           <span className="text-dusty">stalgia</span>
                         </span>
-                        <span className="text-[9px] tracking-[0.32em] text-muted-foreground uppercase">Library</span>
+                        <span className="text-[9px] tracking-[0.32em] text-muted-foreground uppercase">
+                          Library
+                        </span>
                       </span>
                     </Link>
                   </div>
 
                   <nav className="flex flex-col gap-4 mt-6">
                     <SheetClose asChild>
-                      <Link to="/" className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200">
+                      <Link
+                        to="/"
+                        className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200"
+                      >
                         Home
                       </Link>
                     </SheetClose>
                     <SheetClose asChild>
-                      <Link to="/collection" className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200">
+                      <Link
+                        to="/collection"
+                        className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200"
+                      >
                         Collection
                       </Link>
                     </SheetClose>
                     <SheetClose asChild>
-                      <Link to="/about" className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200">
+                      <Link
+                        to="/about"
+                        className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200"
+                      >
                         About
                       </Link>
                     </SheetClose>
                     {isAdmin && (
                       <SheetClose asChild>
-                        <Link to="/admin" className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200 font-semibold">
+                        <Link
+                          to="/admin"
+                          className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200 font-semibold"
+                        >
                           Admin Panel
                         </Link>
                       </SheetClose>
@@ -158,7 +189,6 @@ export function SiteNav() {
               </SheetContent>
             </Sheet>
           </div>
-
         </div>
       </div>
     </header>

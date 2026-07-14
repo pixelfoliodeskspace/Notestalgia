@@ -13,9 +13,15 @@ export function SiteFooter() {
           </p>
         </div>
         <div className="flex md:justify-center gap-8 text-sm">
-          <Link to="/collection" className="link-underline">Collection</Link>
-          <Link to="/about" className="link-underline">About</Link>
-          <a href="mailto:hello@notestalgia.com" className="link-underline">Contact</a>
+          <Link to="/collection" className="link-underline">
+            Collection
+          </Link>
+          <Link to="/about" className="link-underline">
+            About
+          </Link>
+          <a href="mailto:hello@notestalgia.com" className="link-underline">
+            Contact
+          </a>
         </div>
         <div className="md:text-right text-xs text-muted-foreground font-display tracking-widest uppercase">
           © {new Date().getFullYear()} Notestalgia

@@ -15,11 +15,7 @@ export function BookCard({ book, index = 0 }: { book: Book; index?: number }) {
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, delay: index * 0.05, ease: [0.2, 0.8, 0.2, 1] }}
     >
-      <Link
-        to="/book/$slug"
-        params={{ slug: book.slug }}
-        className="group block"
-      >
+      <Link to="/book/$slug" params={{ slug: book.slug }} className="group block">
         <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-white/5 border border-border">
           {book.cover_image ? (
             <img
@@ -54,9 +50,7 @@ export function BookCard({ book, index = 0 }: { book: Book; index?: number }) {
             )}
           </div>
           <div className="text-right shrink-0">
-            <div className="font-display text-base">
-              ₹{Number(book.current_price).toFixed(0)}
-            </div>
+            <div className="font-display text-base">₹{Number(book.current_price).toFixed(0)}</div>
             {book.original_price && book.original_price > book.current_price && (
               <div className="text-xs text-muted-foreground line-through">
                 ₹{Number(book.original_price).toFixed(0)}

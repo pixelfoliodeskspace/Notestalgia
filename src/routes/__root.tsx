@@ -20,13 +20,17 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <div className="font-display text-[9rem] leading-none tracking-tighter text-foreground/90">404</div>
+        <div className="font-display text-[9rem] leading-none tracking-tighter text-foreground/90">
+          404
+        </div>
         <h2 className="mt-2 font-display text-2xl">Not in the library</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           The page you're looking for isn't shelved here.
         </p>
         <div className="mt-8">
-          <a href="/" className="btn-ink">Return home</a>
+          <a href="/" className="btn-ink">
+            Return home
+          </a>
         </div>
       </div>
     </div>
@@ -57,7 +61,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           >
             Try again
           </button>
-          <a href="/" className="btn-ghost">Go home</a>
+          <a href="/" className="btn-ghost">
+            Go home
+          </a>
         </div>
       </div>
     </div>
@@ -80,14 +86,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Notestalgia — Premium AI Notes & Digital Resources" },
       {
         property: "og:description",
-        content: "A quiet library of premium AI notes, guides and digital resources. Editorial, retro, and made for learners.",
+        content:
+          "A quiet library of premium AI notes, guides and digital resources. Editorial, retro, and made for learners.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Notestalgia — Premium AI Notes & Digital Resources" },
-      { name: "twitter:description", content: "A quiet library of premium AI notes, guides and digital resources. Editorial, retro, and made for learners." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2b50cd3a-728a-4734-bac7-5c66eee47fa2/id-preview-281acd25--819b4988-dca4-4e4b-b922-117e4a4c49ba.lovable.app-1784003854658.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2b50cd3a-728a-4734-bac7-5c66eee47fa2/id-preview-281acd25--819b4988-dca4-4e4b-b922-117e4a4c49ba.lovable.app-1784003854658.png" },
+      {
+        name: "twitter:description",
+        content:
+          "A quiet library of premium AI notes, guides and digital resources. Editorial, retro, and made for learners.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2b50cd3a-728a-4734-bac7-5c66eee47fa2/id-preview-281acd25--819b4988-dca4-4e4b-b922-117e4a4c49ba.lovable.app-1784003854658.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2b50cd3a-728a-4734-bac7-5c66eee47fa2/id-preview-281acd25--819b4988-dca4-4e4b-b922-117e4a4c49ba.lovable.app-1784003854658.png",
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

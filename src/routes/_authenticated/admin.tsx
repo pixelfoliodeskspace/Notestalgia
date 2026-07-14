@@ -3,10 +3,7 @@ import { useIsAdmin } from "@/hooks/use-is-admin";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
-    meta: [
-      { title: "Admin — Notestalgia" },
-      { name: "robots", content: "noindex" },
-    ],
+    meta: [{ title: "Admin — Notestalgia" }, { name: "robots", content: "noindex" }],
   }),
   component: AdminLayout,
 });
@@ -30,9 +27,7 @@ function AdminLayout() {
           Restricted
         </div>
         <h1 className="font-display text-4xl md:text-5xl mb-4">Admin only.</h1>
-        <p className="text-muted-foreground mb-6">
-          This area is reserved for the site owner.
-        </p>
+        <p className="text-muted-foreground mb-6">This area is reserved for the site owner.</p>
         <div className="text-xs text-foreground/60 bg-white/5 border border-border rounded-lg p-4 mx-auto max-w-md text-left font-mono">
           <div className="text-[10px] uppercase tracking-widest mb-2 font-display text-foreground/50">
             You're signed in as
@@ -61,9 +56,7 @@ function AdminLayout() {
           <div className="text-xs font-display tracking-[0.3em] uppercase text-foreground/60 mb-3">
             Admin
           </div>
-          <h1 className="font-display text-5xl md:text-6xl leading-none tracking-tight">
-            Studio.
-          </h1>
+          <h1 className="font-display text-5xl md:text-6xl leading-none tracking-tight">Studio.</h1>
         </div>
         <nav className="flex gap-2">
           {tabs.map((t) => {
