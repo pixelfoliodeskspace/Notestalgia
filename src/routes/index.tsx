@@ -134,6 +134,15 @@ function Hero() {
               >
                 A carefully curated sanctuary of premium notes, guides, and timeless digital classics. Beautifully formatted, enriched with AI summaries, and made to last.
               </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7 }}
+                className="text-xs font-mono text-dusty bg-ink/5 px-2.5 py-1 rounded w-fit uppercase tracking-wider border border-ink/5"
+              >
+                ● Vercel Build Connection: Active Test
+              </motion.div>
             </div>
 
             {/* CTAs */}
