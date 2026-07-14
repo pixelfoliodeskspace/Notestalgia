@@ -81,30 +81,30 @@
   --gold: oklch(82% .11 90);            /* Fable Gold */
 
   /* Semantic - Fable Music Dark Forest Green */
-  --background: oklch(13% .035 145);
-  --foreground: oklch(94% .02 120);
-  --card: oklch(100% 0 0/.05);
-  --card-foreground: oklch(94% .02 120);
-  --popover: oklch(13% .035 145);
-  --popover-foreground: oklch(94% .02 120);
-  --primary: oklch(82% .11 90);
-  --primary-foreground: oklch(13% .035 145);
-  --secondary: oklch(100% 0 0/.06);
-  --secondary-foreground: oklch(90% .03 120);
-  --muted: oklch(100% 0 0/.06);
-  --muted-foreground: oklch(68% .03 120);
-  --accent: oklch(82% .11 90);
-  --accent-foreground: oklch(94% .02 120);
+  --background: oklch(11% .03 145);
+  --foreground: oklch(99% 0 0);
+  --card: oklch(100% 0 0/.08);
+  --card-foreground: oklch(99% 0 0);
+  --popover: oklch(11% .03 145);
+  --popover-foreground: oklch(99% 0 0);
+  --primary: oklch(84% .12 90);
+  --primary-foreground: oklch(11% .03 145);
+  --secondary: oklch(100% 0 0/.08);
+  --secondary-foreground: oklch(95% 0 0);
+  --muted: oklch(100% 0 0/.08);
+  --muted-foreground: oklch(76% 0 0);
+  --accent: oklch(84% .12 90);
+  --accent-foreground: oklch(99% 0 0);
   --destructive: oklch(63.7% .237 25.331);
   --destructive-foreground: oklch(98% 0 0);
-  --border: oklch(35% .05 145/.22);
-  --input: oklch(35% .05 145/.15);
-  --ring: oklch(82% .11 90);
+  --border: oklch(100% 0 0/.18);
+  --input: oklch(100% 0 0/.12);
+  --ring: oklch(84% .12 90);
 
-  --gradient-page: radial-gradient(1400px 800px at 15% -20%, oklch(26% .08 145/.8), transparent 60%), radial-gradient(1000px 600px at 95% 15%, oklch(28% .06 120/.5), transparent 55%), radial-gradient(900px 700px at 50% 85%, oklch(22% .08 95/.65), transparent 50%), linear-gradient(180deg, oklch(13% .035 145), oklch(9% .02 145));
-  --gradient-glass: linear-gradient(135deg, oklch(100% 0 0/.15) 0%, oklch(100% 0 0/.05) 100%);
-  --shadow-glass: 0 1px 0 0 oklch(100% 0 0/.6) inset, 0 30px 60px -20px oklch(40% .04 70/.18);
-  --shadow-soft: 0 20px 50px -24px oklch(40% .04 70/.22);
+  --gradient-page: radial-gradient(1400px 800px at 15% -20%, oklch(24% .08 145/.95), transparent 60%), radial-gradient(1000px 600px at 95% 15%, oklch(26% .06 120/.65), transparent 55%), radial-gradient(900px 700px at 50% 85%, oklch(20% .08 95/.8), transparent 50%), linear-gradient(180deg, oklch(11% .03 145), oklch(8% .02 145));
+  --gradient-glass: linear-gradient(135deg, oklch(100% 0 0/.18) 0%, oklch(100% 0 0/.06) 100%);
+  --shadow-glass: 0 1px 0 0 oklch(100% 0 0/.6) inset, 0 30px 60px -20px oklch(40% .04 70/.25);
+  --shadow-soft: 0 20px 50px -24px oklch(40% .04 70/.3);
 }
 
 @keyframes wind-sway {
