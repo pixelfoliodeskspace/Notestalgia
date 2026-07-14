@@ -97,22 +97,25 @@ function Hero() {
 
             <div className="space-y-4">
               <h1 className="font-serif text-[12vw] sm:text-[8vw] lg:text-[6.5rem] leading-[0.95] tracking-[-0.03em] text-ink">
-                {TITLE.split("").map((letter, i) => (
-                  <motion.span
-                    key={i}
-                    initial={{ y: "80%", rotate: 4, opacity: 0 }}
-                    animate={{ y: "0%", rotate: 0, opacity: 1 }}
-                    transition={{
-                      delay: i * 0.04,
-                      duration: 0.8,
-                      ease: [0.16, 1, 0.3, 1],
-                    }}
-                    className="inline-block"
-                    style={{ transformOrigin: "bottom left" }}
-                  >
-                    {letter}
-                  </motion.span>
-                ))}
+                {TITLE.split("").map((letter, i) => {
+                  const isNote = i < 4;
+                  return (
+                    <motion.span
+                      key={i}
+                      initial={{ y: "80%", rotate: 4, opacity: 0 }}
+                      animate={{ y: "0%", rotate: 0, opacity: 1 }}
+                      transition={{
+                        delay: i * 0.04,
+                        duration: 0.8,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                      className={`inline-block ${isNote ? "text-mustard" : "text-dusty"}`}
+                      style={{ transformOrigin: "bottom left" }}
+                    >
+                      {letter}
+                    </motion.span>
+                  );
+                })}
                 <motion.span
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}

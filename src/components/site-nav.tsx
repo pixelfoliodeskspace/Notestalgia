@@ -36,8 +36,9 @@ export function SiteNav() {
       }`}
     >
       <div className="mx-auto max-w-7xl px-6 md:px-10 h-16 flex items-center justify-between">
-        <Link to="/" className="font-display text-lg tracking-tight">
-          <span className="font-medium">Notestalgia</span>
+        <Link to="/" className="font-serif text-lg tracking-tight font-bold">
+          <span className="text-mustard">Note</span>
+          <span className="text-dusty">stalgia</span>
           <span className="text-mustard">.</span>
         </Link>
 
