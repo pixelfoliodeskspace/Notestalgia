@@ -134,7 +134,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="paper-bg min-h-screen text-foreground">
+      <div className="min-h-screen text-foreground">
         <Grain />
         <SiteNav />
         <main className="pt-16">

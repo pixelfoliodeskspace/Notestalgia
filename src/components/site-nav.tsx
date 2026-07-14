@@ -25,7 +25,10 @@ export function SiteNav() {
               N
             </span>
             <span className="flex flex-col leading-none">
-              <span className="font-serif text-2xl tracking-tight">Notestalgia</span>
+              <span className="font-serif text-2xl tracking-tight font-bold">
+                <span className="text-mustard">Note</span>
+                <span className="text-dusty">stalgia</span>
+              </span>
               <span className="text-[9px] tracking-[0.32em] text-muted-foreground uppercase">Digital Library</span>
             </span>
           </Link>
@@ -94,7 +97,10 @@ export function SiteNav() {
                         N
                       </span>
                       <span className="flex flex-col leading-none">
-                        <span className="font-serif text-2xl tracking-tight">Notestalgia</span>
+                        <span className="font-serif text-2xl tracking-tight font-bold">
+                          <span className="text-mustard">Note</span>
+                          <span className="text-dusty">stalgia</span>
+                        </span>
                         <span className="text-[9px] tracking-[0.32em] text-muted-foreground uppercase">Library</span>
                       </span>
                     </Link>
