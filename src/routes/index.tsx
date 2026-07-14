@@ -17,135 +17,335 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-// Floating particle drift animation component matching Fable
-function ParticleDrift() {
+const TITLE = "NOTEStalgia";
+
+// Emitter for cinematic floating items (leaves, butterflies, golden particles, manuscript pages)
+function CinematicParticles() {
   const [particles, setParticles] = useState<any[]>([]);
 
   useEffect(() => {
-    const newParticles = Array.from({ length: 15 }).map((_, i) => ({
-      id: i,
-      left: Math.random() * 95,
-      delay: Math.random() * 8,
-      duration: 12 + Math.random() * 12,
-      size: 3 + Math.random() * 4,
-    }));
-    setParticles(newParticles);
+    // Generate static list of particles that drift at different intervals
+    const list = Array.from({ length: 24 }).map((_, i) => {
+      const types = ["leaf", "butterfly", "gold", "manuscript"];
+      const type = types[i % types.length];
+      
+      return {
+        id: i,
+        type,
+        left: 35 + Math.random() * 30, // Emit primarily from the center book area
+        delay: Math.random() * 12,
+        duration: 8 + Math.random() * 8,
+        size: type === "gold" ? 3 + Math.random() * 3 : 12 + Math.random() * 10,
+        xOffsets: [0, 40, -40, 20, 0],
+      };
+    });
+    setParticles(list);
   }, []);
 
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden z-10" aria-hidden="true">
-      {particles.map((p) => (
-        <span
-          key={p.id}
-          className="absolute bottom-0 rounded-full bg-foreground/20"
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-25" aria-hidden="true">
+      {particles.map((p) => {
+        let element = null;
+
+        if (p.type === "gold") {
+          element = (
+            <span 
+              className="block rounded-full bg-primary"
+              style={{
+                width: p.size,
+                height: p.size,
+                boxShadow: "0 0 10px #F2C14E, 0 0 20px #F2C14E",
+              }}
+            />
+          );
+        } else if (p.type === "butterfly") {
+          element = (
+            <motion.svg
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="text-primary/75 w-full h-full"
+              animate={{
+                scaleX: [1, -0.2, 1], // flapping wing effect
+              }}
+              transition={{
+                duration: 0.5 + Math.random() * 0.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              {/* Butterfly shape */}
+              <path d="M12 10C9 4 4 4 4 8c0 4 5 7 8 2 3 5 8 2 8-2 0-4-5-4-8 2z" />
+            </motion.svg>
+          );
+        } else if (p.type === "leaf") {
+          element = (
+            <svg viewBox="0 0 24 24" fill="currentColor" className="text-forest opacity-80 w-full h-full">
+              {/* Maple/autumn leaf shape */}
+              <path d="M12 2s1.5 4 2 5c2-1 4-1 5 1s-3 3-3 4c2 0 4 1 3 3s-4 1-5 0c0 2-1 4-2 5-1-1-2-3-2-5-1 1-4 2-5 0s1-3 3-3c0-1-5-2-3-4s3-2 5-1c.5-1 2-5 2-5z" />
+            </svg>
+          );
+        } else { // manuscript page
+          element = (
+            <div className="bg-paper/85 border border-border/40 w-5 h-7 rounded-[2px] shadow-sm flex flex-col justify-between p-1">
+              <div className="w-full h-[1.5px] bg-foreground/30" />
+              <div className="w-3/4 h-[1.5px] bg-foreground/20" />
+              <div className="w-5/6 h-[1.5px] bg-foreground/20" />
+            </div>
+          );
+        }
+
+        return (
+          <motion.div
+            key={p.id}
+            className="absolute bottom-16"
+            style={{
+              left: `${p.left}%`,
+              width: p.size,
+              height: p.size,
+              filter: p.type === "gold" ? "blur(0.5px)" : "none",
+            }}
+            initial={{ y: 220, x: 0, opacity: 0, rotate: 0 }}
+            animate={{
+              y: -500, // drift upward toward the brand logo
+              x: p.xOffsets,
+              rotate: [0, 45, -45, 90, 180],
+              opacity: [0, 0.9, 0.9, 0.4, 0],
+            }}
+            transition={{
+              duration: p.duration,
+              delay: p.delay,
+              repeat: Infinity,
+              ease: "easeOut",
+            }}
+          >
+            {element}
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
+
+// 3D Animated Book resting on a mossy stone
+function CinematicBook3D() {
+  return (
+    <div className="relative w-full max-w-[450px] aspect-[4/5] flex items-center justify-center">
+      
+      {/* Morning Sunlight Filtering Rays */}
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-br from-primary/15 via-primary/5 to-transparent filter blur-3xl pointer-events-none animate-pulse duration-10000" />
+      
+      {/* Soft Fog/Mist Layers */}
+      <motion.div 
+        className="absolute bottom-12 left-0 right-0 h-16 bg-gradient-to-r from-transparent via-foreground/5 to-transparent filter blur-xl pointer-events-none z-10"
+        animate={{
+          x: [-20, 20, -20],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* The 3D Book Layout Container */}
+      <div className="relative w-72 h-80 flex items-center justify-center [perspective:1000px]">
+        
+        {/* Mossy Stone Base SVG */}
+        <div className="absolute bottom-0 w-80 h-32 z-0">
+          <svg viewBox="0 0 200 80" className="w-full h-full drop-shadow-[0_20px_30px_rgba(0,0,0,0.4)]">
+            {/* Rock shape */}
+            <path d="M10 70 Q 30 15 100 20 Q 170 15 190 70 Z" fill="oklch(22% .04 140)" />
+            {/* Moss details overlay */}
+            <path d="M30 40 C 60 20 80 15 110 25 C 140 18 160 30 175 45 C 150 48 130 40 100 45 C 70 42 50 48 30 40 Z" fill="oklch(45% .1 145)" />
+            {/* Stone textures */}
+            <path d="M15 68 L 185 68" stroke="oklch(15% .03 140)" strokeWidth="1.5" />
+            <path d="M70 24 L 90 28" stroke="oklch(15% .03 140)" strokeWidth="1" />
+          </svg>
+        </div>
+
+        {/* 3D Angled Leather-Bound Book Wrapper */}
+        <motion.div 
+          className="relative w-52 h-64 [transform-style:preserve-3d] cursor-pointer z-10"
           style={{
-            left: `${p.left}%`,
-            width: p.size,
-            height: p.size,
-            animation: `particle-drift ${p.duration}s linear ${p.delay}s infinite`,
-            filter: "blur(0.5px)",
+            transformOrigin: "center bottom",
           }}
-        />
-      ))}
+          animate={{
+            rotateY: -15,
+            rotateX: 18,
+            y: [-3, 3, -3],
+          }}
+          transition={{
+            y: {
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }
+          }}
+        >
+          {/* Back Cover (Leather) */}
+          <div className="absolute inset-0 rounded-lg bg-stone-900 border-2 border-stone-800 shadow-2xl [transform:translateZ(-10px)]" />
+
+          {/* Book Spine (Warm Wood/Leather) */}
+          <div className="absolute top-0 bottom-0 -left-2 w-4 bg-stone-950 border-r border-stone-800 [transform:rotateY(-90deg) translateZ(8px)]" />
+
+          {/* Opening Pages Flipping loop */}
+          <div className="absolute inset-0 bg-stone-800 rounded-lg overflow-hidden border border-stone-700 [transform:translateZ(-5px)]" />
+          
+          {/* Main Open Pages */}
+          <div className="absolute inset-1 bg-paper/95 rounded shadow-inner flex [transform:translateZ(0px)] border border-border/40">
+            {/* Left Page (Lined Paper) */}
+            <div 
+              className="flex-1 border-r border-stone-300 p-3 space-y-2 relative"
+              style={{
+                backgroundImage: "repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 11px, rgba(0,0,0,0.06) 12px)",
+                backgroundSize: "100% 12px",
+              }}
+            >
+              <div className="w-1/2 h-2 bg-stone-400 rounded-full" />
+              <div className="w-5/6 h-1.5 bg-stone-300 rounded-full" />
+              <div className="w-full h-1.5 bg-stone-300 rounded-full" />
+              <div className="w-4/5 h-1.5 bg-stone-300 rounded-full" />
+            </div>
+
+            {/* Right Page (Turning / Active notes) */}
+            <div 
+              className="flex-1 p-3 space-y-2 relative"
+              style={{
+                backgroundImage: "repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 11px, rgba(0,0,0,0.06) 12px)",
+                backgroundSize: "100% 12px",
+              }}
+            >
+              <div className="w-1/3 h-2 bg-primary rounded-full" />
+              <div className="w-full h-1.5 bg-stone-300 rounded-full" />
+              <div className="w-full h-1.5 bg-stone-300 rounded-full" />
+              <div className="w-3/4 h-1.5 bg-stone-300 rounded-full" />
+              
+              {/* Little illuminated gold star icon on the page */}
+              <Sparkles className="w-3.5 h-3.5 text-primary absolute bottom-3 right-3 animate-pulse" />
+            </div>
+          </div>
+
+          {/* Animated Page Flipping Layer overlay */}
+          <motion.div 
+            className="absolute inset-1 bg-paper/90 origin-left border-l border-stone-300"
+            style={{
+              width: "50%",
+              left: "50%",
+              backfaceVisibility: "hidden",
+            }}
+            animate={{
+              rotateY: [0, -180, 0],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+
+        </motion.div>
+
+      </div>
     </div>
   );
 }
 
 function Hero() {
-  const { data: books } = useSuspenseQuery(publishedBooksQuery);
-  const heroBook = books && books.length > 0 ? books[0] : null;
-
   return (
-    <section className="relative pt-6">
-      <div className="mx-auto mt-6 w-[min(96%,1200px)]">
-        <div className="glass relative overflow-hidden rounded-[2.5rem] px-6 py-12 md:px-14 md:py-20">
+    <section className="relative overflow-hidden pt-20 pb-28 min-h-[90vh] flex flex-col justify-center">
+      
+      {/* Custom Drifting Emitters */}
+      <CinematicParticles />
+
+      <div className="relative mx-auto max-w-7xl px-6 md:px-10 z-20 w-full">
+        
+        {/* Split screen layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Ambient Floating Blobs */}
-          <div className="float-blob absolute -left-24 -top-24 h-72 w-72 rounded-full bg-mustard/20 opacity-50 blur-3xl" />
-          <div 
-            className="float-blob absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-dusty/15 opacity-60 blur-3xl"
-            style={{ animationDelay: "3s" }}
-          />
-
-          {/* Active Particles Background */}
-          <ParticleDrift />
-
-          {/* Core Content Grid */}
-          <div className="relative grid items-center gap-10 md:grid-cols-2">
-            <div className="reveal space-y-6">
-              
-              <div className="text-xs tracking-[0.3em] text-foreground/80 uppercase flex items-center gap-1.5 font-display">
-                Premium Digital Artifacts
-                <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
+          {/* Left Column: Brand Info & Signpost */}
+          <div className="lg:col-span-7 space-y-8 text-left">
+            
+            {/* Brand Logo and Subtitle */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="space-y-2"
+            >
+              <div className="font-serif text-3xl font-bold tracking-tight text-foreground">
+                <span className="text-primary">NOTE</span>stalgia
+                <span className="text-primary font-sans font-bold text-base ml-[1px]">.</span>
               </div>
+              
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-forest/20 bg-white/5 backdrop-blur-sm text-[10px] font-display uppercase tracking-widest text-primary font-semibold">
+                <Sparkles className="w-3 h-3 text-primary animate-pulse" />
+                <span>Nostalgia Meets Modern Learning</span>
+              </div>
+            </motion.div>
 
-              <h1 className="font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl text-foreground font-bold">
-                Read, Learn &amp;<br />CollectTimeless Guides
+            {/* Cinematic Headline */}
+            <div className="space-y-4">
+              <h1 className="font-serif text-5xl sm:text-[4vw] lg:text-[4.5rem] leading-[1.05] tracking-[-0.02em] text-foreground font-bold">
+                Where Books, Notes <br />
+                and <span className="text-primary italic">Memories</span> Come Together
               </h1>
-              
-              <p className="max-w-md text-base text-foreground/80 md:text-lg font-serif italic">
-                Acquire beautifully crafted digital summaries, AI notes, and children's book classics. Formatted for timeless study, and made to last.
+
+              <p className="max-w-xl text-base md:text-lg text-foreground/80 leading-relaxed font-serif italic">
+                Step into an enchanted sanctuary where classic physical reading meets modern digital notes. Acquire beautifully formatted volumes, handwritten study journals, and AI character blueprints.
               </p>
-
-              <div className="flex flex-wrap gap-3 pt-2">
-                <a href="#collection" className="btn-primary group flex items-center gap-2">
-                  Explore Catalog
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
-                <a href="#notebook" className="btn-ghost group flex items-center gap-2">
-                  Try Virtual Notebook
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </a>
-              </div>
-
-              {/* Student Trust Panel */}
-              <div className="mt-10 flex items-center gap-4 pt-4 border-t border-border/5 max-w-sm">
-                <div className="flex -space-x-2">
-                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
-                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
-                </div>
-                <div>
-                  <div className="text-xs font-semibold text-foreground font-display uppercase tracking-wider">500+ Active Readers</div>
-                  <div className="flex items-center gap-0.5 text-primary mt-0.5">
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                    <Star className="w-3.5 h-3.5 fill-current" />
-                  </div>
-                </div>
-              </div>
-
             </div>
 
-            {/* Right Panel: Hero book preview matching Fable image container */}
-            <div className="relative flex justify-center">
-              {heroBook ? (
-                <div className="relative group max-w-[280px] sm:max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border border-border/10">
-                  <img 
-                    src={heroBook.cover_image || ""} 
-                    alt={heroBook.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-6 text-cream">
-                    <span className="text-[10px] font-display uppercase tracking-widest bg-mustard text-foreground px-2 py-0.5 rounded w-fit mb-2">
-                      {heroBook.category}
-                    </span>
-                    <h3 className="font-serif text-xl font-bold">{heroBook.title}</h3>
-                    <p className="text-xs text-cream/70 line-clamp-1 mt-1 font-serif italic">"{heroBook.tagline}"</p>
-                  </div>
+            {/* Call to Actions */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="flex flex-wrap items-center gap-4 pt-2"
+            >
+              <a 
+                href="#collection" 
+                className="btn-primary group flex items-center gap-2"
+              >
+                <span>Explore Bookstore</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </a>
+              <a 
+                href="#notebook" 
+                className="btn-ghost group flex items-center gap-2"
+              >
+                <span>Try the Journal</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </a>
+            </motion.div>
+
+            {/* Happy Reader trust panel */}
+            <div className="mt-8 flex items-center gap-4 pt-4 border-t border-white/5 max-w-sm">
+              <div className="flex -space-x-2">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
+              </div>
+              <div>
+                <div className="text-xs font-semibold text-foreground font-display uppercase tracking-wider">500+ Readers Enrolled</div>
+                <div className="flex items-center gap-0.5 text-primary mt-0.5">
+                  <Star className="w-3.5 h-3.5 fill-current" />
+                  <Star className="w-3.5 h-3.5 fill-current" />
+                  <Star className="w-3.5 h-3.5 fill-current" />
+                  <Star className="w-3.5 h-3.5 fill-current" />
+                  <Star className="w-3.5 h-3.5 fill-current" />
                 </div>
-              ) : (
-                <div className="w-[300px] h-[400px] rounded-3xl bg-white/5 border-2 border-dashed border-border/20 flex flex-col items-center justify-center p-6 text-center shadow-inner">
-                  <BookOpen className="w-12 h-12 text-foreground/85 mb-3" />
-                  <div className="font-serif text-sm font-semibold text-foreground/90">No Books Seeded</div>
-                </div>
-              )}
+              </div>
             </div>
+
+          </div>
+
+          {/* Right Column: Cinematic 3D Book resting on Mossy Rock */}
+          <div className="lg:col-span-5 flex items-center justify-center min-h-[440px] relative">
+            <CinematicBook3D />
           </div>
 
         </div>
+
       </div>
     </section>
   );
@@ -156,7 +356,6 @@ function NotebookSimulator() {
   const [paperStyle, setPaperStyle] = useState<"lined" | "grid" | "dotted" | "blank">("lined");
   const [activePageIndex, setActivePageIndex] = useState(0);
 
-  // Content pages of summary guides
   const pagesContent = [
     {
       title: "The Secret Garden",
@@ -180,7 +379,7 @@ function NotebookSimulator() {
         "Key Symbol: Drink Me Bottle (Growth)",
         "Blueprints: Alice, White Rabbit, Hatter"
       ],
-      color: "bg-mustard/15 text-foreground"
+      color: "bg-primary/15 text-foreground"
     },
     {
       title: "Treasure Island",
@@ -192,28 +391,27 @@ function NotebookSimulator() {
         "Key Symbol: Spyglass (Perspective)",
         "Blueprints: Jim, Long John Silver, Flint"
       ],
-      color: "bg-dusty/10 text-foreground/90"
+      color: "bg-dusty/10 text-dusty"
     }
   ];
 
   const currentPage = pagesContent[activePageIndex];
 
-  // Helper to draw paper background styles dynamically
   const renderPaperBackground = () => {
     switch (paperStyle) {
       case "lined":
         return {
-          backgroundImage: "repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 23px, rgba(64,64,64,0.06) 24px)",
+          backgroundImage: "repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 23px, rgba(255,255,255,0.06) 24px)",
           backgroundSize: "100% 24px",
         };
       case "grid":
         return {
-          backgroundImage: "linear-gradient(rgba(64,64,64,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(64,64,64,0.05) 1px, transparent 1px)",
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
           backgroundSize: "20px 20px",
         };
       case "dotted":
         return {
-          backgroundImage: "radial-gradient(rgba(64,64,64,0.15) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)",
           backgroundSize: "16px 16px",
         };
       case "blank":
@@ -226,7 +424,6 @@ function NotebookSimulator() {
     <section id="notebook" className="mx-auto mt-12 w-[min(96%,1200px)]">
       <div className="glass rounded-[2.25rem] p-8 text-center relative overflow-hidden border border-white/5 shadow-2xl">
         
-        {/* Section Header */}
         <div className="mb-6">
           <div className="text-xs tracking-[0.3em] text-foreground/80 uppercase flex justify-center items-center gap-1.5 font-display">
             Interactive Experience
@@ -238,7 +435,6 @@ function NotebookSimulator() {
           </p>
         </div>
 
-        {/* Paper Style Selector Toggles */}
         <div className="flex flex-wrap justify-center gap-2 mt-6 max-w-xl mx-auto select-none">
           {(["lined", "grid", "dotted", "blank"] as const).map((style) => (
             <button
@@ -246,7 +442,7 @@ function NotebookSimulator() {
               onClick={() => setPaperStyle(style)}
               className={`px-4 py-2 rounded-2xl border text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
                 paperStyle === style
-                  ? "bg-ink text-cream border-border shadow-sm"
+                  ? "bg-foreground text-background border-foreground shadow-sm"
                   : "bg-white/5 border-white/5 text-foreground/80 hover:bg-white/10 hover:text-foreground"
               }`}
             >
@@ -255,20 +451,16 @@ function NotebookSimulator() {
           ))}
         </div>
 
-        {/* Playable Book Binder Simulator (Double-Page Mockup) */}
         <div className="mt-10 overflow-x-auto py-6 flex justify-center scrollbar-thin select-none">
-          <div className="relative w-[700px] h-[340px] shrink-0 select-none bg-white/5 border border-border/10 rounded-2xl shadow-xl p-6 flex flex-col justify-between" style={renderPaperBackground()}>
+          <div className="relative w-[700px] h-[340px] shrink-0 select-none bg-white/5 border border-border/40 rounded-2xl shadow-xl p-6 flex flex-col justify-between" style={renderPaperBackground()}>
             
-            {/* Book Spine Center Line */}
-            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1.5px] bg-walnut/15 shadow-inner" />
+            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1.5px] bg-border/40 shadow-inner" />
 
-            {/* Left and Right Page Contents */}
             <div className="grid grid-cols-2 gap-12 h-full text-left pl-6 pr-6">
               
-              {/* Left Page (Descriptive Text & Illustration Mockup) */}
-              <div className="space-y-4 flex flex-col justify-center border-r border-border/5 pr-6 h-full">
+              <div className="space-y-4 flex flex-col justify-center border-r border-border/40 pr-6 h-full">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-display uppercase tracking-widest bg-ink/5 px-2 py-0.5 rounded text-foreground/85">
+                  <span className="text-[10px] font-display uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded text-foreground/60">
                     {currentPage.title}
                   </span>
                   <h4 className="font-serif text-lg font-bold text-foreground leading-tight">
@@ -278,23 +470,22 @@ function NotebookSimulator() {
                 <p className="text-xs text-foreground/85 leading-relaxed font-serif italic select-text">
                   "{currentPage.leftContent}"
                 </p>
-                <div className="text-[9px] font-mono text-foreground/85">Page {activePageIndex * 2 + 1}</div>
+                <div className="text-[9px] font-mono text-foreground/60">Page {activePageIndex * 2 + 1}</div>
               </div>
 
-              {/* Right Page (Bullet blue-prints summary) */}
               <div className="space-y-4 flex flex-col justify-center pl-6 h-full">
-                <h4 className="font-serif text-xs uppercase tracking-wider text-foreground/85">
+                <h4 className="font-serif text-xs uppercase tracking-wider text-foreground/60">
                   AI Study Blueprint
                 </h4>
                 <ul className="space-y-2">
                   {currentPage.rightContent.map((point, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-xs text-foreground/90 font-sans">
+                    <li key={idx} className="flex items-center gap-2 text-xs text-foreground/85 font-sans">
                       <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
                       <span>{point}</span>
                     </li>
                   ))}
                 </ul>
-                <div className="text-[9px] font-mono text-foreground/85 text-right">Page {activePageIndex * 2 + 2}</div>
+                <div className="text-[9px] font-mono text-foreground/60 text-right">Page {activePageIndex * 2 + 2}</div>
               </div>
 
             </div>
@@ -302,20 +493,19 @@ function NotebookSimulator() {
           </div>
         </div>
 
-        {/* Page Switcher controls */}
         <div className="mt-6 flex items-center justify-center gap-4">
           <button
             onClick={() => setActivePageIndex((prev) => (prev - 1 + pagesContent.length) % pagesContent.length)}
-            className="px-4 py-2 rounded-xl border border-border/15 text-xs font-serif text-foreground hover:bg-ink hover:text-cream transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-xl border border-border/40 text-xs font-serif text-foreground hover:bg-foreground hover:text-background transition-colors cursor-pointer"
           >
             ◀ Turn Back
           </button>
-          <span className="font-mono text-xs text-foreground/85">
+          <span className="font-mono text-xs text-foreground/60">
             Guide {activePageIndex + 1} of {pagesContent.length}
           </span>
           <button
             onClick={() => setActivePageIndex((prev) => (prev + 1) % pagesContent.length)}
-            className="px-4 py-2 rounded-xl border border-border/15 text-xs font-serif text-foreground hover:bg-ink hover:text-cream transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-xl border border-border/40 text-xs font-serif text-foreground hover:bg-foreground hover:text-background transition-colors cursor-pointer"
           >
             Next Page ▶
           </button>
@@ -326,7 +516,6 @@ function NotebookSimulator() {
   );
 }
 
-// 4-Column stats grid matching Fable
 function StatsBar() {
   const stats = [
     { value: "500+", label: "Happy Readers" },
@@ -341,7 +530,7 @@ function StatsBar() {
         {stats.map((s, idx) => (
           <div key={idx} className="px-4 py-4 text-center">
             <div className="font-serif text-4xl md:text-5xl text-foreground font-bold">{s.value}</div>
-            <div className="mt-2 text-xs tracking-wider text-foreground/80 uppercase font-display">{s.label}</div>
+            <div className="mt-2 text-xs tracking-wider text-muted-foreground uppercase font-display">{s.label}</div>
           </div>
         ))}
       </div>
@@ -349,7 +538,6 @@ function StatsBar() {
   );
 }
 
-// Features Section matching Fable
 function FeatureCards() {
   const cards = [
     {
@@ -379,11 +567,11 @@ function FeatureCards() {
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
         {cards.map((c, idx) => (
           <div key={idx} className="glass group rounded-3xl p-6 text-center transition-all duration-500 hover:-translate-y-1">
-            <div className="mx-auto grid h-10 w-10 place-items-center rounded-xl bg-white/50 border border-border/5 text-2xl select-none">
+            <div className="mx-auto grid h-10 w-10 place-items-center rounded-xl bg-white/50 border border-border/40 text-2xl select-none">
               {c.icon}
             </div>
             <div className="mt-4 font-serif text-lg font-bold text-foreground leading-snug">{c.title}</div>
-            <p className="mt-2 text-xs text-foreground/80 md:text-sm font-sans">{c.desc}</p>
+            <p className="mt-2 text-xs text-muted-foreground md:text-sm font-sans">{c.desc}</p>
           </div>
         ))}
       </div>
@@ -391,7 +579,6 @@ function FeatureCards() {
   );
 }
 
-// Redesigned Catalog grid matching Fable's course layout
 function CollectionPreview() {
   const { data: books } = useSuspenseQuery(publishedBooksQuery);
   const [searchQuery, setSearchQuery] = useState("");
@@ -406,33 +593,30 @@ function CollectionPreview() {
       <div className="glass rounded-[2.5rem] p-6 md:p-10">
         <div className="grid gap-8 lg:grid-cols-[1fr_2.5fr]">
           
-          {/* Left panel: Info & search box */}
-          <div className="space-y-6">
+          <div className="space-y-6 text-left">
             <div className="flex items-center gap-2 font-serif text-3xl md:text-4xl text-foreground font-bold">
               Popular Volumes
               <Sparkles className="w-5 h-5 text-primary" />
             </div>
-            <p className="text-sm text-foreground/80 font-serif italic">
+            <p className="text-sm text-muted-foreground font-serif italic">
               Begin your study journey with our most popular formatted guides.
             </p>
 
-            {/* Botanical Search Box */}
             <div className="relative pt-2">
               <input 
                 type="text" 
                 placeholder="Search collection..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white/5 pl-10 pr-4 py-2.5 border border-border/10 rounded-full font-sans text-xs focus:outline-none focus:border-border/20 text-foreground shadow-sm"
+                className="w-full bg-white/5 pl-10 pr-4 py-2.5 border border-border/40 rounded-full font-sans text-xs focus:outline-none focus:border-border/40 text-foreground shadow-sm"
               />
-              <Search className="w-4 h-4 text-foreground/85 absolute left-3.5 top-[18px]" />
+              <Search className="w-4 h-4 text-foreground/60 absolute left-3.5 top-[18px]" />
             </div>
           </div>
 
-          {/* Right panel: Course Cards matching Fable's Course layout */}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredBooks.length === 0 ? (
-              <div className="sm:col-span-2 lg:col-span-3 text-center py-12 text-xs font-serif text-foreground/85 italic">
+              <div className="sm:col-span-2 lg:col-span-3 text-center py-12 text-xs font-serif text-foreground/60 italic">
                 No matching volumes found in the library.
               </div>
             ) : (
@@ -442,10 +626,9 @@ function CollectionPreview() {
                   : null;
 
                 return (
-                  <article key={book.id} className="group glass-soft overflow-hidden rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between">
+                  <article key={book.id} className="group glass-soft overflow-hidden rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between text-left">
                     <div>
-                      {/* Image Thumbnail */}
-                      <div className="aspect-[4/3] overflow-hidden relative border-b border-border/5 bg-white/5">
+                      <div className="aspect-[4/3] overflow-hidden relative border-b border-border/40 bg-white/5">
                         <img 
                           src={book.cover_image || ""} 
                           alt={book.title}
@@ -459,29 +642,27 @@ function CollectionPreview() {
                         )}
                       </div>
 
-                      {/* Content details */}
                       <div className="p-4 space-y-2">
-                        <span className="text-[9px] font-display uppercase tracking-widest bg-ink/5 px-2 py-0.5 rounded text-foreground/85 w-fit block">
+                        <span className="text-[9px] font-display uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded text-foreground/60 w-fit block">
                           {book.category}
                         </span>
                         <h3 className="font-serif text-lg leading-tight font-bold text-foreground truncate">
                           {book.title}
                         </h3>
-                        <p className="text-xs text-foreground/80 line-clamp-2 h-8 font-serif italic">
+                        <p className="text-xs text-muted-foreground line-clamp-2 h-8 font-serif italic">
                           {book.tagline || book.description}
                         </p>
                         
-                        {/* Specs bullet list matching Fable */}
-                        <ul className="mt-3 space-y-1 pt-2 border-t border-border/5">
-                          <li className="flex items-center gap-2 text-[10px] text-foreground/85 font-sans">
+                        <ul className="mt-3 space-y-1 pt-2 border-t border-border/40">
+                          <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
                             <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
                             <span>Pages: {book.pages || 48}</span>
                           </li>
-                          <li className="flex items-center gap-2 text-[10px] text-foreground/85 font-sans">
+                          <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
                             <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
                             <span>Language: {book.language || "English"}</span>
                           </li>
-                          <li className="flex items-center gap-2 text-[10px] text-foreground/85 font-sans">
+                          <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
                             <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
                             <span>Includes AI Blueprints</span>
                           </li>
@@ -489,14 +670,13 @@ function CollectionPreview() {
                       </div>
                     </div>
 
-                    {/* Pricing & Footer Actions */}
-                    <div className="p-4 pt-0 border-t border-border/5 mt-auto">
+                    <div className="p-4 pt-0 border-t border-border/40 mt-auto">
                       <div className="flex items-center justify-between py-2.5">
-                        <span className="text-[10px] text-foreground/80 uppercase tracking-wider font-display">Format: PDF</span>
+                        <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-display">Format: PDF</span>
                         <div className="text-right">
                           <span className="font-display font-bold text-foreground">₹{Number(book.current_price).toFixed(0)}</span>
                           {book.original_price && book.original_price > book.current_price && (
-                            <span className="text-[10px] text-foreground/80 line-through ml-1.5">₹{Number(book.original_price).toFixed(0)}</span>
+                            <span className="text-[10px] text-muted-foreground line-through ml-1.5">₹{Number(book.original_price).toFixed(0)}</span>
                           )}
                         </div>
                       </div>
@@ -531,7 +711,6 @@ function CollectionPreview() {
   );
 }
 
-// Curator Info Section matching Fable
 function CuratorShowcase() {
   return (
     <section id="about" className="mx-auto mt-8 w-[min(96%,1200px)]">
@@ -546,16 +725,16 @@ function CuratorShowcase() {
             />
           </div>
         </div>
-        <div className="glass flex flex-col justify-center rounded-[2rem] p-8 md:p-12 space-y-4">
-          <div className="text-xs tracking-[0.2em] text-foreground/80 uppercase flex items-center gap-1 font-display">
+        <div className="glass flex flex-col justify-center rounded-[2rem] p-8 md:p-12 space-y-4 text-left">
+          <div className="text-xs tracking-[0.2em] text-muted-foreground uppercase flex items-center gap-1 font-display">
             About the Library
             <Sparkles className="w-3 h-3 text-primary" />
           </div>
           <h2 className="font-serif text-3xl leading-tight md:text-5xl text-foreground font-bold">
             Read, study &amp; reflect deeply.
           </h2>
-          <p className="text-sm text-foreground/80 font-serif italic">
-            "At Notestalgia, we believe in restoring the magic of study. Our AI blueprints and children's book collection are designed to help students read deeply — not just pass tests — making high-quality notes universally accessible."
+          <p className="text-sm text-muted-foreground font-serif italic">
+            "At NOTEStalgia, we believe in restoring the magic of study. Our AI blueprints and children's book collection are designed to help students read deeply — not just pass tests — making high-quality notes universally accessible."
           </p>
           <div className="flex flex-wrap gap-3 pt-3">
             <a 
@@ -577,7 +756,6 @@ function CuratorShowcase() {
   );
 }
 
-// Student results / Review Quotes matching Fable
 function Testimonials() {
   const reviews = [
     {
@@ -594,7 +772,7 @@ function Testimonials() {
 
   return (
     <section className="mx-auto mt-12 w-[min(96%,1200px)] pb-12">
-      <div className="mb-8 flex items-end justify-between gap-4">
+      <div className="mb-8 flex items-end justify-between gap-4 text-left">
         <h2 className="font-serif text-3xl md:text-5xl text-foreground font-bold">Reader Results</h2>
         <a 
           href="https://wa.me/919645767284?text=I%27d%20like%20to%20know%20more%20about%20Notestalgia" 
@@ -608,18 +786,18 @@ function Testimonials() {
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         {reviews.map((r, idx) => (
-          <figure key={idx} className="glass rounded-[2rem] p-8 shadow-sm">
+          <figure key={idx} className="glass rounded-[2rem] p-8 shadow-sm text-left">
             <div className="text-4xl font-serif leading-none text-foreground/20">“</div>
             <blockquote className="mt-2 font-serif text-lg leading-snug md:text-xl text-foreground italic">
               {r.quote}
             </blockquote>
             <figcaption className="mt-6 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center border border-border/10 font-serif font-bold text-foreground">
+              <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center border border-border/40 font-serif font-bold text-foreground">
                 {r.author.slice(0, 1)}
               </div>
               <div>
                 <div className="text-sm font-medium text-foreground">{r.author}</div>
-                <div className="text-xs text-foreground/80 font-serif">{r.role}</div>
+                <div className="text-xs text-muted-foreground font-serif">{r.role}</div>
               </div>
             </figcaption>
           </figure>
