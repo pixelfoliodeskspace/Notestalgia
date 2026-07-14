@@ -76,10 +76,10 @@ function Hero() {
               
               <div className="text-xs tracking-[0.3em] text-muted-foreground uppercase flex items-center gap-1.5 font-display">
                 Premium Digital Artifacts
-                <Sparkles className="w-3.5 h-3.5 text-mustard animate-pulse" />
+                <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
               </div>
 
-              <h1 className="font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl text-ink font-bold">
+              <h1 className="font-serif text-5xl leading-[1.05] tracking-tight md:text-7xl text-foreground font-bold">
                 Read, Learn &amp;<br />CollectTimeless Guides
               </h1>
               
@@ -99,15 +99,15 @@ function Hero() {
               </div>
 
               {/* Student Trust Panel */}
-              <div className="mt-10 flex items-center gap-4 pt-4 border-t border-ink/5 max-w-sm">
+              <div className="mt-10 flex items-center gap-4 pt-4 border-t border-border/5 max-w-sm">
                 <div className="flex -space-x-2">
                   <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
                   <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
                   <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150" alt="" className="h-9 w-9 rounded-full border-2 border-background object-cover"/>
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-ink font-display uppercase tracking-wider">500+ Active Readers</div>
-                  <div className="flex items-center gap-0.5 text-mustard mt-0.5">
+                  <div className="text-xs font-semibold text-foreground font-display uppercase tracking-wider">500+ Active Readers</div>
+                  <div className="flex items-center gap-0.5 text-primary mt-0.5">
                     <Star className="w-3.5 h-3.5 fill-current" />
                     <Star className="w-3.5 h-3.5 fill-current" />
                     <Star className="w-3.5 h-3.5 fill-current" />
@@ -122,14 +122,14 @@ function Hero() {
             {/* Right Panel: Hero book preview matching Fable image container */}
             <div className="relative flex justify-center">
               {heroBook ? (
-                <div className="relative group max-w-[280px] sm:max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border border-ink/10">
+                <div className="relative group max-w-[280px] sm:max-w-[320px] aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl border border-border/10">
                   <img 
                     src={heroBook.cover_image || ""} 
                     alt={heroBook.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent flex flex-col justify-end p-6 text-cream">
-                    <span className="text-[10px] font-display uppercase tracking-widest bg-mustard text-ink px-2 py-0.5 rounded w-fit mb-2">
+                    <span className="text-[10px] font-display uppercase tracking-widest bg-mustard text-foreground px-2 py-0.5 rounded w-fit mb-2">
                       {heroBook.category}
                     </span>
                     <h3 className="font-serif text-xl font-bold">{heroBook.title}</h3>
@@ -137,9 +137,9 @@ function Hero() {
                   </div>
                 </div>
               ) : (
-                <div className="w-[300px] h-[400px] rounded-3xl bg-paper border-2 border-dashed border-ink/20 flex flex-col items-center justify-center p-6 text-center shadow-inner">
-                  <BookOpen className="w-12 h-12 text-ink/30 mb-3" />
-                  <div className="font-serif text-sm font-semibold text-ink/80">No Books Seeded</div>
+                <div className="w-[300px] h-[400px] rounded-3xl bg-white/5 border-2 border-dashed border-border/20 flex flex-col items-center justify-center p-6 text-center shadow-inner">
+                  <BookOpen className="w-12 h-12 text-foreground/30 mb-3" />
+                  <div className="font-serif text-sm font-semibold text-foreground/80">No Books Seeded</div>
                 </div>
               )}
             </div>
@@ -180,7 +180,7 @@ function NotebookSimulator() {
         "Key Symbol: Drink Me Bottle (Growth)",
         "Blueprints: Alice, White Rabbit, Hatter"
       ],
-      color: "bg-mustard/15 text-ink"
+      color: "bg-mustard/15 text-foreground"
     },
     {
       title: "Treasure Island",
@@ -192,7 +192,7 @@ function NotebookSimulator() {
         "Key Symbol: Spyglass (Perspective)",
         "Blueprints: Jim, Long John Silver, Flint"
       ],
-      color: "bg-dusty/10 text-dusty"
+      color: "bg-dusty/10 text-foreground/80"
     }
   ];
 
@@ -230,9 +230,9 @@ function NotebookSimulator() {
         <div className="mb-6">
           <div className="text-xs tracking-[0.3em] text-muted-foreground uppercase flex justify-center items-center gap-1.5 font-display">
             Interactive Experience
-            <Sparkles className="w-3.5 h-3.5 text-mustard animate-pulse" />
+            <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
           </div>
-          <h2 className="mt-3 font-serif text-3xl md:text-5xl text-ink font-bold">Try the Journal.</h2>
+          <h2 className="mt-3 font-serif text-3xl md:text-5xl text-foreground font-bold">Try the Journal.</h2>
           <p className="mt-4 text-xs md:text-sm text-muted-foreground max-w-xl mx-auto">
             Experience our premium paper layouts. Select your paper type below, or flip the pages to preview summaries of our classic volumes.
           </p>
@@ -246,7 +246,7 @@ function NotebookSimulator() {
               onClick={() => setPaperStyle(style)}
               className={`px-4 py-2 rounded-2xl border text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
                 paperStyle === style
-                  ? "bg-ink text-cream border-ink shadow-sm"
+                  ? "bg-ink text-cream border-border shadow-sm"
                   : "bg-white/5 border-white/5 text-muted-foreground hover:bg-white/10 hover:text-foreground"
               }`}
             >
@@ -257,7 +257,7 @@ function NotebookSimulator() {
 
         {/* Playable Book Binder Simulator (Double-Page Mockup) */}
         <div className="mt-10 overflow-x-auto py-6 flex justify-center scrollbar-thin select-none">
-          <div className="relative w-[700px] h-[340px] shrink-0 select-none bg-paper border border-walnut/10 rounded-2xl shadow-xl p-6 flex flex-col justify-between" style={renderPaperBackground()}>
+          <div className="relative w-[700px] h-[340px] shrink-0 select-none bg-white/5 border border-border/10 rounded-2xl shadow-xl p-6 flex flex-col justify-between" style={renderPaperBackground()}>
             
             {/* Book Spine Center Line */}
             <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1.5px] bg-walnut/15 shadow-inner" />
@@ -266,35 +266,35 @@ function NotebookSimulator() {
             <div className="grid grid-cols-2 gap-12 h-full text-left pl-6 pr-6">
               
               {/* Left Page (Descriptive Text & Illustration Mockup) */}
-              <div className="space-y-4 flex flex-col justify-center border-r border-walnut/5 pr-6 h-full">
+              <div className="space-y-4 flex flex-col justify-center border-r border-border/5 pr-6 h-full">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-display uppercase tracking-widest bg-ink/5 px-2 py-0.5 rounded text-ink/60">
+                  <span className="text-[10px] font-display uppercase tracking-widest bg-ink/5 px-2 py-0.5 rounded text-foreground/60">
                     {currentPage.title}
                   </span>
-                  <h4 className="font-serif text-lg font-bold text-ink leading-tight">
+                  <h4 className="font-serif text-lg font-bold text-foreground leading-tight">
                     {currentPage.tagline}
                   </h4>
                 </div>
-                <p className="text-xs text-ink/75 leading-relaxed font-serif italic select-text">
+                <p className="text-xs text-foreground/75 leading-relaxed font-serif italic select-text">
                   "{currentPage.leftContent}"
                 </p>
-                <div className="text-[9px] font-mono text-ink/40">Page {activePageIndex * 2 + 1}</div>
+                <div className="text-[9px] font-mono text-foreground/40">Page {activePageIndex * 2 + 1}</div>
               </div>
 
               {/* Right Page (Bullet blue-prints summary) */}
               <div className="space-y-4 flex flex-col justify-center pl-6 h-full">
-                <h4 className="font-serif text-xs uppercase tracking-wider text-ink/50">
+                <h4 className="font-serif text-xs uppercase tracking-wider text-foreground/50">
                   AI Study Blueprint
                 </h4>
                 <ul className="space-y-2">
                   {currentPage.rightContent.map((point, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-xs text-ink/80 font-sans">
-                      <Check className="w-3.5 h-3.5 text-mustard stroke-[3]" />
+                    <li key={idx} className="flex items-center gap-2 text-xs text-foreground/80 font-sans">
+                      <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
                       <span>{point}</span>
                     </li>
                   ))}
                 </ul>
-                <div className="text-[9px] font-mono text-ink/40 text-right">Page {activePageIndex * 2 + 2}</div>
+                <div className="text-[9px] font-mono text-foreground/40 text-right">Page {activePageIndex * 2 + 2}</div>
               </div>
 
             </div>
@@ -306,16 +306,16 @@ function NotebookSimulator() {
         <div className="mt-6 flex items-center justify-center gap-4">
           <button
             onClick={() => setActivePageIndex((prev) => (prev - 1 + pagesContent.length) % pagesContent.length)}
-            className="px-4 py-2 rounded-xl border border-ink/15 text-xs font-serif text-ink hover:bg-ink hover:text-cream transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-xl border border-border/15 text-xs font-serif text-foreground hover:bg-ink hover:text-cream transition-colors cursor-pointer"
           >
             ◀ Turn Back
           </button>
-          <span className="font-mono text-xs text-ink/60">
+          <span className="font-mono text-xs text-foreground/60">
             Guide {activePageIndex + 1} of {pagesContent.length}
           </span>
           <button
             onClick={() => setActivePageIndex((prev) => (prev + 1) % pagesContent.length)}
-            className="px-4 py-2 rounded-xl border border-ink/15 text-xs font-serif text-ink hover:bg-ink hover:text-cream transition-colors cursor-pointer"
+            className="px-4 py-2 rounded-xl border border-border/15 text-xs font-serif text-foreground hover:bg-ink hover:text-cream transition-colors cursor-pointer"
           >
             Next Page ▶
           </button>
@@ -340,7 +340,7 @@ function StatsBar() {
       <div className="glass grid grid-cols-2 divide-foreground/10 rounded-[2rem] p-6 md:grid-cols-4 md:divide-x md:p-8">
         {stats.map((s, idx) => (
           <div key={idx} className="px-4 py-4 text-center">
-            <div className="font-serif text-4xl md:text-5xl text-ink font-bold">{s.value}</div>
+            <div className="font-serif text-4xl md:text-5xl text-foreground font-bold">{s.value}</div>
             <div className="mt-2 text-xs tracking-wider text-muted-foreground uppercase font-display">{s.label}</div>
           </div>
         ))}
@@ -379,10 +379,10 @@ function FeatureCards() {
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
         {cards.map((c, idx) => (
           <div key={idx} className="glass group rounded-3xl p-6 text-center transition-all duration-500 hover:-translate-y-1">
-            <div className="mx-auto grid h-10 w-10 place-items-center rounded-xl bg-white/50 border border-ink/5 text-2xl select-none">
+            <div className="mx-auto grid h-10 w-10 place-items-center rounded-xl bg-white/50 border border-border/5 text-2xl select-none">
               {c.icon}
             </div>
-            <div className="mt-4 font-serif text-lg font-bold text-ink leading-snug">{c.title}</div>
+            <div className="mt-4 font-serif text-lg font-bold text-foreground leading-snug">{c.title}</div>
             <p className="mt-2 text-xs text-muted-foreground md:text-sm font-sans">{c.desc}</p>
           </div>
         ))}
@@ -408,9 +408,9 @@ function CollectionPreview() {
           
           {/* Left panel: Info & search box */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2 font-serif text-3xl md:text-4xl text-ink font-bold">
+            <div className="flex items-center gap-2 font-serif text-3xl md:text-4xl text-foreground font-bold">
               Popular Volumes
-              <Sparkles className="w-5 h-5 text-mustard" />
+              <Sparkles className="w-5 h-5 text-primary" />
             </div>
             <p className="text-sm text-muted-foreground font-serif italic">
               Begin your study journey with our most popular formatted guides.
@@ -423,16 +423,16 @@ function CollectionPreview() {
                 placeholder="Search collection..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-cream pl-10 pr-4 py-2.5 border border-ink/10 rounded-full font-sans text-xs focus:outline-none focus:border-ink/20 text-ink shadow-sm"
+                className="w-full bg-white/5 pl-10 pr-4 py-2.5 border border-border/10 rounded-full font-sans text-xs focus:outline-none focus:border-border/20 text-foreground shadow-sm"
               />
-              <Search className="w-4 h-4 text-ink/40 absolute left-3.5 top-[18px]" />
+              <Search className="w-4 h-4 text-foreground/40 absolute left-3.5 top-[18px]" />
             </div>
           </div>
 
           {/* Right panel: Course Cards matching Fable's Course layout */}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {filteredBooks.length === 0 ? (
-              <div className="sm:col-span-2 lg:col-span-3 text-center py-12 text-xs font-serif text-ink/40 italic">
+              <div className="sm:col-span-2 lg:col-span-3 text-center py-12 text-xs font-serif text-foreground/40 italic">
                 No matching volumes found in the library.
               </div>
             ) : (
@@ -445,7 +445,7 @@ function CollectionPreview() {
                   <article key={book.id} className="group glass-soft overflow-hidden rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between">
                     <div>
                       {/* Image Thumbnail */}
-                      <div className="aspect-[4/3] overflow-hidden relative border-b border-ink/5 bg-paper">
+                      <div className="aspect-[4/3] overflow-hidden relative border-b border-border/5 bg-white/5">
                         <img 
                           src={book.cover_image || ""} 
                           alt={book.title}
@@ -461,10 +461,10 @@ function CollectionPreview() {
 
                       {/* Content details */}
                       <div className="p-4 space-y-2">
-                        <span className="text-[9px] font-display uppercase tracking-widest bg-ink/5 px-2 py-0.5 rounded text-ink/60 w-fit block">
+                        <span className="text-[9px] font-display uppercase tracking-widest bg-ink/5 px-2 py-0.5 rounded text-foreground/60 w-fit block">
                           {book.category}
                         </span>
-                        <h3 className="font-serif text-lg leading-tight font-bold text-ink truncate">
+                        <h3 className="font-serif text-lg leading-tight font-bold text-foreground truncate">
                           {book.title}
                         </h3>
                         <p className="text-xs text-muted-foreground line-clamp-2 h-8 font-serif italic">
@@ -472,17 +472,17 @@ function CollectionPreview() {
                         </p>
                         
                         {/* Specs bullet list matching Fable */}
-                        <ul className="mt-3 space-y-1 pt-2 border-t border-ink/5">
+                        <ul className="mt-3 space-y-1 pt-2 border-t border-border/5">
                           <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
-                            <Check className="w-3.5 h-3.5 text-mustard stroke-[3]" />
+                            <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
                             <span>Pages: {book.pages || 48}</span>
                           </li>
                           <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
-                            <Check className="w-3.5 h-3.5 text-mustard stroke-[3]" />
+                            <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
                             <span>Language: {book.language || "English"}</span>
                           </li>
                           <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
-                            <Check className="w-3.5 h-3.5 text-mustard stroke-[3]" />
+                            <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
                             <span>Includes AI Blueprints</span>
                           </li>
                         </ul>
@@ -490,11 +490,11 @@ function CollectionPreview() {
                     </div>
 
                     {/* Pricing & Footer Actions */}
-                    <div className="p-4 pt-0 border-t border-ink/5 mt-auto">
+                    <div className="p-4 pt-0 border-t border-border/5 mt-auto">
                       <div className="flex items-center justify-between py-2.5">
                         <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-display">Format: PDF</span>
                         <div className="text-right">
-                          <span className="font-display font-bold text-ink">₹{Number(book.current_price).toFixed(0)}</span>
+                          <span className="font-display font-bold text-foreground">₹{Number(book.current_price).toFixed(0)}</span>
                           {book.original_price && book.original_price > book.current_price && (
                             <span className="text-[10px] text-muted-foreground line-through ml-1.5">₹{Number(book.original_price).toFixed(0)}</span>
                           )}
@@ -549,9 +549,9 @@ function CuratorShowcase() {
         <div className="glass flex flex-col justify-center rounded-[2rem] p-8 md:p-12 space-y-4">
           <div className="text-xs tracking-[0.2em] text-muted-foreground uppercase flex items-center gap-1 font-display">
             About the Library
-            <Sparkles className="w-3 h-3 text-mustard" />
+            <Sparkles className="w-3 h-3 text-primary" />
           </div>
-          <h2 className="font-serif text-3xl leading-tight md:text-5xl text-ink font-bold">
+          <h2 className="font-serif text-3xl leading-tight md:text-5xl text-foreground font-bold">
             Read, study &amp; reflect deeply.
           </h2>
           <p className="text-sm text-muted-foreground font-serif italic">
@@ -595,7 +595,7 @@ function Testimonials() {
   return (
     <section className="mx-auto mt-12 w-[min(96%,1200px)] pb-12">
       <div className="mb-8 flex items-end justify-between gap-4">
-        <h2 className="font-serif text-3xl md:text-5xl text-ink font-bold">Reader Results</h2>
+        <h2 className="font-serif text-3xl md:text-5xl text-foreground font-bold">Reader Results</h2>
         <a 
           href="https://wa.me/919645767284?text=I%27d%20like%20to%20know%20more%20about%20Notestalgia" 
           target="_blank" 
@@ -610,15 +610,15 @@ function Testimonials() {
         {reviews.map((r, idx) => (
           <figure key={idx} className="glass rounded-[2rem] p-8 shadow-sm">
             <div className="text-4xl font-serif leading-none text-foreground/20">“</div>
-            <blockquote className="mt-2 font-serif text-lg leading-snug md:text-xl text-ink italic">
+            <blockquote className="mt-2 font-serif text-lg leading-snug md:text-xl text-foreground italic">
               {r.quote}
             </blockquote>
             <figcaption className="mt-6 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-paper flex items-center justify-center border border-ink/10 font-serif font-bold text-ink">
+              <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center border border-border/10 font-serif font-bold text-foreground">
                 {r.author.slice(0, 1)}
               </div>
               <div>
-                <div className="text-sm font-medium text-ink">{r.author}</div>
+                <div className="text-sm font-medium text-foreground">{r.author}</div>
                 <div className="text-xs text-muted-foreground font-serif">{r.role}</div>
               </div>
             </figcaption>

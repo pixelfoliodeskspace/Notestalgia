@@ -42,8 +42,8 @@ function AdminDashboard() {
       ) : (
         <div className="border border-border rounded-lg overflow-hidden bg-card">
           <table className="w-full text-sm">
-            <thead className="bg-paper text-left">
-              <tr className="[&>th]:px-4 [&>th]:py-3 [&>th]:font-display [&>th]:text-xs [&>th]:tracking-widest [&>th]:uppercase [&>th]:text-ink/60">
+            <thead className="bg-white/5 text-left">
+              <tr className="[&>th]:px-4 [&>th]:py-3 [&>th]:font-display [&>th]:text-xs [&>th]:tracking-widest [&>th]:uppercase [&>th]:text-foreground/60">
                 <th>Title</th>
                 <th>Category</th>
                 <th>Price</th>
@@ -90,7 +90,7 @@ function Stat({ label, value }: { label: string; value: number | string }) {
       transition={{ duration: 0.5 }}
       className="rounded-lg border border-border bg-card p-6"
     >
-      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-ink/60">{label}</div>
+      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-foreground/60">{label}</div>
       <div className="mt-3 font-display text-4xl">{value}</div>
     </motion.div>
   );

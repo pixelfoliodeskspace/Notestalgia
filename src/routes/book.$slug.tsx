@@ -54,7 +54,7 @@ function BookPage() {
         transition={{ duration: 0.5 }}
         className="mb-10"
       >
-        <Link to="/collection" className="text-xs font-display tracking-[0.2em] uppercase text-ink/60 link-underline">
+        <Link to="/collection" className="text-xs font-display tracking-[0.2em] uppercase text-foreground/60 link-underline">
           ← Back to collection
         </Link>
       </motion.div>
@@ -66,7 +66,7 @@ function BookPage() {
           transition={{ duration: 1, ease: [0.2, 0.8, 0.2, 1] }}
           className="relative"
         >
-          <div className="relative aspect-[3/4] w-full max-w-[560px] rounded-md overflow-hidden bg-paper border border-border shadow-[var(--shadow-lift)]">
+          <div className="relative aspect-[3/4] w-full max-w-[560px] rounded-md overflow-hidden bg-white/5 border border-border shadow-[var(--shadow-lift)]">
             {book.cover_image ? (
               <img
                 src={book.cover_image}
@@ -74,7 +74,7 @@ function BookPage() {
                 className="absolute inset-0 h-full w-full object-cover"
               />
             ) : (
-              <div className="absolute inset-0 flex items-center justify-center font-display text-9xl text-ink/25">
+              <div className="absolute inset-0 flex items-center justify-center font-display text-9xl text-foreground/25">
                 {book.title.slice(0, 1)}
               </div>
             )}
@@ -92,7 +92,7 @@ function BookPage() {
             {book.title}
           </h1>
           {book.tagline && (
-            <p className="mt-5 text-xl font-serif italic text-ink/70">{book.tagline}</p>
+            <p className="mt-5 text-xl font-serif italic text-foreground/70">{book.tagline}</p>
           )}
 
           <div className="rule-hair my-10" />
@@ -107,7 +107,7 @@ function BookPage() {
                   ₹{Number(book.original_price).toFixed(0)}
                 </div>
                 {discount && (
-                  <div className="text-xs font-display tracking-widest uppercase text-dusty">
+                  <div className="text-xs font-display tracking-widest uppercase text-foreground/80">
                     Save {discount}%
                   </div>
                 )}
@@ -132,10 +132,10 @@ function BookPage() {
 
           {book.description && (
             <div className="mt-12">
-              <h2 className="text-xs font-display tracking-[0.3em] uppercase text-ink/60 mb-4">
+              <h2 className="text-xs font-display tracking-[0.3em] uppercase text-foreground/60 mb-4">
                 About this title
               </h2>
-              <p className="text-base leading-relaxed text-ink/85 whitespace-pre-line">
+              <p className="text-base leading-relaxed text-foreground/85 whitespace-pre-line">
                 {book.description}
               </p>
             </div>
@@ -160,7 +160,7 @@ function Meta({ label, value }: { label: string; value: string | null | undefine
   if (!value) return null;
   return (
     <div>
-      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-ink/50">{label}</div>
+      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-foreground/50">{label}</div>
       <div className="mt-1 font-display text-lg">{value}</div>
     </div>
   );

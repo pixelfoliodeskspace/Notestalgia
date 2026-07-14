@@ -45,13 +45,13 @@ function CollectionPage() {
         transition={{ duration: 0.7 }}
         className="max-w-3xl"
       >
-        <div className="text-xs font-display tracking-[0.3em] uppercase text-ink/60 mb-4">
+        <div className="text-xs font-display tracking-[0.3em] uppercase text-foreground/60 mb-4">
           Catalog
         </div>
         <h1 className="font-display text-5xl md:text-7xl leading-[0.95] tracking-tight">
           The Collection.
         </h1>
-        <p className="mt-6 text-lg text-ink/70 font-serif italic max-w-xl">
+        <p className="mt-6 text-lg text-foreground/70 font-serif italic max-w-xl">
           Every title in the library. Read, chosen, and shelved with care.
         </p>
       </motion.div>
@@ -63,7 +63,7 @@ function CollectionPage() {
               key={c}
               onClick={() => setFilter(c)}
               className={`tag-pill transition-all ${
-                filter === c ? "bg-ink text-cream border-ink" : "hover:border-ink/50"
+                filter === c ? "bg-ink text-cream border-border" : "hover:border-border/50"
               }`}
             >
               {c === "all" ? "All" : c}

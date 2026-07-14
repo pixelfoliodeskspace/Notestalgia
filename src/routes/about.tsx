@@ -24,7 +24,7 @@ function AboutPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <div className="text-xs font-display tracking-[0.3em] uppercase text-ink/60 mb-6">
+        <div className="text-xs font-display tracking-[0.3em] uppercase text-foreground/60 mb-6">
           About
         </div>
         <h1 className="font-display text-5xl md:text-7xl leading-[0.95] tracking-tight">
@@ -36,9 +36,9 @@ function AboutPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.15 }}
-        className="mt-14 space-y-6 text-lg leading-relaxed text-ink/85"
+        className="mt-14 space-y-6 text-lg leading-relaxed text-foreground/85"
       >
-        <p className="font-serif italic text-2xl leading-snug text-ink">
+        <p className="font-serif italic text-2xl leading-snug text-foreground">
           "The best notes feel less like a product and more like a paper you kept for years."
         </p>
         <p>

@@ -42,7 +42,7 @@ export function SiteNav() {
               About
             </Link>
             {isAdmin && (
-              <Link to="/admin" className="text-sm text-dusty transition-colors hover:text-foreground" activeProps={{ className: "text-foreground font-semibold" }}>
+              <Link to="/admin" className="text-sm text-foreground/80 transition-colors hover:text-foreground" activeProps={{ className: "text-foreground font-semibold" }}>
                 Admin
               </Link>
             )}
@@ -118,7 +118,7 @@ export function SiteNav() {
                     </SheetClose>
                     {isAdmin && (
                       <SheetClose asChild>
-                        <Link to="/admin" className="text-lg font-medium text-dusty transition-all hover:text-foreground hover:translate-x-1 duration-200 font-semibold">
+                        <Link to="/admin" className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200 font-semibold">
                           Admin Panel
                         </Link>
                       </SheetClose>

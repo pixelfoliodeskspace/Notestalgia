@@ -78,28 +78,33 @@
   --walnut: oklch(0.32 0.06 45);        /* #4E3629 Walnut */
   --honey: oklch(0.86 0.14 85);         /* #F2C14E Amber Honey */
   --berry: oklch(0.52 0.16 28);         /* #8B2635 Berry Red */
-  --gold: oklch(0.82 0.12 85);          /* #F2C14E Fable Gold */
+  --gold: oklch(82% .11 90);            /* Fable Gold */
 
-  /* Semantic */
-  --background: var(--cream);
-  --foreground: var(--ink);
-  --card: oklch(1 0 0);
-  --card-foreground: var(--ink);
-  --popover: var(--cream);
-  --popover-foreground: var(--ink);
-  --primary: var(--ink);
-  --primary-foreground: var(--cream);
-  --secondary: var(--paper);
-  --secondary-foreground: var(--ink);
-  --muted: var(--paper);
-  --muted-foreground: oklch(0.5 0.01 80);
-  --accent: var(--mustard);
-  --accent-foreground: var(--ink);
-  --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: var(--cream);
-  --border: oklch(0.88 0.015 85);
-  --input: oklch(0.9 0.015 85);
-  --ring: var(--dusty);
+  /* Semantic - Fable Music Dark Forest Green */
+  --background: oklch(13% .035 145);
+  --foreground: oklch(94% .02 120);
+  --card: oklch(100% 0 0/.05);
+  --card-foreground: oklch(94% .02 120);
+  --popover: oklch(13% .035 145);
+  --popover-foreground: oklch(94% .02 120);
+  --primary: oklch(82% .11 90);
+  --primary-foreground: oklch(13% .035 145);
+  --secondary: oklch(100% 0 0/.06);
+  --secondary-foreground: oklch(90% .03 120);
+  --muted: oklch(100% 0 0/.06);
+  --muted-foreground: oklch(68% .03 120);
+  --accent: oklch(82% .11 90);
+  --accent-foreground: oklch(94% .02 120);
+  --destructive: oklch(63.7% .237 25.331);
+  --destructive-foreground: oklch(98% 0 0);
+  --border: oklch(35% .05 145/.22);
+  --input: oklch(35% .05 145/.15);
+  --ring: oklch(82% .11 90);
+
+  --gradient-page: radial-gradient(1400px 800px at 15% -20%, oklch(26% .08 145/.8), transparent 60%), radial-gradient(1000px 600px at 95% 15%, oklch(28% .06 120/.5), transparent 55%), radial-gradient(900px 700px at 50% 85%, oklch(22% .08 95/.65), transparent 50%), linear-gradient(180deg, oklch(13% .035 145), oklch(9% .02 145));
+  --gradient-glass: linear-gradient(135deg, oklch(100% 0 0/.15) 0%, oklch(100% 0 0/.05) 100%);
+  --shadow-glass: 0 1px 0 0 oklch(100% 0 0/.6) inset, 0 30px 60px -20px oklch(40% .04 70/.18);
+  --shadow-soft: 0 20px 50px -24px oklch(40% .04 70/.22);
 }
 
 @keyframes wind-sway {
@@ -127,11 +132,12 @@
   }
 
   body {
-    background-color: var(--color-background);
+    background: var(--gradient-page);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    background-attachment: fixed;
     text-rendering: optimizeLegibility;
   }
 
@@ -141,8 +147,8 @@
   }
 
   ::selection {
-    background-color: var(--mustard);
-    color: var(--ink);
+    background-color: var(--gold);
+    color: var(--background);
   }
 }
 
@@ -262,34 +268,33 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.7rem 1.4rem;
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--primary);
+  color: var(--primary-foreground);
   border-radius: 999px;
   font-family: var(--font-display);
   font-weight: 500;
-  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-  box-shadow: 0 4px 12px rgba(64, 64, 64, 0.15);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px -12px oklch(84% .12 115/.4);
   cursor: pointer;
 
   &:hover {
-    transform: translateY(-1px);
-    background: oklch(0.25 0 0);
-    box-shadow: 0 6px 16px rgba(64, 64, 64, 0.25);
+    transform: translateY(-1.5px);
+    box-shadow: 0 18px 40px -14px oklch(84% .12 115/.5);
   }
 }
 
 /* --- Fable Music inspired Glassmorphism and Blobs --- */
 @utility glass {
-  background: rgba(255, 253, 248, 0.45);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(64, 64, 64, 0.08);
-  box-shadow: 0 8px 32px -4px rgba(64, 64, 64, 0.05);
+  background: var(--gradient-glass);
+  backdrop-filter: blur(28px) saturate(150%);
+  box-shadow: var(--shadow-glass);
+  border: 1px solid oklch(100% 0 0/.12);
 }
 
 @utility glass-soft {
-  background: rgba(255, 253, 248, 0.25);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(64, 64, 64, 0.04);
+  backdrop-filter: blur(18px) saturate(130%);
+  background: oklch(100% 0 0/.05);
+  border: 1px solid oklch(100% 0 0/.08);
 }
 
 @utility float-blob {

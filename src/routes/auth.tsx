@@ -86,7 +86,7 @@ function AuthPage() {
   if (user) {
     return (
       <div className="mx-auto max-w-md px-6 py-24 text-center">
-        <div className="text-xs font-display tracking-[0.3em] uppercase text-ink/60 mb-4">
+        <div className="text-xs font-display tracking-[0.3em] uppercase text-foreground/60 mb-4">
           Account
         </div>
         <h1 className="font-display text-4xl mb-3">Signed in</h1>
@@ -106,7 +106,7 @@ function AuthPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="text-xs font-display tracking-[0.3em] uppercase text-ink/60 mb-4">
+        <div className="text-xs font-display tracking-[0.3em] uppercase text-foreground/60 mb-4">
           {mode === "signin" ? "Welcome back" : "Create account"}
         </div>
         <h1 className="font-display text-4xl md:text-5xl leading-tight tracking-tight">
@@ -134,24 +134,24 @@ function AuthPage() {
 
         <form onSubmit={handleEmail} className="space-y-4">
           <div>
-            <label className="text-xs font-display tracking-widest uppercase text-ink/60">Email</label>
+            <label className="text-xs font-display tracking-widest uppercase text-foreground/60">Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-2 w-full bg-transparent border-b border-border py-2 focus:outline-none focus:border-ink transition-colors"
+              className="mt-2 w-full bg-transparent border-b border-border py-2 focus:outline-none focus:border-border transition-colors"
             />
           </div>
           <div>
-            <label className="text-xs font-display tracking-widest uppercase text-ink/60">Password</label>
+            <label className="text-xs font-display tracking-widest uppercase text-foreground/60">Password</label>
             <input
               type="password"
               required
               minLength={6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-2 w-full bg-transparent border-b border-border py-2 focus:outline-none focus:border-ink transition-colors"
+              className="mt-2 w-full bg-transparent border-b border-border py-2 focus:outline-none focus:border-border transition-colors"
             />
           </div>
           <button type="submit" disabled={busy} className="btn-ink w-full mt-4">
@@ -165,7 +165,7 @@ function AuthPage() {
               Don't have an account?{" "}
               <button
                 onClick={() => setMode("signup")}
-                className="link-underline text-ink"
+                className="link-underline text-foreground"
               >
                 Sign up
               </button>
@@ -175,7 +175,7 @@ function AuthPage() {
               Already have an account?{" "}
               <button
                 onClick={() => setMode("signin")}
-                className="link-underline text-ink"
+                className="link-underline text-foreground"
               >
                 Sign in
               </button>

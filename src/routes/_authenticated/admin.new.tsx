@@ -148,12 +148,12 @@ function NewBookPage() {
 }
 
 const input =
-  "w-full bg-transparent border-b border-border py-2 focus:outline-none focus:border-ink transition-colors";
+  "w-full bg-transparent border-b border-border py-2 focus:outline-none focus:border-border transition-colors";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-ink/60 mb-2">{label}</div>
+      <div className="text-[10px] font-display tracking-[0.3em] uppercase text-foreground/60 mb-2">{label}</div>
       {children}
     </label>
   );
@@ -168,11 +168,11 @@ function Toggle({ label, checked, onChange }: { label: string; checked: boolean;
     >
       <div
         className={`w-10 h-6 rounded-full border transition-colors ${
-          checked ? "bg-ink border-ink" : "bg-transparent border-border"
+          checked ? "bg-ink border-border" : "bg-transparent border-border"
         } relative`}
       >
         <div
-          className={`absolute top-0.5 h-5 w-5 rounded-full bg-cream transition-all ${
+          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white/5 transition-all ${
             checked ? "left-[calc(100%-1.25rem-0.125rem)]" : "left-0.5"
           }`}
         />

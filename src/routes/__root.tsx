@@ -20,7 +20,7 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center paper-bg px-4">
       <div className="max-w-md text-center">
-        <div className="font-display text-[9rem] leading-none tracking-tighter text-ink/90">404</div>
+        <div className="font-display text-[9rem] leading-none tracking-tighter text-foreground/90">404</div>
         <h2 className="mt-2 font-display text-2xl">Not in the library</h2>
         <p className="mt-2 text-sm text-muted-foreground">
           The page you're looking for isn't shelved here.

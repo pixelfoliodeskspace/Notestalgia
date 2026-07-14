@@ -20,7 +20,7 @@ export function BookCard({ book, index = 0 }: { book: Book; index?: number }) {
         params={{ slug: book.slug }}
         className="group block"
       >
-        <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-paper border border-border">
+        <div className="relative aspect-[3/4] overflow-hidden rounded-md bg-white/5 border border-border">
           {book.cover_image ? (
             <img
               src={book.cover_image}
@@ -29,12 +29,12 @@ export function BookCard({ book, index = 0 }: { book: Book; index?: number }) {
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] ease-out group-hover:scale-[1.04]"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center font-display text-3xl text-ink/25">
+            <div className="absolute inset-0 flex items-center justify-center font-display text-3xl text-foreground/25">
               {book.title.slice(0, 1)}
             </div>
           )}
           {discount && (
-            <div className="absolute top-3 left-3 bg-mustard text-ink text-[10px] font-display tracking-widest uppercase px-2 py-1 rounded-full">
+            <div className="absolute top-3 left-3 bg-mustard text-foreground text-[10px] font-display tracking-widest uppercase px-2 py-1 rounded-full">
               −{discount}%
             </div>
           )}

@@ -6,7 +6,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-6 md:px-10 py-14 grid gap-10 md:grid-cols-3">
         <div>
           <div className="font-display text-2xl">
-            Notestalgia<span className="text-mustard">.</span>
+            Notestalgia<span className="text-primary">.</span>
           </div>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs">
             Made for learners. A quiet library of premium AI notes, guides and digital resources.
