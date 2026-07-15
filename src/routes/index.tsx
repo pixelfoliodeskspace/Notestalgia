@@ -37,7 +37,7 @@ function Hero() {
 
         {/* Cinematic Headline */}
         <div className="space-y-4 max-w-3xl">
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-[4rem] leading-[1.1] tracking-[-0.02em] text-foreground font-bold">
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-[4rem] leading-[1.1] tracking-[-0.02em] text-foreground">
             Where Books, Notes <br />
             and <span className="text-primary italic">Memories</span> Come Together
           </h1>
