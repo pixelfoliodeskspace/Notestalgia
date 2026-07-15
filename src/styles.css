@@ -68,29 +68,29 @@
   /* Raw palette */
   --cream: oklch(0.99 0.003 280); /* Bright cream */
   --paper: oklch(0.97 0.005 280); /* Light grey-white */
-  --ink: #90EE90; /* Light green */
+  --ink: #082901; /* Dark green */
   --mustard: oklch(56% 0.20 280); /* Tentary purple */
-  --dusty: #90EE90; /* Light green for secondary text/logo stalgia */
+  --dusty: #082901; /* Dark green for secondary text/logo stalgia */
   --faded: oklch(88% 0.04 280); /* Faded violet */
 
   --forest: oklch(56% 0.20 280); /* Tentary purple */
   --sage: oklch(93% 0.01 280); /* Light lavender gray */
-  --walnut: #90EE90; /* Light green */
+  --walnut: #082901; /* Dark green */
   --honey: oklch(96% 0.02 280); /* Very soft purple gray */
   --berry: oklch(52% 0.18 340); /* Vibrant magenta/pink */
   --gold: oklch(56% 0.20 280); /* Tentary purple */
 
   /* Semantic - Clean Tentary Light Theme */
   --background: oklch(99% 0.003 280);
-  --foreground: #90EE90;
-  --card: oklch(100% 0 0/0.75);
-  --card-foreground: #90EE90;
+  --foreground: #082901;
+  --card: #90EE90;
+  --card-foreground: #082901;
   --popover: oklch(99% 0.003 280);
-  --popover-foreground: #90EE90;
+  --popover-foreground: #082901;
   --primary: oklch(56% 0.20 280);
   --primary-foreground: oklch(100% 0 0);
   --secondary: oklch(94% 0.005 280);
-  --secondary-foreground: #90EE90;
+  --secondary-foreground: #082901;
   --muted: oklch(96% 0.005 280);
   --muted-foreground: oklch(50% 0.015 145);
   --accent: oklch(56% 0.20 280);

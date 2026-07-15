@@ -211,7 +211,7 @@ function NotebookSimulator() {
 
         <div className="mt-10 overflow-x-auto py-6 flex justify-center scrollbar-thin select-none">
           <div
-            className="relative w-[700px] h-[340px] shrink-0 select-none bg-card border border-border/40 rounded-2xl shadow-xl p-6 flex flex-col justify-between"
+            className="relative w-[700px] h-[340px] shrink-0 select-none bg-white border border-border/40 rounded-2xl shadow-xl p-6 flex flex-col justify-between"
             style={renderPaperBackground()}
           >
             <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1.5px] bg-border/40 shadow-inner" />
