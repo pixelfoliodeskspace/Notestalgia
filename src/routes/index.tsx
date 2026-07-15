@@ -54,10 +54,6 @@ function Hero() {
             <span>Explore Bookstore</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </a>
-          <a href="#notebook" className="btn-ghost group flex items-center gap-2">
-            <span>Try the Journal</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </a>
         </motion.div>
 
         {/* Happy Reader trust panel */}
@@ -97,184 +93,7 @@ function Hero() {
   );
 }
 
-// Playable Virtual Notebook Simulator (Bansuri equivalent)
-function NotebookSimulator() {
-  const [paperStyle, setPaperStyle] = useState<"lined" | "grid" | "dotted" | "blank">("lined");
-  const [activePageIndex, setActivePageIndex] = useState(0);
 
-  const pagesContent = [
-    {
-      title: "The Secret Garden",
-      tagline: "Chapter 1: A Locked Sanctuary",
-      leftContent:
-        "Mary Lennox discovers a rusted key buried in the soil. It matches the iron gate covered in wild ivy. A sense of magic spreads over the estate.",
-      rightContent: [
-        "Core Theme: Renewal & Healing",
-        "Key Symbol: The Key (Opportunity)",
-        "Key Symbol: Ivy (Hidden secrets)",
-        "Blueprints: Mary, Colin, Dickon",
-      ],
-      color: "bg-sage/10 text-forest",
-    },
-    {
-      title: "Alice in Wonderland",
-      tagline: "Chapter 2: Down the Rabbit Hole",
-      leftContent:
-        "Tumbling down the endless rabbit hole, Alice passes bookshelves, maps, and floating jars. Logic bends, and nonsense begins to guide her path.",
-      rightContent: [
-        "Core Theme: Childhood Curiosity",
-        "Key Symbol: Pocket Watch (Time anxiety)",
-        "Key Symbol: Drink Me Bottle (Growth)",
-        "Blueprints: Alice, White Rabbit, Hatter",
-      ],
-      color: "bg-primary/15 text-foreground",
-    },
-    {
-      title: "Treasure Island",
-      tagline: "Chapter 3: The Map's Secret",
-      leftContent:
-        "Jim Hawkins examines Captain Flint's parchment map. Three red crosses mark the spot of buried doubloons. The smell of salt water fills the air.",
-      rightContent: [
-        "Core Theme: Greed vs. Honor",
-        "Key Symbol: Skeleton Island (Danger)",
-        "Key Symbol: Spyglass (Perspective)",
-        "Blueprints: Jim, Long John Silver, Flint",
-      ],
-      color: "bg-dusty/10 text-dusty",
-    },
-  ];
-
-  const currentPage = pagesContent[activePageIndex];
-
-  const renderPaperBackground = () => {
-    switch (paperStyle) {
-      case "lined":
-        return {
-          backgroundImage:
-            "repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 23px, rgba(255,255,255,0.06) 24px)",
-          backgroundSize: "100% 24px",
-        };
-      case "grid":
-        return {
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
-          backgroundSize: "20px 20px",
-        };
-      case "dotted":
-        return {
-          backgroundImage: "radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px)",
-          backgroundSize: "16px 16px",
-        };
-      case "blank":
-      default:
-        return {};
-    }
-  };
-
-  return (
-    <section id="notebook" className="mx-auto mt-12 w-[min(96%,1200px)]">
-      <div className="glass rounded-[2.25rem] p-8 text-center relative overflow-hidden border border-white/5 shadow-2xl">
-        <div className="mb-6">
-          <div className="text-xs tracking-[0.3em] text-foreground/80 uppercase flex justify-center items-center gap-1.5 font-display">
-            Interactive Experience
-            <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
-          </div>
-          <h2 className="mt-3 font-serif text-3xl md:text-5xl text-foreground font-bold">
-            Try the Journal.
-          </h2>
-          <p className="mt-4 text-xs md:text-sm text-foreground/80 max-w-xl mx-auto">
-            Experience our premium paper layouts. Select your paper type below, or flip the pages to
-            preview summaries of our classic volumes.
-          </p>
-        </div>
-
-        <div className="flex flex-wrap justify-center gap-2 mt-6 max-w-xl mx-auto select-none">
-          {(["lined", "grid", "dotted", "blank"] as const).map((style) => (
-            <button
-              key={style}
-              onClick={() => setPaperStyle(style)}
-              className={`px-4 py-2 rounded-2xl border text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
-                paperStyle === style
-                  ? "bg-foreground text-background border-foreground shadow-sm"
-                  : "bg-secondary/40 border-border/40 text-foreground/80 hover:bg-secondary hover:text-foreground"
-              }`}
-            >
-              {style} Paper
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-10 overflow-x-auto py-6 flex justify-center scrollbar-thin select-none">
-          <div
-            className="relative w-[700px] h-[340px] shrink-0 select-none bg-white border border-border/40 rounded-2xl shadow-xl p-6 flex flex-col justify-between"
-            style={renderPaperBackground()}
-          >
-            <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1.5px] bg-border/40 shadow-inner" />
-
-            <div className="grid grid-cols-2 gap-12 h-full text-left pl-6 pr-6">
-              <div className="space-y-4 flex flex-col justify-center border-r border-border/40 pr-6 h-full">
-                <div className="space-y-1">
-                  <span className="text-[10px] font-display uppercase tracking-widest bg-secondary px-2 py-0.5 rounded text-foreground/60">
-                    {currentPage.title}
-                  </span>
-                  <h4 className="font-serif text-lg font-bold text-foreground leading-tight">
-                    {currentPage.tagline}
-                  </h4>
-                </div>
-                <p className="text-xs text-foreground/85 leading-relaxed font-serif italic select-text">
-                  "{currentPage.leftContent}"
-                </p>
-                <div className="text-[9px] font-mono text-foreground/60">
-                  Page {activePageIndex * 2 + 1}
-                </div>
-              </div>
-
-              <div className="space-y-4 flex flex-col justify-center pl-6 h-full">
-                <h4 className="font-serif text-xs uppercase tracking-wider text-foreground/60">
-                  AI Study Blueprint
-                </h4>
-                <ul className="space-y-2">
-                  {currentPage.rightContent.map((point, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-center gap-2 text-xs text-foreground/85 font-sans"
-                    >
-                      <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="text-[9px] font-mono text-foreground/60 text-right">
-                  Page {activePageIndex * 2 + 2}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-6 flex items-center justify-center gap-4">
-          <button
-            onClick={() =>
-              setActivePageIndex((prev) => (prev - 1 + pagesContent.length) % pagesContent.length)
-            }
-            className="px-4 py-2 rounded-xl border border-border/40 text-xs font-serif text-foreground hover:bg-foreground hover:text-background transition-colors cursor-pointer"
-          >
-            ◀ Turn Back
-          </button>
-          <span className="font-mono text-xs text-foreground/60">
-            Guide {activePageIndex + 1} of {pagesContent.length}
-          </span>
-          <button
-            onClick={() => setActivePageIndex((prev) => (prev + 1) % pagesContent.length)}
-            className="px-4 py-2 rounded-xl border border-border/40 text-xs font-serif text-foreground hover:bg-foreground hover:text-background transition-colors cursor-pointer"
-          >
-            Next Page ▶
-          </button>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function StatsBar() {
   const stats = [
@@ -542,7 +361,6 @@ function Home() {
     <div className="space-y-16 pb-12">
       <Hero />
       <CollectionPreview />
-      <NotebookSimulator />
       <FeatureCards />
       <StatsBar />
       <Testimonials />
