@@ -12,354 +12,89 @@ export const Route = createFileRoute("/")({
 
 const TITLE = "NOTEStalgia";
 
-interface Particle {
-  id: number;
-  type: string;
-  left: number;
-  delay: number;
-  duration: number;
-  size: number;
-  xOffsets: number[];
-}
-
-// Emitter for cinematic floating items (leaves, butterflies, golden particles, manuscript pages)
-function CinematicParticles() {
-  const [particles, setParticles] = useState<Particle[]>([]);
-
-  useEffect(() => {
-    // Generate static list of particles that drift at different intervals
-    const list = Array.from({ length: 24 }).map((_, i) => {
-      const types = ["leaf", "butterfly", "gold", "manuscript"];
-      const type = types[i % types.length];
-
-      return {
-        id: i,
-        type,
-        left: 35 + Math.random() * 30, // Emit primarily from the center book area
-        delay: Math.random() * 12,
-        duration: 8 + Math.random() * 8,
-        size: type === "gold" ? 3 + Math.random() * 3 : 12 + Math.random() * 10,
-        xOffsets: [0, 40, -40, 20, 0],
-      };
-    });
-    setParticles(list);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-25" aria-hidden="true">
-      {particles.map((p) => {
-        let element = null;
-
-        if (p.type === "gold") {
-          element = (
-            <span
-              className="block rounded-full bg-primary"
-              style={{
-                width: p.size,
-                height: p.size,
-                boxShadow: "0 0 10px #F2C14E, 0 0 20px #F2C14E",
-              }}
-            />
-          );
-        } else if (p.type === "butterfly") {
-          element = (
-            <motion.svg
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="text-primary/75 w-full h-full"
-              animate={{
-                scaleX: [1, -0.2, 1], // flapping wing effect
-              }}
-              transition={{
-                duration: 0.5 + Math.random() * 0.4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              {/* Butterfly shape */}
-              <path d="M12 10C9 4 4 4 4 8c0 4 5 7 8 2 3 5 8 2 8-2 0-4-5-4-8 2z" />
-            </motion.svg>
-          );
-        } else if (p.type === "leaf") {
-          element = (
-            <svg
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="text-forest opacity-80 w-full h-full"
-            >
-              {/* Maple/autumn leaf shape */}
-              <path d="M12 2s1.5 4 2 5c2-1 4-1 5 1s-3 3-3 4c2 0 4 1 3 3s-4 1-5 0c0 2-1 4-2 5-1-1-2-3-2-5-1 1-4 2-5 0s1-3 3-3c0-1-5-2-3-4s3-2 5-1c.5-1 2-5 2-5z" />
-            </svg>
-          );
-        } else {
-          // manuscript page
-          element = (
-            <div className="bg-paper/85 border border-border/40 w-5 h-7 rounded-[2px] shadow-sm flex flex-col justify-between p-1">
-              <div className="w-full h-[1.5px] bg-foreground/30" />
-              <div className="w-3/4 h-[1.5px] bg-foreground/20" />
-              <div className="w-5/6 h-[1.5px] bg-foreground/20" />
-            </div>
-          );
-        }
-
-        return (
-          <motion.div
-            key={p.id}
-            className="absolute bottom-16"
-            style={{
-              left: `${p.left}%`,
-              width: p.size,
-              height: p.size,
-              filter: p.type === "gold" ? "blur(0.5px)" : "none",
-            }}
-            initial={{ y: 220, x: 0, opacity: 0, rotate: 0 }}
-            animate={{
-              y: -500, // drift upward toward the brand logo
-              x: p.xOffsets,
-              rotate: [0, 45, -45, 90, 180],
-              opacity: [0, 0.9, 0.9, 0.4, 0],
-            }}
-            transition={{
-              duration: p.duration,
-              delay: p.delay,
-              repeat: Infinity,
-              ease: "easeOut",
-            }}
-          >
-            {element}
-          </motion.div>
-        );
-      })}
-    </div>
-  );
-}
-
-// 3D Animated Book resting on a mossy stone
-function CinematicBook3D() {
-  return (
-    <div className="relative w-full max-w-[450px] aspect-[4/5] flex items-center justify-center">
-      {/* Morning Sunlight Filtering Rays */}
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-gradient-to-br from-primary/15 via-primary/5 to-transparent filter blur-3xl pointer-events-none animate-pulse duration-10000" />
-
-      {/* Soft Fog/Mist Layers */}
-      <motion.div
-        className="absolute bottom-12 left-0 right-0 h-16 bg-gradient-to-r from-transparent via-foreground/5 to-transparent filter blur-xl pointer-events-none z-10"
-        animate={{
-          x: [-20, 20, -20],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      {/* The 3D Book Layout Container */}
-      <div className="relative w-72 h-80 flex items-center justify-center [perspective:1000px]">
-        {/* Mossy Stone Base SVG */}
-        <div className="absolute bottom-0 w-80 h-32 z-0">
-          <svg
-            viewBox="0 0 200 80"
-            className="w-full h-full drop-shadow-[0_20px_30px_rgba(0,0,0,0.4)]"
-          >
-            {/* Rock shape */}
-            <path d="M10 70 Q 30 15 100 20 Q 170 15 190 70 Z" fill="oklch(22% .04 140)" />
-            {/* Moss details overlay */}
-            <path
-              d="M30 40 C 60 20 80 15 110 25 C 140 18 160 30 175 45 C 150 48 130 40 100 45 C 70 42 50 48 30 40 Z"
-              fill="oklch(45% .1 145)"
-            />
-            {/* Stone textures */}
-            <path d="M15 68 L 185 68" stroke="oklch(15% .03 140)" strokeWidth="1.5" />
-            <path d="M70 24 L 90 28" stroke="oklch(15% .03 140)" strokeWidth="1" />
-          </svg>
-        </div>
-
-        {/* 3D Angled Leather-Bound Book Wrapper */}
-        <motion.div
-          className="relative w-52 h-64 [transform-style:preserve-3d] cursor-pointer z-10"
-          style={{
-            transformOrigin: "center bottom",
-          }}
-          animate={{
-            rotateY: -15,
-            rotateX: 18,
-            y: [-3, 3, -3],
-          }}
-          transition={{
-            y: {
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            },
-          }}
-        >
-          {/* Back Cover (Leather) */}
-          <div className="absolute inset-0 rounded-lg bg-stone-900 border-2 border-stone-800 shadow-2xl [transform:translateZ(-10px)]" />
-
-          {/* Book Spine (Warm Wood/Leather) */}
-          <div className="absolute top-0 bottom-0 -left-2 w-4 bg-stone-950 border-r border-stone-800 [transform:rotateY(-90deg) translateZ(8px)]" />
-
-          {/* Opening Pages Flipping loop */}
-          <div className="absolute inset-0 bg-stone-800 rounded-lg overflow-hidden border border-stone-700 [transform:translateZ(-5px)]" />
-
-          {/* Main Open Pages */}
-          <div className="absolute inset-1 bg-paper/95 rounded shadow-inner flex [transform:translateZ(0px)] border border-border/40">
-            {/* Left Page (Lined Paper) */}
-            <div
-              className="flex-1 border-r border-stone-300 p-3 space-y-2 relative"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 11px, rgba(0,0,0,0.06) 12px)",
-                backgroundSize: "100% 12px",
-              }}
-            >
-              <div className="w-1/2 h-2 bg-stone-400 rounded-full" />
-              <div className="w-5/6 h-1.5 bg-stone-300 rounded-full" />
-              <div className="w-full h-1.5 bg-stone-300 rounded-full" />
-              <div className="w-4/5 h-1.5 bg-stone-300 rounded-full" />
-            </div>
-
-            {/* Right Page (Turning / Active notes) */}
-            <div
-              className="flex-1 p-3 space-y-2 relative"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 11px, rgba(0,0,0,0.06) 12px)",
-                backgroundSize: "100% 12px",
-              }}
-            >
-              <div className="w-1/3 h-2 bg-primary rounded-full" />
-              <div className="w-full h-1.5 bg-stone-300 rounded-full" />
-              <div className="w-full h-1.5 bg-stone-300 rounded-full" />
-              <div className="w-3/4 h-1.5 bg-stone-300 rounded-full" />
-
-              {/* Little illuminated gold star icon on the page */}
-              <Sparkles className="w-3.5 h-3.5 text-primary absolute bottom-3 right-3 animate-pulse" />
-            </div>
-          </div>
-
-          {/* Animated Page Flipping Layer overlay */}
-          <motion.div
-            className="absolute inset-1 bg-paper/90 origin-left border-l border-stone-300"
-            style={{
-              width: "50%",
-              left: "50%",
-              backfaceVisibility: "hidden",
-            }}
-            animate={{
-              rotateY: [0, -180, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-28 min-h-[90vh] flex flex-col justify-center">
-      {/* Custom Drifting Emitters */}
-      <CinematicParticles />
-
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10 z-20 w-full">
-        {/* Split screen layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Brand Info & Signpost */}
-          <div className="lg:col-span-7 space-y-8 text-left">
-            {/* Brand Logo and Subtitle */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="space-y-2"
-            >
-              <div className="font-serif text-3xl font-bold tracking-tight text-foreground">
-                <span className="text-brand-note">NOTE</span>
-                <span className="text-dusty">stalgia</span>
-                <span className="text-brand-note font-sans font-bold text-base ml-[1px]">.</span>
-              </div>
-
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[10px] font-display uppercase tracking-widest text-primary font-semibold">
-                <Sparkles className="w-3 h-3 text-primary animate-pulse" />
-                <span>Where Every Book Leaves a Memory</span>
-              </div>
-            </motion.div>
-
-            {/* Cinematic Headline */}
-            <div className="space-y-4">
-              <h1 className="font-serif text-5xl sm:text-[4vw] lg:text-[4.5rem] leading-[1.05] tracking-[-0.02em] text-foreground font-bold">
-                Where Books, Notes <br />
-                and <span className="text-primary italic">Memories</span> Come Together
-              </h1>
-
-              <p className="max-w-xl text-base md:text-lg text-foreground/80 leading-relaxed font-serif italic">
-                Step into an enchanted sanctuary where classic physical reading meets modern digital
-                notes. Acquire beautifully formatted volumes, handwritten study journals, and AI
-                character blueprints.
-              </p>
-            </div>
-
-            {/* Call to Actions */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              className="flex flex-wrap items-center gap-4 pt-2"
-            >
-              <a href="#collection" className="btn-primary group flex items-center gap-2">
-                <span>Explore Bookstore</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
-              <a href="#notebook" className="btn-ghost group flex items-center gap-2">
-                <span>Try the Journal</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
-            </motion.div>
-
-            {/* Happy Reader trust panel */}
-            <div className="mt-8 flex items-center gap-4 pt-4 border-t border-white/5 max-w-sm">
-              <div className="flex -space-x-2">
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"
-                  alt=""
-                  className="h-9 w-9 rounded-full border-2 border-background object-cover"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150"
-                  alt=""
-                  className="h-9 w-9 rounded-full border-2 border-background object-cover"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150"
-                  alt=""
-                  className="h-9 w-9 rounded-full border-2 border-background object-cover"
-                />
-              </div>
-              <div>
-                <div className="text-xs font-semibold text-foreground font-display uppercase tracking-wider">
-                  500+ Readers Enrolled
-                </div>
-                <div className="flex items-center gap-0.5 text-primary mt-0.5">
-                  <Star className="w-3.5 h-3.5 fill-current" />
-                  <Star className="w-3.5 h-3.5 fill-current" />
-                  <Star className="w-3.5 h-3.5 fill-current" />
-                  <Star className="w-3.5 h-3.5 fill-current" />
-                  <Star className="w-3.5 h-3.5 fill-current" />
-                </div>
-              </div>
-            </div>
+    <section className="relative overflow-hidden pt-20 pb-28 min-h-[70vh] flex flex-col justify-center">
+      <div className="relative mx-auto max-w-4xl px-6 md:px-10 z-20 w-full text-center flex flex-col items-center justify-center space-y-8">
+        {/* Brand Logo and Subtitle */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="space-y-3 flex flex-col items-center"
+        >
+          <div className="font-serif text-3xl font-bold tracking-tight text-foreground">
+            <span className="text-brand-note">NOTE</span>
+            <span className="text-dusty">stalgia</span>
+            <span className="text-brand-note font-sans font-bold text-base ml-[1px]">.</span>
           </div>
 
-          {/* Right Column: Cinematic 3D Book resting on Mossy Rock */}
-          <div className="lg:col-span-5 flex items-center justify-center min-h-[440px] relative">
-            <CinematicBook3D />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[10px] font-display uppercase tracking-widest text-primary font-semibold">
+            <Sparkles className="w-3 h-3 text-primary animate-pulse" />
+            <span>Where Every Book Leaves a Memory</span>
+          </div>
+        </motion.div>
+
+        {/* Cinematic Headline */}
+        <div className="space-y-4 max-w-3xl">
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-[4rem] leading-[1.1] tracking-[-0.02em] text-foreground font-bold">
+            Where Books, Notes <br />
+            and <span className="text-primary italic">Memories</span> Come Together
+          </h1>
+
+          <p className="max-w-2xl mx-auto text-sm sm:text-base text-foreground/80 leading-relaxed font-serif italic">
+            Acquire beautifully formatted volumes, handwritten study journals, and AI
+            character blueprints. Classic physical reading meets modern digital notes.
+          </p>
+        </div>
+
+        {/* Call to Actions */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="flex flex-wrap items-center justify-center gap-4 pt-2"
+        >
+          <a href="#collection" className="btn-primary group flex items-center gap-2">
+            <span>Explore Bookstore</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </a>
+          <a href="#notebook" className="btn-ghost group flex items-center gap-2">
+            <span>Try the Journal</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </a>
+        </motion.div>
+
+        {/* Happy Reader trust panel */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-border/40 w-full max-w-md justify-center">
+          <div className="flex -space-x-2">
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"
+              alt=""
+              className="h-9 w-9 rounded-full border-2 border-background object-cover"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150"
+              alt=""
+              className="h-9 w-9 rounded-full border-2 border-background object-cover"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150"
+              alt=""
+              className="h-9 w-9 rounded-full border-2 border-background object-cover"
+            />
+          </div>
+          <div className="text-left sm:text-left text-center">
+            <div className="text-[10px] font-semibold text-foreground font-display uppercase tracking-wider">
+              500+ Readers Enrolled
+            </div>
+            <div className="flex items-center justify-center sm:justify-start gap-0.5 text-primary mt-0.5">
+              <Star className="w-3.5 h-3.5 fill-current" />
+              <Star className="w-3.5 h-3.5 fill-current" />
+              <Star className="w-3.5 h-3.5 fill-current" />
+              <Star className="w-3.5 h-3.5 fill-current" />
+              <Star className="w-3.5 h-3.5 fill-current" />
+            </div>
           </div>
         </div>
       </div>
