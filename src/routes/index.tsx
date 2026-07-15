@@ -406,7 +406,7 @@ function CollectionPreview() {
             return (
               <article
                 key={book.id}
-                className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-border/40 bg-card p-4 transition-all duration-300 hover:shadow-lg hover:border-primary/20 text-left"
+                className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-border/40 bg-card p-4 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_-15px_rgba(8,41,1,0.2)] hover:border-primary/30 text-left"
               >
                 <div className="space-y-4">
                   {/* Book cover img */}
@@ -415,7 +415,7 @@ function CollectionPreview() {
                       src={book.cover_image || ""}
                       alt={book.title}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-102"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     {discount && (
                       <span className="absolute top-2.5 left-2.5 bg-berry text-cream text-[9px] font-display tracking-wider uppercase px-2 py-0.5 rounded-full font-semibold">
