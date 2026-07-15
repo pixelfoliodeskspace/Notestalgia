@@ -406,7 +406,7 @@ function CollectionPreview() {
             return (
               <article
                 key={book.id}
-                className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-border/40 bg-card p-4 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_-15px_rgba(8,41,1,0.2)] hover:border-primary/30 text-left"
+                className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-border/40 bg-card p-4 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_-15px_rgba(59,17,62,0.3)] hover:border-primary/30 text-left"
               >
                 <div className="space-y-4">
                   {/* Book cover img */}

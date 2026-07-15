@@ -66,51 +66,51 @@
   --radius: 0.5rem;
 
   /* Raw palette */
-  --cream: oklch(0.99 0.003 280); /* Bright cream */
-  --paper: oklch(0.97 0.005 280); /* Light grey-white */
-  --ink: #082901; /* Dark green */
-  --mustard: oklch(56% 0.20 280); /* Tentary purple */
-  --dusty: #082901; /* Dark green for secondary text/logo stalgia */
-  --faded: oklch(88% 0.04 280); /* Faded violet */
+  --cream: oklch(0.99 0.005 85); /* Off-white cream */
+  --paper: oklch(0.98 0.005 85); /* Light grey-cream */
+  --ink: oklch(20% 0.06 325); /* Dark plum for card text */
+  --mustard: oklch(85% 0.18 100); /* Bright yellow from SALT */
+  --dusty: oklch(98% 0.005 325); /* Creamy white for secondary text / logo stalgia */
+  --faded: oklch(88% 0.04 325); /* Faded violet */
 
-  --forest: oklch(56% 0.20 280); /* Tentary purple */
-  --sage: oklch(93% 0.01 280); /* Light lavender gray */
-  --walnut: #082901; /* Dark green */
-  --honey: oklch(96% 0.02 280); /* Very soft purple gray */
-  --berry: oklch(52% 0.18 340); /* Vibrant magenta/pink */
-  --gold: oklch(56% 0.20 280); /* Tentary purple */
+  --forest: oklch(68% 0.16 195); /* Bright teal/cyan from PEPPER */
+  --sage: oklch(93% 0.01 325); /* Light lavender gray */
+  --walnut: oklch(20% 0.06 325); /* Dark plum */
+  --honey: oklch(96% 0.02 325); /* Very soft purple gray */
+  --berry: oklch(85% 0.18 100); /* Bright yellow for highlights */
+  --gold: oklch(68% 0.16 195); /* Teal */
 
-  /* Semantic - Clean Tentary Light Theme */
-  --background: oklch(99% 0.003 280);
-  --foreground: #082901;
-  --card: #90EE90;
-  --card-foreground: #082901;
-  --popover: oklch(99% 0.003 280);
-  --popover-foreground: #082901;
-  --primary: oklch(56% 0.20 280);
+  /* Semantic - Salt N Pepper theme ratios */
+  --background: oklch(32% 0.13 325); /* 60% dominant - rich deep plum */
+  --foreground: oklch(98% 0.005 325); /* white/cream */
+  --card: oklch(98% 0.01 85); /* 30% secondary - cream cards */
+  --card-foreground: oklch(20% 0.06 325); /* dark plum */
+  --popover: oklch(28% 0.11 325); /* dark plum */
+  --popover-foreground: oklch(98% 0.005 325);
+  --primary: oklch(68% 0.16 195); /* 10% accent - teal */
   --primary-foreground: oklch(100% 0 0);
-  --secondary: oklch(94% 0.005 280);
-  --secondary-foreground: #082901;
-  --muted: oklch(96% 0.005 280);
-  --muted-foreground: oklch(50% 0.015 145);
-  --accent: oklch(56% 0.20 280);
+  --secondary: oklch(100% 0 0/0.08);
+  --secondary-foreground: oklch(98% 0.005 325);
+  --muted: oklch(100% 0 0/0.05);
+  --muted-foreground: oklch(80% 0.02 325);
+  --accent: oklch(68% 0.16 195);
   --accent-foreground: oklch(100% 0 0);
-  --destructive: oklch(60% 0.20 20);
+  --destructive: oklch(55% 0.20 20);
   --destructive-foreground: oklch(98% 0 0);
-  --border: oklch(90% 0.008 280);
-  --input: oklch(90% 0.008 280);
-  --ring: oklch(56% 0.20 280);
+  --border: oklch(100% 0 0/0.15);
+  --input: oklch(100% 0 0/0.1);
+  --ring: oklch(68% 0.16 195);
 
   --gradient-page: radial-gradient(
       1200px 900px at 15% -10%,
-      oklch(93% 0.04 280 / 0.7),
+      oklch(38% 0.15 325 / 0.8),
       transparent 75%
     ),
-    radial-gradient(900px 700px at 85% 90%, oklch(95% 0.03 260 / 0.5), transparent 60%),
-    linear-gradient(180deg, oklch(99% 0.003 280), oklch(97% 0.005 280));
-  --gradient-glass: linear-gradient(135deg, oklch(100% 0 0/0.8) 0%, oklch(100% 0 0/0.5) 100%);
-  --shadow-glass: 0 1px 0 0 oklch(100% 0 0/0.8) inset, 0 12px 30px -10px oklch(20% 0.05 280/0.08);
-  --shadow-soft: 0 12px 30px -10px oklch(20% 0.05 280/0.06);
+    radial-gradient(900px 700px at 85% 90%, oklch(24% 0.10 325 / 0.7), transparent 60%),
+    linear-gradient(180deg, oklch(32% 0.13 325), oklch(22% 0.09 325));
+  --gradient-glass: linear-gradient(135deg, oklch(100% 0 0/0.15) 0%, oklch(100% 0 0/0.05) 100%);
+  --shadow-glass: 0 1px 0 0 oklch(100% 0 0/0.2) inset, 0 12px 30px -10px oklch(20% 0.10 325/0.3);
+  --shadow-soft: 0 12px 30px -10px oklch(20% 0.10 325/0.25);
 }
 
 @keyframes wind-sway {
@@ -311,17 +311,17 @@
   font-family: var(--font-display);
   font-weight: 500;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 30px -12px oklch(56% 0.20 280/0.25);
+  box-shadow: 0 10px 30px -12px oklch(68% 0.16 195/0.25);
   cursor: pointer;
 
   &:hover {
     transform: translateY(-1.5px);
-    box-shadow: 0 18px 40px -14px oklch(56% 0.20 280/0.3);
+    box-shadow: 0 18px 40px -14px oklch(68% 0.16 195/0.3);
   }
 }
 
 @utility text-brand-note {
-  color: oklch(56% 0.20 280);
+  color: oklch(85% 0.18 100);
 }
 
 /* --- Fable Music inspired Glassmorphism and Blobs --- */
@@ -329,13 +329,13 @@
   background: var(--gradient-glass);
   backdrop-filter: blur(28px) saturate(150%);
   box-shadow: var(--shadow-glass);
-  border: 1px solid oklch(0% 0 0/0.08);
+  border: 1px solid oklch(100% 0 0/0.15);
 }
 
 @utility glass-soft {
   backdrop-filter: blur(18px) saturate(130%);
-  background: oklch(0% 0 0/0.03);
-  border: 1px solid oklch(0% 0 0/0.05);
+  background: oklch(100% 0 0/0.05);
+  border: 1px solid oklch(100% 0 0/0.08);
 }
 
 @utility float-blob {
