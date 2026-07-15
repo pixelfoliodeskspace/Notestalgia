@@ -286,7 +286,7 @@ function Hero() {
                 <span className="text-brand-note font-sans font-bold text-base ml-[1px]">.</span>
               </div>
 
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-forest/20 bg-white/5 backdrop-blur-sm text-[10px] font-display uppercase tracking-widest text-primary font-semibold">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[10px] font-display uppercase tracking-widest text-primary font-semibold">
                 <Sparkles className="w-3 h-3 text-primary animate-pulse" />
                 <span>Where Every Book Leaves a Memory</span>
               </div>
@@ -466,7 +466,7 @@ function NotebookSimulator() {
               className={`px-4 py-2 rounded-2xl border text-xs font-mono font-bold uppercase transition-all cursor-pointer ${
                 paperStyle === style
                   ? "bg-foreground text-background border-foreground shadow-sm"
-                  : "bg-white/5 border-white/5 text-foreground/80 hover:bg-white/10 hover:text-foreground"
+                  : "bg-secondary/40 border-border/40 text-foreground/80 hover:bg-secondary hover:text-foreground"
               }`}
             >
               {style} Paper
@@ -476,7 +476,7 @@ function NotebookSimulator() {
 
         <div className="mt-10 overflow-x-auto py-6 flex justify-center scrollbar-thin select-none">
           <div
-            className="relative w-[700px] h-[340px] shrink-0 select-none bg-white/5 border border-border/40 rounded-2xl shadow-xl p-6 flex flex-col justify-between"
+            className="relative w-[700px] h-[340px] shrink-0 select-none bg-card border border-border/40 rounded-2xl shadow-xl p-6 flex flex-col justify-between"
             style={renderPaperBackground()}
           >
             <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1.5px] bg-border/40 shadow-inner" />
@@ -484,7 +484,7 @@ function NotebookSimulator() {
             <div className="grid grid-cols-2 gap-12 h-full text-left pl-6 pr-6">
               <div className="space-y-4 flex flex-col justify-center border-r border-border/40 pr-6 h-full">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-display uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded text-foreground/60">
+                  <span className="text-[10px] font-display uppercase tracking-widest bg-secondary px-2 py-0.5 rounded text-foreground/60">
                     {currentPage.title}
                   </span>
                   <h4 className="font-serif text-lg font-bold text-foreground leading-tight">
@@ -647,7 +647,7 @@ function CollectionPreview() {
                 placeholder="Search collection..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white/5 pl-10 pr-4 py-2.5 border border-border/40 rounded-full font-sans text-xs focus:outline-none focus:border-border/40 text-foreground shadow-sm"
+                className="w-full bg-white pl-10 pr-4 py-2.5 border border-border/40 rounded-full font-sans text-xs focus:outline-none focus:border-border/40 text-foreground shadow-sm"
               />
               <Search className="w-4 h-4 text-foreground/60 absolute left-3.5 top-[18px]" />
             </div>
@@ -673,7 +673,7 @@ function CollectionPreview() {
                     className="group glass-soft overflow-hidden rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between text-left"
                   >
                     <div>
-                      <div className="aspect-[4/3] overflow-hidden relative border-b border-border/40 bg-white/5">
+                      <div className="aspect-[4/3] overflow-hidden relative border-b border-border/40 bg-secondary/40">
                         <img
                           src={book.cover_image || ""}
                           alt={book.title}
@@ -688,7 +688,7 @@ function CollectionPreview() {
                       </div>
 
                       <div className="p-4 space-y-2">
-                        <span className="text-[9px] font-display uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded text-foreground/60 w-fit block">
+                        <span className="text-[9px] font-display uppercase tracking-widest bg-secondary px-2 py-0.5 rounded text-foreground/60 w-fit block">
                           {book.category}
                         </span>
                         <h3 className="font-serif text-lg leading-tight font-bold text-foreground truncate">
@@ -847,7 +847,7 @@ function Testimonials() {
               {r.quote}
             </blockquote>
             <figcaption className="mt-6 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center border border-border/40 font-serif font-bold text-foreground">
+              <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center border border-border/40 font-serif font-bold text-foreground">
                 {r.author.slice(0, 1)}
               </div>
               <div>
