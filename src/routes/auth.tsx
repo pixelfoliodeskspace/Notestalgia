@@ -1,9 +1,8 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/hooks/use-auth";
 import { toast } from "sonner";
 
@@ -16,7 +15,6 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Sign in — Notestalgia" },
-      { name: "description", content: "Sign in to Notestalgia." },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -34,19 +32,25 @@ function AuthPage() {
 
   const cleanRedirect = redirect && redirect.startsWith("/") ? redirect : "/";
 
+  useEffect(() => {
+    if (user) {
+      navigate({ to: cleanRedirect });
+    }
+  }, [user, cleanRedirect, navigate]);
+
   async function handleGoogle() {
     setBusy(true);
     try {
-      const result = await lovable.auth.signInWithOAuth("google", {
-        redirect_uri: window.location.origin,
+      const redirectTo = `${window.location.origin}/auth?redirect=${encodeURIComponent(cleanRedirect)}`;
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo,
+        },
       });
-      if (result.error) {
-        toast.error(result.error.message ?? "Sign in failed");
-        setBusy(false);
-        return;
+      if (error) {
+        toast.error(error.message ?? "Sign in failed");
       }
-      if (result.redirected) return;
-      navigate({ to: cleanRedirect });
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Sign in failed");
     } finally {
