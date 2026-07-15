@@ -28,11 +28,6 @@ function Hero() {
             <span className="text-dusty">stalgia</span>
             <span className="text-brand-note font-sans font-bold text-base ml-[1px]">.</span>
           </div>
-
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[10px] font-display uppercase tracking-widest text-primary font-semibold">
-            <Sparkles className="w-3 h-3 text-primary animate-pulse" />
-            <span>Curated Bookstore</span>
-          </div>
         </motion.div>
 
         {/* Cinematic Headline */}
