@@ -364,132 +364,124 @@ function CollectionPreview() {
   );
 
   return (
-    <section id="collection" className="mx-auto mt-12 w-[min(96%,1200px)]">
-      <div className="glass rounded-[2.5rem] p-6 md:p-10">
-        <div className="grid gap-8 lg:grid-cols-[1fr_2.5fr]">
-          <div className="space-y-6 text-left">
-            <div className="flex items-center gap-2 font-serif text-3xl md:text-4xl text-foreground font-bold">
-              Popular Volumes
-              <Sparkles className="w-5 h-5 text-primary" />
-            </div>
-            <p className="text-sm text-muted-foreground font-serif italic">
-              Begin your study journey with our most popular formatted guides.
-            </p>
-
-            <div className="relative pt-2">
-              <input
-                type="text"
-                placeholder="Search collection..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white pl-10 pr-4 py-2.5 border border-border/40 rounded-full font-sans text-xs focus:outline-none focus:border-border/40 text-foreground shadow-sm"
-              />
-              <Search className="w-4 h-4 text-foreground/60 absolute left-3.5 top-[18px]" />
-            </div>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredBooks.length === 0 ? (
-              <div className="sm:col-span-2 lg:col-span-3 text-center py-12 text-xs font-serif text-foreground/60 italic">
-                No matching volumes found in the library.
-              </div>
-            ) : (
-              filteredBooks.map((book) => {
-                const discount =
-                  book.original_price && book.original_price > book.current_price
-                    ? Math.round(
-                        ((book.original_price - book.current_price) / book.original_price) * 100,
-                      )
-                    : null;
-
-                return (
-                  <article
-                    key={book.id}
-                    className="group glass-soft overflow-hidden rounded-3xl transition-all duration-500 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between text-left"
-                  >
-                    <div>
-                      <div className="aspect-[4/3] overflow-hidden relative border-b border-border/40 bg-secondary/40">
-                        <img
-                          src={book.cover_image || ""}
-                          alt={book.title}
-                          loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-103"
-                        />
-                        {discount && (
-                          <span className="absolute top-3 left-3 bg-berry text-cream text-[9px] font-display tracking-wider uppercase px-2 py-0.5 rounded-full">
-                            -{discount}%
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="p-4 space-y-2">
-                        <span className="text-[9px] font-display uppercase tracking-widest bg-secondary px-2 py-0.5 rounded text-foreground/60 w-fit block">
-                          {book.category}
-                        </span>
-                        <h3 className="font-serif text-lg leading-tight font-bold text-foreground truncate">
-                          {book.title}
-                        </h3>
-                        <p className="text-xs text-muted-foreground line-clamp-2 h-8 font-serif italic">
-                          {book.tagline || book.description}
-                        </p>
-
-                        <ul className="mt-3 space-y-1 pt-2 border-t border-border/40">
-                          <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
-                            <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
-                            <span>Pages: {book.pages || 48}</span>
-                          </li>
-                          <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
-                            <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
-                            <span>Language: {book.language || "English"}</span>
-                          </li>
-                          <li className="flex items-center gap-2 text-[10px] text-foreground/75 font-sans">
-                            <Check className="w-3.5 h-3.5 text-primary stroke-[3]" />
-                            <span>Includes AI Blueprints</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="p-4 pt-0 border-t border-border/40 mt-auto">
-                      <div className="flex items-center justify-between py-2.5">
-                        <span className="text-[10px] text-muted-foreground uppercase tracking-wider font-display">
-                          Format: PDF
-                        </span>
-                        <div className="text-right">
-                          <span className="font-display font-bold text-foreground">
-                            ₹{Number(book.current_price).toFixed(0)}
-                          </span>
-                          {book.original_price && book.original_price > book.current_price && (
-                            <span className="text-[10px] text-muted-foreground line-through ml-1.5">
-                              ₹{Number(book.original_price).toFixed(0)}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 mt-1">
-                        <a
-                          href={book.superprofile_url || "https://superprofile.bio/in"}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="btn-primary !px-2 !py-2 text-[10px] text-center w-full shadow-sm"
-                        >
-                          Harvest
-                        </a>
-                        <Link
-                          to="/book/$slug"
-                          params={{ slug: book.slug }}
-                          className="btn-ghost !px-2 !py-2 text-[10px] text-center w-full"
-                        >
-                          Explore
-                        </Link>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })
-            )}
-          </div>
+    <section id="collection" className="mx-auto mt-8 w-[min(96%,1200px)]">
+      <div className="flex flex-col items-center text-center space-y-4 mb-10 max-w-2xl mx-auto">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-display uppercase tracking-widest font-semibold">
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>Popular Volumes</span>
         </div>
+        <h2 className="font-serif text-3xl md:text-5xl text-foreground font-bold tracking-tight">
+          Explore Our Collection
+        </h2>
+        <p className="text-sm text-muted-foreground font-serif italic">
+          Begin your study journey with our popular formatted guides.
+        </p>
+
+        <div className="relative w-full max-w-md pt-2">
+          <input
+            type="text"
+            placeholder="Search collection..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-white pl-10 pr-4 py-2.5 border border-border/40 rounded-full font-sans text-xs focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 text-foreground shadow-sm transition-all"
+          />
+          <Search className="w-4 h-4 text-foreground/60 absolute left-3.5 top-[18px]" />
+        </div>
+      </div>
+
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {filteredBooks.length === 0 ? (
+          <div className="sm:col-span-2 lg:col-span-4 text-center py-16 text-xs font-serif text-foreground/60 italic">
+            No matching volumes found in the library.
+          </div>
+        ) : (
+          filteredBooks.map((book) => {
+            const discount =
+              book.original_price && book.original_price > book.current_price
+                ? Math.round(
+                    ((book.original_price - book.current_price) / book.original_price) * 100,
+                  )
+                : null;
+
+            return (
+              <article
+                key={book.id}
+                className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-border/40 bg-card p-4 transition-all duration-300 hover:shadow-lg hover:border-primary/20 text-left"
+              >
+                <div className="space-y-4">
+                  {/* Book cover img */}
+                  <div className="aspect-[4/3] overflow-hidden relative rounded-2xl bg-secondary/40 border border-border/20">
+                    <img
+                      src={book.cover_image || ""}
+                      alt={book.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-102"
+                    />
+                    {discount && (
+                      <span className="absolute top-2.5 left-2.5 bg-berry text-cream text-[9px] font-display tracking-wider uppercase px-2 py-0.5 rounded-full font-semibold">
+                        -{discount}%
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Title & info */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[9px] font-display uppercase tracking-widest text-primary font-semibold">
+                        {book.category}
+                      </span>
+                      <span className="text-[9px] text-muted-foreground uppercase font-mono">
+                        PDF
+                      </span>
+                    </div>
+                    <h3 className="font-serif text-base font-bold text-foreground truncate group-hover:text-primary transition-colors">
+                      {book.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground line-clamp-2 h-8 font-serif italic leading-relaxed">
+                      {book.tagline || book.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-border/40 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-muted-foreground font-display uppercase tracking-wider">
+                      Price
+                    </span>
+                    <div className="flex items-baseline gap-1.5">
+                      {book.original_price && book.original_price > book.current_price && (
+                        <span className="text-[10px] text-muted-foreground line-through">
+                          ₹{Number(book.original_price).toFixed(0)}
+                        </span>
+                      )}
+                      <span className="font-display font-bold text-sm text-foreground">
+                        ₹{Number(book.current_price).toFixed(0)}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <a
+                      href={book.superprofile_url || "https://superprofile.bio/in"}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn-primary !px-2 !py-2 text-[10px] text-center w-full shadow-sm rounded-xl font-semibold"
+                    >
+                      Buy Now
+                    </a>
+                    <Link
+                      to="/book/$slug"
+                      params={{ slug: book.slug }}
+                      className="btn-ghost !px-2 !py-2 text-[10px] text-center w-full rounded-xl"
+                    >
+                      Details
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            );
+          })
+        )}
       </div>
     </section>
   );
@@ -518,23 +510,18 @@ function CuratorShowcase() {
             Read, study &amp; reflect deeply.
           </h2>
           <p className="text-sm text-muted-foreground font-serif italic">
-            "At NOTEStalgia, we believe in restoring the magic of study. Our AI blueprints and
-            children's book collection are designed to help students read deeply — not just pass
-            tests — making high-quality notes universally accessible."
+            Notestalgia is a curated haven for readers who wish to bridge the gap between classic literature, modern study logs, and dynamic AI-powered roleplay files.
           </p>
-          <div className="flex flex-wrap gap-3 pt-3">
+          <div className="pt-4">
             <a
               href="https://wa.me/919645767284?text=I%27d%20like%20to%20learn%20more%20about%20Notestalgia%20guides"
               target="_blank"
               rel="noreferrer"
-              className="btn-primary flex items-center gap-1.5"
+              className="btn-primary w-fit flex items-center gap-2"
             >
-              Meet the Curator
+              Contact Curator
               <ArrowRight className="w-4 h-4" />
             </a>
-            <Link to="/collection" className="btn-ghost">
-              Read Our Blog
-            </Link>
           </div>
         </div>
       </div>
@@ -546,7 +533,7 @@ function Testimonials() {
   const reviews = [
     {
       quote:
-        "The formatted layout and AI Blueprints are incredibly detailed. I finished and understood the whole book in a single evening.",
+        "The AI blueprints bring the characters to life. It transformed my notes from static pages to interactive dialogues.",
       author: "Anjali S.",
       role: "Student",
     },
@@ -599,13 +586,13 @@ function Testimonials() {
 
 function Home() {
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-16 pb-12">
       <Hero />
+      <CollectionPreview />
       <NotebookSimulator />
       <FeatureCards />
       <StatsBar />
       <CuratorShowcase />
-      <CollectionPreview />
       <Testimonials />
     </div>
   );
