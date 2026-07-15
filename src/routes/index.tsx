@@ -281,9 +281,9 @@ function Hero() {
               className="space-y-2"
             >
               <div className="font-serif text-3xl font-bold tracking-tight text-foreground">
-                <span className="text-mustard">NOTE</span>
+                <span className="text-brand-note">NOTE</span>
                 <span className="text-dusty">stalgia</span>
-                <span className="text-mustard font-sans font-bold text-base ml-[1px]">.</span>
+                <span className="text-brand-note font-sans font-bold text-base ml-[1px]">.</span>
               </div>
 
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-forest/20 bg-white/5 backdrop-blur-sm text-[10px] font-display uppercase tracking-widest text-primary font-semibold">

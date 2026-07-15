@@ -320,6 +320,10 @@
   }
 }
 
+@utility text-brand-note {
+  color: #082901;
+}
+
 /* --- Fable Music inspired Glassmorphism and Blobs --- */
 @utility glass {
   background: var(--gradient-glass);
