@@ -83,8 +83,8 @@
   /* Semantic - Salt N Pepper theme ratios */
   --background: oklch(32% 0.13 325); /* 60% dominant - rich deep plum */
   --foreground: oklch(98% 0.005 325); /* white/cream */
-  --card: oklch(98% 0.01 85); /* 30% secondary - cream cards */
-  --card-foreground: oklch(20% 0.06 325); /* dark plum */
+  --card: oklch(24% 0.11 325); /* 30% secondary - rich dark plum cards */
+  --card-foreground: oklch(98% 0.005 325); /* white/cream */
   --popover: oklch(28% 0.11 325); /* dark plum */
   --popover-foreground: oklch(98% 0.005 325);
   --primary: oklch(68% 0.16 195); /* 10% accent - teal */

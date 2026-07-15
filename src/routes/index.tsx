@@ -378,7 +378,7 @@ function CollectionPreview() {
             placeholder="Search collection..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white pl-10 pr-4 py-2.5 border border-border/40 rounded-full font-sans text-xs focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 text-foreground shadow-sm transition-all"
+            className="w-full bg-white/10 pl-10 pr-4 py-2.5 border border-border/40 rounded-full font-sans text-xs focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 text-foreground shadow-sm transition-all placeholder:text-foreground/40"
           />
           <Search className="w-4 h-4 text-foreground/60 absolute left-3.5 top-[18px]" />
         </div>
