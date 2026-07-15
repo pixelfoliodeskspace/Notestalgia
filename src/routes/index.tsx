@@ -31,15 +31,15 @@ function Hero() {
 
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-sm text-[10px] font-display uppercase tracking-widest text-primary font-semibold">
             <Sparkles className="w-3 h-3 text-primary animate-pulse" />
-            <span>Where Every Book Leaves a Memory</span>
+            <span>Curated Bookstore</span>
           </div>
         </motion.div>
 
         {/* Cinematic Headline */}
         <div className="space-y-4 max-w-3xl">
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-[4rem] leading-[1.1] tracking-[-0.02em] text-foreground">
-            Where Books, Notes <br />
-            and <span className="text-primary italic">Memories</span> Come Together
+            Where Every Book <br />
+            Leaves a <span className="text-primary italic">Memory</span>
           </h1>
 
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-foreground/80 leading-relaxed font-serif italic">
