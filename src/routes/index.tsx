@@ -288,7 +288,7 @@ function Hero() {
 
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-forest/20 bg-white/5 backdrop-blur-sm text-[10px] font-display uppercase tracking-widest text-primary font-semibold">
                 <Sparkles className="w-3 h-3 text-primary animate-pulse" />
-                <span>Nostalgia Meets Modern Learning</span>
+                <span>Where Every Book Leaves a Memory</span>
               </div>
             </motion.div>
 
