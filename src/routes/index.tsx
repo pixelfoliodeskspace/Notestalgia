@@ -487,48 +487,6 @@ function CollectionPreview() {
   );
 }
 
-function CuratorShowcase() {
-  return (
-    <section id="about" className="mx-auto mt-8 w-[min(96%,1200px)]">
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="glass overflow-hidden rounded-[2rem] p-2">
-          <div className="relative overflow-hidden rounded-[1.6rem]">
-            <img
-              src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=600"
-              alt="Notestalgia Curator Desk"
-              loading="lazy"
-              className="aspect-[4/3] w-full object-cover"
-            />
-          </div>
-        </div>
-        <div className="glass flex flex-col justify-center rounded-[2rem] p-8 md:p-12 space-y-4 text-left">
-          <div className="text-xs tracking-[0.2em] text-muted-foreground uppercase flex items-center gap-1 font-display">
-            About the Library
-            <Sparkles className="w-3 h-3 text-primary" />
-          </div>
-          <h2 className="font-serif text-3xl leading-tight md:text-5xl text-foreground font-bold">
-            Read, study &amp; reflect deeply.
-          </h2>
-          <p className="text-sm text-muted-foreground font-serif italic">
-            Notestalgia is a curated haven for readers who wish to bridge the gap between classic literature, modern study logs, and dynamic AI-powered roleplay files.
-          </p>
-          <div className="pt-4">
-            <a
-              href="https://wa.me/919645767284?text=I%27d%20like%20to%20learn%20more%20about%20Notestalgia%20guides"
-              target="_blank"
-              rel="noreferrer"
-              className="btn-primary w-fit flex items-center gap-2"
-            >
-              Contact Curator
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Testimonials() {
   const reviews = [
     {
@@ -592,7 +550,6 @@ function Home() {
       <NotebookSimulator />
       <FeatureCards />
       <StatsBar />
-      <CuratorShowcase />
       <Testimonials />
     </div>
   );
