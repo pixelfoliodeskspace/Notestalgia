@@ -3,6 +3,7 @@ import {
   Outlet,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -142,6 +143,8 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
+  const state = useRouterState();
+  const isHome = state.location.pathname === "/";
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
@@ -157,7 +160,7 @@ function RootComponent() {
       <div className="min-h-screen text-foreground">
         <Grain />
         <SiteNav />
-        <main className="pt-16">
+        <main className={isHome ? "pt-0" : "pt-16"}>
           <Outlet />
         </main>
         <SiteFooter />
