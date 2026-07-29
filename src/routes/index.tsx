@@ -22,11 +22,11 @@ function Hero() {
       <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] pointer-events-none z-0" />
       <div className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-purple-900/40 rounded-full blur-[160px] pointer-events-none z-0" />
       
-      {/* Layered Floating Assets (Exactly as shown in mockup) */}
+      {/* Layered Floating Assets (100% Matching Layout Diagram) */}
       
-      {/* 1. Purple Closed Book (Left Top) */}
+      {/* 07. LEFT FLOATING BOOK */}
       <div 
-        className="absolute left-[8%] top-[15%] w-36 sm:w-44 md:w-56 aspect-[3/4] z-10 pointer-events-none select-none hidden md:block"
+        className="absolute left-[5%] top-[18%] w-36 sm:w-44 md:w-56 aspect-[3/4] z-10 pointer-events-none select-none hidden md:block"
         style={{
           animation: "book-float-cinematic 8s ease-in-out infinite",
           filter: "drop-shadow(0 25px 45px rgba(0,0,0,0.65))"
@@ -34,55 +34,143 @@ function Hero() {
       >
         <img 
           src="/book-asset.jpg" 
-          alt="Vintage Book" 
+          alt="Left Floating Book" 
           className="w-full h-full object-contain rounded-2xl" 
         />
-        {/* Soft violet highlight behind book */}
         <div className="absolute inset-0 bg-primary/10 rounded-2xl blur-xl -z-10 animate-pulse" />
       </div>
 
-      {/* 2. White Feather Quill (Left Bottom) */}
+      {/* 08. RIGHT FLOATING BOOK (BLURRED) */}
       <div 
-        className="absolute left-[3%] bottom-[12%] w-44 sm:w-56 md:w-72 aspect-[3/4] z-20 pointer-events-none select-none hidden md:block"
+        className="absolute right-[22%] top-[12%] w-28 sm:w-36 aspect-square z-0 pointer-events-none select-none hidden lg:block opacity-65"
         style={{
-          animation: "quill-sway-cinematic 10s ease-in-out infinite",
-          filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))"
+          animation: "book-blur-float 10s ease-in-out infinite",
+          filter: "blur(2px) drop-shadow(0 15px 25px rgba(0,0,0,0.5))"
         }}
       >
         <img 
-          src="/feather-asset.jpg" 
-          alt="Feather Quill" 
+          src="/book-blurred.jpg" 
+          alt="Blurred Book" 
           className="w-full h-full object-contain" 
         />
       </div>
 
-      {/* 3. Magic Glowing Book (Right Bottom) */}
+      {/* 09. SMALL RIGHT BOOK */}
       <div 
-        className="absolute right-[5%] bottom-[8%] w-60 sm:w-80 md:w-[28rem] aspect-[4/3] z-10 pointer-events-none select-none hidden md:block"
+        className="absolute right-[8%] bottom-[32%] w-32 sm:w-40 aspect-square z-10 pointer-events-none select-none hidden md:block"
         style={{
-          filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.85))"
+          animation: "book-float-cinematic 9s ease-in-out infinite 1s",
+          filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.6))"
+        }}
+      >
+        <img 
+          src="/book-small.jpg" 
+          alt="Small Book" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+
+      {/* 10. MAIN OPEN BOOK (BOTTOM RIGHT) */}
+      <div 
+        className="absolute right-[2%] bottom-[6%] w-64 sm:w-80 md:w-[32rem] aspect-[4/3] z-10 pointer-events-none select-none hidden md:block"
+        style={{
+          filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.9))"
         }}
       >
         <img 
           src="/glowing-book-asset.jpg" 
-          alt="Glowing Book" 
+          alt="Glowing Open Book" 
           className="w-full h-full object-contain" 
         />
-        {/* Golden glow shimmer rays */}
         <div 
-          className="absolute inset-0 bg-radial from-amber-500/20 to-transparent mix-blend-screen pointer-events-none"
+          className="absolute inset-0 bg-radial from-amber-500/25 to-transparent mix-blend-screen pointer-events-none"
           style={{
             animation: "book-glow-pulse 4s ease-in-out infinite"
           }}
         />
       </div>
 
-      {/* 4. Vintage Lantern (Right Middle) */}
+      {/* 11, 12, 13. FEATHERS (LARGE, MEDIUM, SMALL) */}
+      {/* Large Feather (Bottom Left) */}
       <div 
-        className="absolute right-[1%] top-[20%] w-36 sm:w-44 md:w-56 aspect-[3/4] z-10 pointer-events-none select-none hidden md:block"
+        className="absolute left-[2%] bottom-[10%] w-48 sm:w-60 md:w-72 aspect-square z-20 pointer-events-none select-none hidden md:block"
         style={{
-          animation: "book-float-cinematic 11s ease-in-out infinite",
-          filter: "drop-shadow(0 25px 40px rgba(0,0,0,0.7))"
+          animation: "quill-sway-cinematic 9s ease-in-out infinite",
+          filter: "drop-shadow(0 15px 25px rgba(0,0,0,0.4))"
+        }}
+      >
+        <img 
+          src="/feather-large.jpg" 
+          alt="Large Feather" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+
+      {/* Medium Feather (Left Center) */}
+      <div 
+        className="absolute left-[16%] top-[38%] w-24 sm:w-32 aspect-square z-10 pointer-events-none select-none hidden md:block opacity-75"
+        style={{
+          animation: "quill-sway-cinematic 12s ease-in-out infinite 1.5s",
+          filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.3))"
+        }}
+      >
+        <img 
+          src="/feather-medium.jpg" 
+          alt="Medium Feather" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+
+      {/* Small Feather (Left Inner) */}
+      <div 
+        className="absolute left-[28%] bottom-[35%] w-16 sm:w-20 aspect-square z-10 pointer-events-none select-none hidden lg:block opacity-60"
+        style={{
+          animation: "quill-sway-cinematic 15s ease-in-out infinite 3s",
+          filter: "drop-shadow(0 5px 8px rgba(0,0,0,0.2))"
+        }}
+      >
+        <img 
+          src="/feather-small.jpg" 
+          alt="Small Feather" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+
+      {/* 14, 15. MAGIC LIGHT TRAILS */}
+      {/* Light Trail 01 */}
+      <div 
+        className="absolute left-[8%] bottom-[5%] w-80 md:w-[32rem] aspect-[4/3] z-10 pointer-events-none select-none hidden md:block mix-blend-screen"
+        style={{
+          animation: "trail-drift-01 10s ease-in-out infinite"
+        }}
+      >
+        <img 
+          src="/light-trail.jpg" 
+          alt="Light Trail Left" 
+          className="w-full h-full object-contain opacity-60" 
+        />
+      </div>
+
+      {/* Light Trail 02 */}
+      <div 
+        className="absolute right-[12%] bottom-[15%] w-80 md:w-[32rem] aspect-[4/3] z-10 pointer-events-none select-none hidden md:block mix-blend-screen"
+        style={{
+          animation: "trail-drift-02 12s ease-in-out infinite 2s"
+        }}
+      >
+        <img 
+          src="/light-trail.jpg" 
+          alt="Light Trail Right" 
+          className="w-full h-full object-contain opacity-50 transform scale-x-[-1]" 
+        />
+      </div>
+
+      {/* 23. LANTERN */}
+      <div 
+        className="absolute right-[0%] top-[24%] w-36 sm:w-44 md:w-52 aspect-[3/4] z-10 pointer-events-none select-none hidden md:block"
+        style={{
+          animation: "book-float-cinematic 13s ease-in-out infinite",
+          filter: "drop-shadow(0 20px 35px rgba(0,0,0,0.75))"
         }}
       >
         <img 
@@ -92,24 +180,20 @@ function Hero() {
         />
       </div>
 
-      {/* 5. Sparkles / Rising Magic Dust particles */}
-      <div className="absolute inset-0 z-10 pointer-events-none hidden md:block overflow-hidden">
-        {/* Sparkle 1 */}
+      {/* 18. PARTICLES (DUST) & MAGIC SPARKLES */}
+      <div className="absolute inset-0 z-15 pointer-events-none hidden md:block overflow-hidden">
         <div 
           className="absolute bottom-[20%] right-[30%] w-2 h-2 rounded-full bg-amber-400 blur-[1px] opacity-0"
           style={{ animation: "spark-rising-slow 7s linear infinite" }}
         />
-        {/* Sparkle 2 */}
         <div 
           className="absolute bottom-[15%] right-[22%] w-1.5 h-1.5 rounded-full bg-amber-300 blur-[1px] opacity-0"
           style={{ animation: "spark-rising-fast 5s linear infinite 1.5s" }}
         />
-        {/* Sparkle 3 */}
         <div 
           className="absolute bottom-[25%] right-[15%] w-2.5 h-2.5 rounded-full bg-amber-400/80 blur-[2px] opacity-0"
           style={{ animation: "spark-rising-slow 9s linear infinite 3s" }}
         />
-        {/* Sparkle 4 */}
         <div 
           className="absolute bottom-[10%] right-[28%] w-1 h-1 rounded-full bg-amber-200 opacity-0"
           style={{ animation: "spark-rising-fast 6s linear infinite 4.2s" }}
