@@ -1,6 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useIsAdmin } from "@/hooks/use-is-admin";
 import { Menu } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Sheet,
   SheetContent,
