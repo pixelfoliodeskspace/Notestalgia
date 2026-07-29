@@ -246,7 +246,7 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.7rem 1.4rem;
-  color: var(--ink);
+  color: currentColor;
   border: 1px solid var(--border);
   border-radius: 999px;
   font-family: var(--font-display);
@@ -254,8 +254,9 @@
   transition: all 0.35s ease;
 
   &:hover {
-    background: var(--paper);
-    border-color: var(--ink);
+    background: var(--foreground);
+    color: var(--background);
+    border-color: var(--foreground);
   }
 }
 
