@@ -31,8 +31,7 @@ function Hero() {
         >
           <div className="flex items-center gap-2 text-primary/40 mb-3">
             <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-primary/40" />
-            <span className="text-xs">✦</span>
-            <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-primary/40" />
+                        <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-primary/40" />
           </div>
           <img 
             src="/gold-logo.png" 
