@@ -16,11 +16,105 @@ const TITLE = "NOTEStalgia";
 function Hero() {
   return (
     <section 
-      className="relative min-h-[92vh] flex flex-col justify-between pt-24 pb-10 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+      className="relative min-h-[92vh] flex flex-col justify-between pt-24 pb-10 overflow-hidden bg-[#1c0f24]"
     >
-      {/* Dark vignette overlay for contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background/90 z-10" />
+      {/* Cinematic Ambient Background Blurs / Light Leak Blobs */}
+      <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-purple-900/40 rounded-full blur-[160px] pointer-events-none z-0" />
+      
+      {/* Layered Floating Assets (Exactly as shown in mockup) */}
+      
+      {/* 1. Purple Closed Book (Left Top) */}
+      <div 
+        className="absolute left-[8%] top-[15%] w-36 sm:w-44 md:w-56 aspect-[3/4] z-10 pointer-events-none select-none hidden md:block"
+        style={{
+          animation: "book-float-cinematic 8s ease-in-out infinite",
+          filter: "drop-shadow(0 25px 45px rgba(0,0,0,0.65))"
+        }}
+      >
+        <img 
+          src="/book-asset.jpg" 
+          alt="Vintage Book" 
+          className="w-full h-full object-contain rounded-2xl" 
+        />
+        {/* Soft violet highlight behind book */}
+        <div className="absolute inset-0 bg-primary/10 rounded-2xl blur-xl -z-10 animate-pulse" />
+      </div>
+
+      {/* 2. White Feather Quill (Left Bottom) */}
+      <div 
+        className="absolute left-[3%] bottom-[12%] w-44 sm:w-56 md:w-72 aspect-[3/4] z-20 pointer-events-none select-none hidden md:block"
+        style={{
+          animation: "quill-sway-cinematic 10s ease-in-out infinite",
+          filter: "drop-shadow(0 20px 30px rgba(0,0,0,0.5))"
+        }}
+      >
+        <img 
+          src="/feather-asset.jpg" 
+          alt="Feather Quill" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+
+      {/* 3. Magic Glowing Book (Right Bottom) */}
+      <div 
+        className="absolute right-[5%] bottom-[8%] w-60 sm:w-80 md:w-[28rem] aspect-[4/3] z-10 pointer-events-none select-none hidden md:block"
+        style={{
+          filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.85))"
+        }}
+      >
+        <img 
+          src="/glowing-book-asset.jpg" 
+          alt="Glowing Book" 
+          className="w-full h-full object-contain" 
+        />
+        {/* Golden glow shimmer rays */}
+        <div 
+          className="absolute inset-0 bg-radial from-amber-500/20 to-transparent mix-blend-screen pointer-events-none"
+          style={{
+            animation: "book-glow-pulse 4s ease-in-out infinite"
+          }}
+        />
+      </div>
+
+      {/* 4. Vintage Lantern (Right Middle) */}
+      <div 
+        className="absolute right-[1%] top-[20%] w-36 sm:w-44 md:w-56 aspect-[3/4] z-10 pointer-events-none select-none hidden md:block"
+        style={{
+          animation: "book-float-cinematic 11s ease-in-out infinite",
+          filter: "drop-shadow(0 25px 40px rgba(0,0,0,0.7))"
+        }}
+      >
+        <img 
+          src="/lantern-asset.jpg" 
+          alt="Vintage Lantern" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+
+      {/* 5. Sparkles / Rising Magic Dust particles */}
+      <div className="absolute inset-0 z-10 pointer-events-none hidden md:block overflow-hidden">
+        {/* Sparkle 1 */}
+        <div 
+          className="absolute bottom-[20%] right-[30%] w-2 h-2 rounded-full bg-amber-400 blur-[1px] opacity-0"
+          style={{ animation: "spark-rising-slow 7s linear infinite" }}
+        />
+        {/* Sparkle 2 */}
+        <div 
+          className="absolute bottom-[15%] right-[22%] w-1.5 h-1.5 rounded-full bg-amber-300 blur-[1px] opacity-0"
+          style={{ animation: "spark-rising-fast 5s linear infinite 1.5s" }}
+        />
+        {/* Sparkle 3 */}
+        <div 
+          className="absolute bottom-[25%] right-[15%] w-2.5 h-2.5 rounded-full bg-amber-400/80 blur-[2px] opacity-0"
+          style={{ animation: "spark-rising-slow 9s linear infinite 3s" }}
+        />
+        {/* Sparkle 4 */}
+        <div 
+          className="absolute bottom-[10%] right-[28%] w-1 h-1 rounded-full bg-amber-200 opacity-0"
+          style={{ animation: "spark-rising-fast 6s linear infinite 4.2s" }}
+        />
+      </div>
 
       {/* Main Content */}
       <div className="relative mx-auto max-w-4xl px-6 md:px-10 z-20 w-full text-center flex flex-col items-center justify-center my-auto space-y-6">
@@ -56,7 +150,7 @@ function Hero() {
             <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-primary/40" />
           </div>
 
-          <p className="max-w-2xl mx-auto text-sm sm:text-base text-foreground/90 leading-relaxed font-serif italic">
+          <p className="max-w-2xl mx-auto text-sm sm:text-base text-foreground/95 leading-relaxed font-serif italic">
             Acquire beautifully formatted volumes, handwritten study journals, and AI
             character blueprints. Classic physical reading meets modern digital notes.
           </p>
