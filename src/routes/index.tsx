@@ -29,11 +29,11 @@ function Hero() {
           transition={{ duration: 0.6 }}
           className="space-y-3 flex flex-col items-center"
         >
-          <div className="font-serif text-3xl font-bold tracking-tight text-foreground">
-            <span className="text-brand-note">NOTE</span>
-            <span className="text-dusty">stalgia</span>
-            <span className="text-brand-note font-sans font-bold text-base ml-[1px]">.</span>
-          </div>
+          <img 
+            src="/gold-logo.png" 
+            alt="NOTEstalgia" 
+            className="h-10 sm:h-12 w-auto object-contain select-none" 
+          />
         </motion.div>
 
         {/* Cinematic Headline */}
