@@ -15,7 +15,13 @@ const TITLE = "NOTEStalgia";
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-28 min-h-[70vh] flex flex-col justify-center">
+    <section 
+      className="relative overflow-hidden pt-20 pb-28 min-h-[70vh] flex flex-col justify-center bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+    >
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-background/55 z-10 pointer-events-none" />
+
       <div className="relative mx-auto max-w-4xl px-6 md:px-10 z-20 w-full text-center flex flex-col items-center justify-center space-y-8">
         {/* Brand Logo and Subtitle */}
         <motion.div
