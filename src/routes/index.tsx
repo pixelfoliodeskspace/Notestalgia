@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense, useState, useEffect } from "react";
 import { publishedBooksQuery } from "@/lib/books";
-import { ArrowRight, Sparkles, Search, BookOpen, Check, Star, Shield, ChevronDown } from "lucide-react";
+import { ArrowRight, Sparkles, Search, BookOpen, Check, Star } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/")({
@@ -15,48 +15,30 @@ const TITLE = "NOTEStalgia";
 
 function Hero() {
   return (
-    <section 
-      className="relative min-h-[92vh] flex flex-col justify-between pt-24 pb-10 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/hero-bg.jpg')" }}
-    >
-      {/* Dark vignette overlay for contrast */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background/90 z-10" />
-
-      {/* Main Content */}
-      <div className="relative mx-auto max-w-4xl px-6 md:px-10 z-20 w-full text-center flex flex-col items-center justify-center my-auto space-y-6">
-        {/* Star Divider & Logo */}
+    <section className="relative overflow-hidden pt-20 pb-28 min-h-[70vh] flex flex-col justify-center">
+      <div className="relative mx-auto max-w-4xl px-6 md:px-10 z-20 w-full text-center flex flex-col items-center justify-center space-y-8">
+        {/* Brand Logo and Subtitle */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="space-y-3 flex flex-col items-center"
         >
-          <div className="flex items-center gap-2 text-primary">
-            <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-primary" />
-            <span className="text-xs">✦</span>
-            <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-primary" />
-          </div>
-          <div className="font-serif text-3xl font-bold tracking-tight text-foreground select-none">
+          <div className="font-serif text-3xl font-bold tracking-tight text-foreground">
             <span className="text-brand-note">NOTE</span>
-            <span className="text-foreground">stalgia</span>
+            <span className="text-dusty">stalgia</span>
             <span className="text-brand-note font-sans font-bold text-base ml-[1px]">.</span>
           </div>
         </motion.div>
 
         {/* Cinematic Headline */}
-        <div className="space-y-6 max-w-3xl">
-          <h1 className="font-serif text-5xl sm:text-6xl lg:text-[4.25rem] leading-[1.05] tracking-tight text-foreground font-bold">
+        <div className="space-y-4 max-w-3xl">
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-[4rem] leading-[1.1] tracking-[-0.02em] text-foreground">
             Where Every Book <br />
-            Keeps a <span className="text-primary italic font-serif">Memory</span>
+            Keeps a <span className="text-primary italic">Memory</span>
           </h1>
 
-          <div className="flex items-center justify-center gap-3 text-primary/40">
-            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-primary/40" />
-            <span className="text-xs">❦</span>
-            <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-primary/40" />
-          </div>
-
-          <p className="max-w-2xl mx-auto text-sm sm:text-base text-foreground/90 leading-relaxed font-serif italic">
+          <p className="max-w-2xl mx-auto text-sm sm:text-base text-foreground/80 leading-relaxed font-serif italic">
             Acquire beautifully formatted volumes, handwritten study journals, and AI
             character blueprints. Classic physical reading meets modern digital notes.
           </p>
@@ -66,111 +48,46 @@ function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="pt-4"
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="flex flex-wrap items-center justify-center gap-4 pt-2"
         >
-          <a 
-            href="#collection" 
-            className="btn-primary group flex items-center gap-2 shadow-[0_0_30px_rgba(13,148,136,0.4)] hover:shadow-[0_0_40px_rgba(13,148,136,0.6)] transition-all duration-300"
-          >
+          <a href="#collection" className="btn-primary group flex items-center gap-2">
             <span>Explore Bookstore</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </a>
         </motion.div>
-      </div>
 
-      {/* Floating Glassmorphic Info Bar & Review Module */}
-      <div className="relative z-20 w-full max-w-6xl mx-auto px-6 mt-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="glass rounded-[2rem] p-6 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] backdrop-blur-xl grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 items-center"
-        >
-          {/* Features Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
-            <div className="flex gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-primary">
-                <BookOpen className="w-4 h-4" />
-              </div>
-              <div className="space-y-0.5">
-                <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider font-display">Premium Collections</h4>
-                <p className="text-[10px] text-muted-foreground font-serif italic">Curated with care</p>
-              </div>
+        {/* Happy Reader trust panel */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-border/40 w-full max-w-md justify-center">
+          <div className="flex -space-x-2">
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"
+              alt=""
+              className="h-9 w-9 rounded-full border-2 border-background object-cover"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150"
+              alt=""
+              className="h-9 w-9 rounded-full border-2 border-background object-cover"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150"
+              alt=""
+              className="h-9 w-9 rounded-full border-2 border-background object-cover"
+            />
+          </div>
+          <div className="text-left sm:text-left text-center">
+            <div className="text-[10px] font-semibold text-foreground font-display uppercase tracking-wider">
+              500+ Readers Enrolled
             </div>
-
-            <div className="flex gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-primary">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <div className="space-y-0.5">
-                <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider font-display">Handwritten Journals</h4>
-                <p className="text-[10px] text-muted-foreground font-serif italic">Authentic & personal</p>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-primary font-display font-bold text-xs select-none">
-                AI
-              </div>
-              <div className="space-y-0.5">
-                <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider font-display">AI Character Blueprints</h4>
-                <p className="text-[10px] text-muted-foreground font-serif italic font-semibold">For creators & dreamers</p>
-              </div>
-            </div>
-
-            <div className="flex gap-3">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 text-primary">
-                <Shield className="w-4 h-4" />
-              </div>
-              <div className="space-y-0.5">
-                <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider font-display">Secure Access</h4>
-                <p className="text-[10px] text-muted-foreground font-serif italic">Your library, safe</p>
-              </div>
+            <div className="flex items-center justify-center sm:justify-start gap-0.5 text-primary mt-0.5">
+              <Star className="w-3.5 h-3.5 fill-current" />
+              <Star className="w-3.5 h-3.5 fill-current" />
+              <Star className="w-3.5 h-3.5 fill-current" />
+              <Star className="w-3.5 h-3.5 fill-current" />
+              <Star className="w-3.5 h-3.5 fill-current" />
             </div>
           </div>
-
-          {/* Vertical Separator for Desktop */}
-          <div className="hidden lg:block w-[1px] h-10 bg-white/10" />
-
-          {/* Review Module */}
-          <div className="flex items-center gap-4 justify-center lg:justify-start">
-            <div className="flex -space-x-2.5">
-              <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"
-                alt=""
-                className="h-9 w-9 rounded-full border-2 border-background object-cover shrink-0"
-              />
-              <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150"
-                alt=""
-                className="h-9 w-9 rounded-full border-2 border-background object-cover shrink-0"
-              />
-              <img
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150"
-                alt=""
-                className="h-9 w-9 rounded-full border-2 border-background object-cover shrink-0"
-              />
-            </div>
-            <div className="text-left">
-              <div className="text-[10px] font-semibold text-foreground font-display uppercase tracking-wider">
-                500+ Readers Enrolled
-              </div>
-              <div className="flex items-center gap-0.5 text-primary mt-0.5">
-                <Star className="w-3 h-3 fill-current" />
-                <Star className="w-3 h-3 fill-current" />
-                <Star className="w-3 h-3 fill-current" />
-                <Star className="w-3 h-3 fill-current" />
-                <Star className="w-3 h-3 fill-current" />
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <div className="mt-8 flex flex-col items-center justify-center gap-1 text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-display">
-          <span>Scroll to discover</span>
-          <ChevronDown className="w-4 h-4 animate-bounce text-primary stroke-[1.5]" />
         </div>
       </div>
     </section>
