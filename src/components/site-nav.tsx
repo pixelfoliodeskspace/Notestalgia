@@ -59,6 +59,15 @@ export function SiteNav() {
             >
               About
             </Link>
+            {user && (
+              <Link
+                to="/library"
+                className="text-sm text-foreground/80 transition-colors hover:text-foreground"
+                activeProps={{ className: "text-foreground font-semibold" }}
+              >
+                Library
+              </Link>
+            )}
             {isAdmin && (
               <Link
                 to="/admin"
@@ -72,7 +81,14 @@ export function SiteNav() {
 
           {/* Action Cabin/Auth button */}
           <div className="flex items-center gap-2">
-            {!user && (
+            {user ? (
+              <button
+                onClick={() => supabase.auth.signOut()}
+                className="btn-ghost text-xs hidden sm:inline-flex cursor-pointer"
+              >
+                Sign Out
+              </button>
+            ) : (
               <Link
                 to="/auth"
                 className="btn-primary text-xs hidden sm:inline-flex"
@@ -146,6 +162,16 @@ export function SiteNav() {
                         About
                       </Link>
                     </SheetClose>
+                    {user && (
+                      <SheetClose asChild>
+                        <Link
+                          to="/library"
+                          className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200"
+                        >
+                          My Library
+                        </Link>
+                      </SheetClose>
+                    )}
                     {isAdmin && (
                       <SheetClose asChild>
                         <Link
@@ -160,7 +186,14 @@ export function SiteNav() {
                 </div>
 
                 <div className="pt-6 border-t border-border mt-auto">
-                  {!user && (
+                  {user ? (
+                    <button
+                      onClick={() => supabase.auth.signOut()}
+                      className="btn-ink w-full text-center text-sm font-display py-3 cursor-pointer"
+                    >
+                      Sign Out
+                    </button>
+                  ) : (
                     <SheetClose asChild>
                       <Link
                         to="/auth"

@@ -16,8 +16,10 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BookSlugRouteImport } from './routes/book.$slug'
+import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedLibraryClaimRouteImport } from './routes/_authenticated/library.claim'
 import { Route as AuthenticatedAdminNewRouteImport } from './routes/_authenticated/admin.new'
 import { Route as AuthenticatedAdminEditIdRouteImport } from './routes/_authenticated/admin.edit.$id'
 
@@ -55,6 +57,11 @@ const BookSlugRoute = BookSlugRouteImport.update({
   path: '/book/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedLibraryRoute = AuthenticatedLibraryRouteImport.update({
+  id: '/library',
+  path: '/library',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -65,6 +72,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const AuthenticatedLibraryClaimRoute =
+  AuthenticatedLibraryClaimRouteImport.update({
+    id: '/claim',
+    path: '/claim',
+    getParentRoute: () => AuthenticatedLibraryRoute,
+  } as any)
 const AuthenticatedAdminNewRoute = AuthenticatedAdminNewRouteImport.update({
   id: '/new',
   path: '/new',
@@ -84,8 +97,10 @@ export interface FileRoutesByFullPath {
   '/collection': typeof CollectionRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/library': typeof AuthenticatedLibraryRouteWithChildren
   '/book/$slug': typeof BookSlugRoute
   '/admin/new': typeof AuthenticatedAdminNewRoute
+  '/library/claim': typeof AuthenticatedLibraryClaimRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/edit/$id': typeof AuthenticatedAdminEditIdRoute
 }
@@ -95,8 +110,10 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/collection': typeof CollectionRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/library': typeof AuthenticatedLibraryRouteWithChildren
   '/book/$slug': typeof BookSlugRoute
   '/admin/new': typeof AuthenticatedAdminNewRoute
+  '/library/claim': typeof AuthenticatedLibraryClaimRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/edit/$id': typeof AuthenticatedAdminEditIdRoute
 }
@@ -109,8 +126,10 @@ export interface FileRoutesById {
   '/collection': typeof CollectionRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/_authenticated/library': typeof AuthenticatedLibraryRouteWithChildren
   '/book/$slug': typeof BookSlugRoute
   '/_authenticated/admin/new': typeof AuthenticatedAdminNewRoute
+  '/_authenticated/library/claim': typeof AuthenticatedLibraryClaimRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/edit/$id': typeof AuthenticatedAdminEditIdRoute
 }
@@ -123,8 +142,10 @@ export interface FileRouteTypes {
     | '/collection'
     | '/sitemap.xml'
     | '/admin'
+    | '/library'
     | '/book/$slug'
     | '/admin/new'
+    | '/library/claim'
     | '/admin/'
     | '/admin/edit/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -134,8 +155,10 @@ export interface FileRouteTypes {
     | '/auth'
     | '/collection'
     | '/sitemap.xml'
+    | '/library'
     | '/book/$slug'
     | '/admin/new'
+    | '/library/claim'
     | '/admin'
     | '/admin/edit/$id'
   id:
@@ -147,8 +170,10 @@ export interface FileRouteTypes {
     | '/collection'
     | '/sitemap.xml'
     | '/_authenticated/admin'
+    | '/_authenticated/library'
     | '/book/$slug'
     | '/_authenticated/admin/new'
+    | '/_authenticated/library/claim'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/edit/$id'
   fileRoutesById: FileRoutesById
@@ -214,6 +239,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/library': {
+      id: '/_authenticated/library'
+      path: '/library'
+      fullPath: '/library'
+      preLoaderRoute: typeof AuthenticatedLibraryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -227,6 +259,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/library/claim': {
+      id: '/_authenticated/library/claim'
+      path: '/claim'
+      fullPath: '/library/claim'
+      preLoaderRoute: typeof AuthenticatedLibraryClaimRouteImport
+      parentRoute: typeof AuthenticatedLibraryRoute
     }
     '/_authenticated/admin/new': {
       id: '/_authenticated/admin/new'
@@ -260,12 +299,25 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
 const AuthenticatedAdminRouteWithChildren =
   AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
 
+interface AuthenticatedLibraryRouteChildren {
+  AuthenticatedLibraryClaimRoute: typeof AuthenticatedLibraryClaimRoute
+}
+
+const AuthenticatedLibraryRouteChildren: AuthenticatedLibraryRouteChildren = {
+  AuthenticatedLibraryClaimRoute: AuthenticatedLibraryClaimRoute,
+}
+
+const AuthenticatedLibraryRouteWithChildren =
+  AuthenticatedLibraryRoute._addFileChildren(AuthenticatedLibraryRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+  AuthenticatedLibraryRoute: typeof AuthenticatedLibraryRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+  AuthenticatedLibraryRoute: AuthenticatedLibraryRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =

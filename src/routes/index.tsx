@@ -1,9 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "motion/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Suspense, useState, useEffect } from "react";
 import { publishedBooksQuery } from "@/lib/books";
 import { ArrowRight, Sparkles, Search, BookOpen, Check, Star } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(publishedBooksQuery),
@@ -170,6 +171,20 @@ function FeatureCards() {
 function CollectionPreview() {
   const { data: books } = useSuspenseQuery(publishedBooksQuery);
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleBuyNow = (e: React.MouseEvent, book: any) => {
+    e.preventDefault();
+    if (user) {
+      window.open(book.superprofile_url || "https://superprofile.bio/in", "_blank", "noopener,noreferrer");
+    } else {
+      navigate({
+        to: "/auth",
+        search: { redirect: `/book/${book.slug}?checkout=true` },
+      });
+    }
+  };
 
   const filteredBooks = books.filter(
     (b) =>
@@ -275,14 +290,12 @@ function CollectionPreview() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-2">
-                    <a
-                      href={book.superprofile_url || "https://superprofile.bio/in"}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="btn-primary !px-2 !py-2 text-[10px] text-center w-full shadow-sm rounded-xl font-semibold"
+                    <button
+                      onClick={(e) => handleBuyNow(e, book)}
+                      className="btn-primary !px-2 !py-2 text-[10px] text-center w-full shadow-sm rounded-xl font-semibold cursor-pointer"
                     >
                       Buy Now
-                    </a>
+                    </button>
                     <Link
                       to="/book/$slug"
                       params={{ slug: book.slug }}

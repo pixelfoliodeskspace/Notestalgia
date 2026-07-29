@@ -31,6 +31,7 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
 
   const cleanRedirect = redirect && redirect.startsWith("/") ? redirect : "/";
+  const isCheckout = cleanRedirect.includes("checkout=true");
 
   useEffect(() => {
     if (user) {
@@ -38,25 +39,7 @@ function AuthPage() {
     }
   }, [user, cleanRedirect, navigate]);
 
-  async function handleGoogle() {
-    setBusy(true);
-    try {
-      const redirectTo = `${window.location.origin}/auth?redirect=${encodeURIComponent(cleanRedirect)}`;
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo,
-        },
-      });
-      if (error) {
-        toast.error(error.message ?? "Sign in failed");
-      }
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Sign in failed");
-    } finally {
-      setBusy(false);
-    }
-  }
+
 
   async function handleEmail(e: React.FormEvent) {
     e.preventDefault();
@@ -121,20 +104,10 @@ function AuthPage() {
           {mode === "signin" ? "Sign in." : "Join the library."}
         </h1>
         <p className="mt-3 text-sm text-muted-foreground">
-          Optional. You can browse the entire collection without an account.
+          {isCheckout 
+            ? "Create an account or sign in to complete your purchase and save this book to your library."
+            : "Optional. You can browse the entire collection without an account."}
         </p>
-
-        <div className="mt-10 space-y-3">
-          <button onClick={handleGoogle} disabled={busy} className="btn-ghost w-full py-3">
-            Continue with Google
-          </button>
-        </div>
-
-        <div className="my-8 flex items-center gap-4 text-xs text-muted-foreground uppercase tracking-widest">
-          <div className="flex-1 rule-hair" />
-          or
-          <div className="flex-1 rule-hair" />
-        </div>
 
         <form onSubmit={handleEmail} className="space-y-4">
           <div>

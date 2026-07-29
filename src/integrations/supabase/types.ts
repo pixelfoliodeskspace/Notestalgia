@@ -92,6 +92,64 @@ export type Database = {
         };
         Relationships: [];
       };
+      user_library: {
+        Row: {
+          created_at: string;
+          id: string;
+          book_id: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          book_id: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          book_id?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "user_library_book_id_fkey";
+            columns: ["book_id"];
+            isOneToOne: false;
+            referencedRelation: "books";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      book_downloads: {
+        Row: {
+          created_at: string;
+          id: string;
+          book_id: string;
+          download_url: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          book_id: string;
+          download_url: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          book_id?: string;
+          download_url?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "book_downloads_book_id_fkey";
+            columns: ["book_id"];
+            isOneToOne: true;
+            referencedRelation: "books";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;

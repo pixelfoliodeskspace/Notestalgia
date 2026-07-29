@@ -1,9 +1,17 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { motion } from "motion/react";
 import { bookBySlugQuery } from "@/lib/books";
+import { useAuth } from "@/hooks/use-auth";
+import { useEffect } from "react";
+import { z } from "zod";
+
+const bookSearchSchema = z.object({
+  checkout: z.string().optional(),
+});
 
 export const Route = createFileRoute("/book/$slug")({
+  validateSearch: bookSearchSchema,
   loader: async ({ context, params }) => {
     const book = await context.queryClient.ensureQueryData(bookBySlugQuery(params.slug));
     if (!book || !book.published) throw notFound();
@@ -46,8 +54,31 @@ export const Route = createFileRoute("/book/$slug")({
 
 function BookPage() {
   const { slug } = Route.useParams();
+  const { checkout } = Route.useSearch();
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const { data: book } = useSuspenseQuery(bookBySlugQuery(slug));
+  
   if (!book) return null;
+
+  useEffect(() => {
+    if (checkout === "true" && user) {
+      // Clear the checkout param from URL and open Superprofile URL
+      navigate({ to: "/book/$slug", params: { slug }, replace: true });
+      window.open(book.superprofile_url, "_blank", "noopener,noreferrer");
+    }
+  }, [checkout, user, book.superprofile_url, slug, navigate]);
+
+  const handlePurchase = () => {
+    if (user) {
+      window.open(book.superprofile_url, "_blank", "noopener,noreferrer");
+    } else {
+      navigate({
+        to: "/auth",
+        search: { redirect: `/book/${slug}?checkout=true` },
+      });
+    }
+  };
 
   const discount =
     book.original_price && book.original_price > book.current_price
@@ -125,15 +156,13 @@ function BookPage() {
           </div>
 
           <div className="mt-8">
-            <a
-              href={book.superprofile_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ink text-base"
+            <button
+              onClick={handlePurchase}
+              className="btn-ink text-base cursor-pointer"
             >
               Proceed to purchase
               <span aria-hidden>→</span>
-            </a>
+            </button>
             <p className="mt-3 text-xs text-muted-foreground">
               Secure checkout via SuperProfile. Instant delivery.
             </p>
