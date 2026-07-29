@@ -14,6 +14,15 @@ export const Route = createFileRoute("/")({
 const TITLE = "NOTEStalgia";
 
 function Hero() {
+  // =======================================================
+  // ⚙️ TWEAK ONLY THESE NUMBERS TO CHANGE LOGO SIZE & POSITION:
+  // =======================================================
+  const LOGO_HEIGHT_MOBILE = 32;       // Mobile logo height in pixels (default: 32)
+  const LOGO_HEIGHT_DESKTOP = 100;     // Desktop logo height in pixels (default: 100)
+  const LOGO_SHIFT_MOBILE = 10;        // Mobile down shift in pixels (use negative to shift UP, e.g. -5)
+  const LOGO_SHIFT_DESKTOP = 10;       // Desktop down shift in pixels (use negative to shift UP, e.g. -10)
+  // =======================================================
+
   return (
     <section 
       className="hero-background-section relative overflow-hidden pt-65 pb-28 min-h-[70vh] flex flex-col justify-center bg-cover bg-center bg-no-repeat"
@@ -27,14 +36,20 @@ function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-center mt-6 sm:mt-10"
+          className="flex flex-col items-center mt--20 sm:mt-10"
         >
           
-          {/* Logo image - adjust h-8 (mobile height) and sm:h-[60px] (desktop height) */}
+          {/* Logo image - adjust variables at the top of Hero() to control size and position */}
           <img 
             src="/gold-logo.png" 
             alt="NOTEstalgia" 
-            className="h-8 sm:h-[60px] h-[100px] w-auto object-contain select-none filter drop-shadow-[0_0_12px_rgba(234,179,8,0.2)] translate-y-[10px]" 
+            className="h-[var(--logo-h-mobile)] sm:h-[var(--logo-h-desktop)] w-auto object-contain select-none filter drop-shadow-[0_0_12px_rgba(234,179,8,0.2)] translate-y-[var(--logo-y-mobile)] sm:translate-y-[var(--logo-y-desktop)]" 
+            style={{
+              "--logo-h-mobile": `${LOGO_HEIGHT_MOBILE}px`,
+              "--logo-h-desktop": `${LOGO_HEIGHT_DESKTOP}px`,
+              "--logo-y-mobile": `${LOGO_SHIFT_MOBILE}px`,
+              "--logo-y-desktop": `${LOGO_SHIFT_DESKTOP}px`,
+            } as React.CSSProperties}
           />
         </motion.div>
 
