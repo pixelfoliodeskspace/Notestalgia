@@ -16,7 +16,7 @@ const TITLE = "NOTEStalgia";
 function Hero() {
   return (
     <section 
-      className="hero-background-section relative overflow-hidden pt-20 pb-28 min-h-[70vh] flex flex-col justify-center bg-cover bg-center bg-no-repeat"
+      className="hero-background-section relative overflow-hidden pt-65 pb-28 min-h-[70vh] flex flex-col justify-center bg-cover bg-center bg-no-repeat"
     >
       {/* Dark overlay for text readability */}
       <div className="absolute inset-0 bg-background/55 z-10 pointer-events-none" />
@@ -29,17 +29,12 @@ function Hero() {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center mt-6 sm:mt-10"
         >
-          {/* Logo star divider - adjust mb-2 to control space below the stars */}
-          <div className="flex items-center gap-2 text-primary/40 mb-2">
-            <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-primary/40" />
-            <span className="text-xs">✦</span>
-            <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-primary/40" />
-          </div>
+          
           {/* Logo image - adjust h-8 (mobile height) and sm:h-[60px] (desktop height) */}
           <img 
             src="/gold-logo.png" 
             alt="NOTEstalgia" 
-            className="h-8 sm:h-[60px] w-auto object-contain select-none filter drop-shadow-[0_0_12px_rgba(234,179,8,0.2)]" 
+            className="h-8 sm:h-[60px] h-[100px] w-auto object-contain select-none filter drop-shadow-[0_0_12px_rgba(234,179,8,0.2)] translate-y-[10px]" 
           />
         </motion.div>
 
