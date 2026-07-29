@@ -70,15 +70,7 @@ export function SiteNav() {
 
           {/* Action Cabin/Auth button */}
           <div className="flex items-center gap-2">
-            {user ? (
-              <Link
-                to="/auth"
-                className="btn-primary text-xs hidden sm:inline-flex"
-                search={{ redirect: pathname }}
-              >
-                My Account
-              </Link>
-            ) : (
+            {!user && (
               <Link
                 to="/auth"
                 className="btn-primary text-xs hidden sm:inline-flex"
@@ -164,17 +156,7 @@ export function SiteNav() {
                 </div>
 
                 <div className="pt-6 border-t border-border mt-auto">
-                  {user ? (
-                    <SheetClose asChild>
-                      <Link
-                        to="/auth"
-                        className="btn-ink w-full text-center text-sm font-display py-3"
-                        search={{ redirect: pathname }}
-                      >
-                        Account Cabin
-                      </Link>
-                    </SheetClose>
-                  ) : (
+                  {!user && (
                     <SheetClose asChild>
                       <Link
                         to="/auth"
