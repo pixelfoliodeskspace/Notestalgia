@@ -34,7 +34,7 @@ function Hero() {
         <div className="space-y-4 max-w-3xl">
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-[4rem] leading-[1.1] tracking-[-0.02em] text-foreground">
             Where Every Book <br />
-            Leaves a <span className="text-primary italic">Memory</span>
+            Keeps a <span className="text-primary italic">Memory</span>
           </h1>
 
           <p className="max-w-2xl mx-auto text-sm sm:text-base text-foreground/80 leading-relaxed font-serif italic">
