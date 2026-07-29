@@ -22,6 +22,19 @@ function Hero() {
       <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[140px] pointer-events-none z-0" />
       <div className="absolute bottom-[20%] right-[-10%] w-[600px] h-[600px] bg-purple-900/40 rounded-full blur-[160px] pointer-events-none z-0" />
       
+      {/* Background Video Player (High Quality Cinematic Loop) */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0 opacity-30 mix-blend-screen"
+        poster="/hero-bg.jpg"
+      >
+        <source src="/hero-video.webm" type="video/webm" />
+        <source src="/hero-video.mp4" type="video/mp4" />
+      </video>
+
       {/* Layered Floating Assets (100% Matching Layout Diagram) */}
       
       {/* 07. LEFT FLOATING BOOK */}
