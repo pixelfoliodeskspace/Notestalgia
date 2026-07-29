@@ -4,6 +4,8 @@ import { queryOptions } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { slugify } from "@/lib/slug";
+import { Upload, Image, Loader2 } from "lucide-react";
 
 import type { Book } from "@/lib/books";
 
@@ -30,6 +32,7 @@ function EditBookPage() {
   const qc = useQueryClient();
   const { data: book, isLoading } = useQuery(bookByIdQuery(id));
   const [busy, setBusy] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState<Partial<Book> | null>(null);
 
   useEffect(() => {
@@ -43,6 +46,35 @@ function EditBookPage() {
   function update(k: keyof Book | string, v: unknown) {
     setForm((f) => ({ ...(f || {}), [k]: v }));
   }
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const fileExt = file.name.split(".").pop();
+      const slug = form.title ? slugify(form.title) : "book";
+      const fileName = `${slug}-${Math.random().toString(36).substring(2, 6)}.${fileExt}`;
+
+      const { data, error } = await supabase.storage
+        .from("book-covers")
+        .upload(fileName, file);
+
+      if (error) throw error;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from("book-covers")
+        .getPublicUrl(fileName);
+
+      update("cover_image", publicUrl);
+      toast.success("Cover image uploaded successfully");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -114,13 +146,59 @@ function EditBookPage() {
           className={input}
         />
       </Field>
-      <Field label="Cover image URL">
-        <input
-          type="url"
-          value={form.cover_image ?? ""}
-          onChange={(e) => update("cover_image", e.target.value)}
-          className={input}
-        />
+      <Field label="Cover Image">
+        <div className="mt-2 space-y-4">
+          <div className="flex gap-4 items-center">
+            {form.cover_image ? (
+              <div className="relative aspect-[3/4] w-28 rounded-lg overflow-hidden border border-border bg-white/5 shadow-inner shrink-0">
+                <img src={form.cover_image} alt="Preview" className="h-full w-full object-cover" />
+              </div>
+            ) : (
+              <div className="relative aspect-[3/4] w-28 rounded-lg border border-dashed border-border bg-white/5 flex flex-col items-center justify-center text-muted-foreground shrink-0 select-none">
+                <Image className="w-6 h-6 stroke-[1.5]" />
+                <span className="text-[9px] mt-1 uppercase font-display tracking-wider">No Cover</span>
+              </div>
+            )}
+
+            <div className="flex-1 space-y-2">
+              <label
+                htmlFor="cover-upload"
+                className="btn-ghost flex items-center justify-center gap-2 py-2 text-xs font-semibold cursor-pointer w-full"
+              >
+                {uploading ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Upload className="w-3.5 h-3.5" />
+                )}
+                <span>{uploading ? "Uploading..." : "Upload Cover File"}</span>
+              </label>
+              <input
+                id="cover-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleFileUpload}
+                disabled={uploading}
+                className="hidden"
+              />
+              <p className="text-[10px] text-muted-foreground text-center">
+                PNG, JPG or WebP up to 5MB.
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-1">
+            <label className="text-[10px] font-display uppercase tracking-widest text-foreground/50">
+              Or paste image URL directly
+            </label>
+            <input
+              type="url"
+              value={form.cover_image ?? ""}
+              onChange={(e) => update("cover_image", e.target.value)}
+              className={input}
+              placeholder="https://…"
+            />
+          </div>
+        </div>
       </Field>
       <div className="grid grid-cols-2 gap-6">
         <Field label="Category">
