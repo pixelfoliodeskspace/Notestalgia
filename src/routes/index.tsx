@@ -30,7 +30,7 @@ function Hero() {
           className="space-y-3 flex flex-col items-center"
         >
           <img 
-            src="/gold-logo.png" 
+            src="/gold-logo.jpg" 
             alt="NOTEstalgia" 
             className="h-10 sm:h-12 w-auto object-contain select-none mix-blend-screen" 
           />
