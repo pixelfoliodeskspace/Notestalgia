@@ -21,44 +21,48 @@ function Hero() {
       {/* Dark overlay for text readability */}
       <div className="absolute inset-0 bg-background/55 z-10 pointer-events-none" />
 
-      <div className="relative mx-auto max-w-4xl px-6 md:px-10 z-20 w-full text-center flex flex-col items-center justify-center space-y-8">
+      <div className="relative mx-auto max-w-4xl px-6 md:px-10 z-20 w-full text-center flex flex-col items-center justify-center">
         {/* Brand Logo and Subtitle */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-center mb-1"
+          className="flex flex-col items-center mt-6 sm:mt-10"
         >
-          <div className="flex items-center gap-2 text-primary/40 mb-3">
+          {/* Logo star divider - adjust mb-2 to control space below the stars */}
+          <div className="flex items-center gap-2 text-primary/40 mb-2">
             <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-primary/40" />
+            <span className="text-xs">✦</span>
             <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-primary/40" />
           </div>
+          {/* Logo image - adjust h-8 (mobile height) and sm:h-[60px] (desktop height) */}
           <img 
             src="/gold-logo.png" 
             alt="NOTEstalgia" 
-            className="h-12 sm:h-[180px] w-auto object-contain select-none filter drop-shadow-[0_0_15px_rgba(234,179,8,0.25)] relative top-[50px]" 
+            className="h-8 sm:h-[60px] w-auto object-contain select-none filter drop-shadow-[0_0_12px_rgba(234,179,8,0.2)]" 
           />
         </motion.div>
 
-        {/* Cinematic Headline */}
-        <div className="space-y-4 max-w-3xl">
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-[4rem] leading-[1.1] tracking-[-0.02em] text-foreground">
+        {/* Cinematic Headline - mt-6 controls space between logo and headline */}
+        <div className="mt-6 sm:mt-8 space-y-3 max-w-3xl">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-[4rem] leading-[1.2] sm:leading-[1.1] tracking-[-0.02em] text-foreground">
             Where Every Book <br />
             Keeps a <span className="text-primary italic">Memory</span>
           </h1>
 
-          <p className="max-w-2xl mx-auto text-sm sm:text-base text-foreground/80 leading-relaxed font-serif italic">
+          {/* Paragraph description - mt-3 controls space below headline */}
+          <p className="mt-3 sm:mt-4 max-w-2xl mx-auto text-xs sm:text-base text-foreground/80 leading-relaxed font-serif italic">
             Acquire beautifully formatted volumes, handwritten study journals, and AI
             character blueprints. Classic physical reading meets modern digital notes.
           </p>
         </div>
 
-        {/* Call to Actions */}
+        {/* Call to Actions - mt-8 controls space below paragraph description */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="flex flex-wrap items-center justify-center gap-4 pt-2"
+          className="flex flex-wrap items-center justify-center gap-4 mt-8 sm:mt-10"
         >
           <a href="#collection" className="btn-primary group flex items-center gap-2">
             <span>Explore Bookstore</span>
@@ -66,8 +70,8 @@ function Hero() {
           </a>
         </motion.div>
 
-        {/* Happy Reader trust panel */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-border/40 w-full max-w-md justify-center">
+        {/* Happy Reader trust panel - mt-10 controls space below buttons */}
+        <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-border/40 w-full max-w-md justify-center">
           <div className="flex -space-x-2">
             <img
               src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"
