@@ -16,8 +16,7 @@ const TITLE = "NOTEStalgia";
 function Hero() {
   return (
     <section 
-      className="relative overflow-hidden pt-20 pb-28 min-h-[70vh] flex flex-col justify-center bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+      className="hero-background-section relative overflow-hidden pt-20 pb-28 min-h-[70vh] flex flex-col justify-center bg-cover bg-center bg-no-repeat"
     >
       {/* Dark overlay for text readability */}
       <div className="absolute inset-0 bg-background/55 z-10 pointer-events-none" />

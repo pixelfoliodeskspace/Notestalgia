@@ -377,3 +377,13 @@
     opacity: 0;
   }
 }
+
+.hero-background-section {
+  background-image: url('/hero-bg-mobile.jpg');
+}
+
+@media (min-width: 768px) {
+  .hero-background-section {
+    background-image: url('/hero-bg.jpg');
+  }
+}
