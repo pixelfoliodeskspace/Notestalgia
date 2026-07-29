@@ -20,9 +20,11 @@ export function SiteNav() {
         <div className="glass flex items-center justify-between rounded-full px-5 py-3">
           {/* Logo Brand matching Fable style */}
           <Link to="/" className="flex items-center gap-2 group">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-foreground text-background font-serif text-lg font-bold select-none">
-              N
-            </span>
+            <img
+              src="/logo.png"
+              alt="Notestalgia Logo"
+              className="h-9 w-9 object-contain rounded-lg select-none"
+            />
             <span className="flex flex-col leading-none">
               <span className="font-serif text-2xl tracking-tight font-bold">
                 <span className="text-brand-note">Note</span>
@@ -102,9 +104,11 @@ export function SiteNav() {
                 <div className="flex flex-col gap-6 mt-4">
                   <div className="flex items-center justify-between">
                     <Link to="/" className="flex items-center gap-2">
-                      <span className="grid h-9 w-9 place-items-center rounded-full bg-foreground text-background font-serif text-lg font-bold">
-                        N
-                      </span>
+                      <img
+                        src="/logo.png"
+                        alt="Notestalgia Logo"
+                        className="h-9 w-9 object-contain rounded-lg select-none"
+                      />
                       <span className="flex flex-col leading-none">
                         <span className="font-serif text-2xl tracking-tight font-bold">
                           <span className="text-brand-note">Note</span>
