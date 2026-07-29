@@ -32,7 +32,7 @@ function Hero() {
           <img 
             src="/gold-logo.png" 
             alt="NOTEstalgia" 
-            className="h-10 sm:h-12 w-auto object-contain select-none" 
+            className="h-10 sm:h-12 w-auto object-contain select-none mix-blend-screen" 
           />
         </motion.div>
 
