@@ -37,7 +37,7 @@ function Hero() {
           <img 
             src="/gold-logo.png" 
             alt="NOTEstalgia" 
-            className="h-12 sm:h-[140px] w-auto object-contain select-none filter drop-shadow-[0_0_15px_rgba(234,179,8,0.25)]" 
+            className="h-12 sm:h-[180px] w-auto object-contain select-none filter drop-shadow-[0_0_15px_rgba(234,179,8,0.25)]" 
           />
         </motion.div>
 
