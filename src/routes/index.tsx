@@ -27,12 +27,17 @@ function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="space-y-3 flex flex-col items-center"
+          className="flex flex-col items-center mb-1"
         >
+          <div className="flex items-center gap-2 text-primary/40 mb-3">
+            <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-primary/40" />
+            <span className="text-xs">✦</span>
+            <div className="h-[1px] w-8 bg-gradient-to-l from-transparent to-primary/40" />
+          </div>
           <img 
             src="/gold-logo.png" 
             alt="NOTEstalgia" 
-            className="h-10 sm:h-12 w-auto object-contain select-none" 
+            className="h-12 sm:h-24 w-auto object-contain select-none filter drop-shadow-[0_0_15px_rgba(234,179,8,0.25)]" 
           />
         </motion.div>
 
