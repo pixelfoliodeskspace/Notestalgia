@@ -25,7 +25,7 @@ function Hero() {
 
   return (
     <section 
-      className="hero-background-section relative overflow-hidden pt-35 pb-28 min-h-[70vh] flex flex-col justify-center bg-cover bg-center bg-no-repeat"
+      className="hero-background-section relative overflow-hidden pt-50 sm:pt-35 pb-28 min-h-[70vh] flex flex-col justify-center bg-cover bg-center bg-no-repeat"
     >
       {/* Dark overlay for text readability */}
       <div className="absolute inset-0 bg-background/55 z-10 pointer-events-none" />
