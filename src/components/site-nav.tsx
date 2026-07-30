@@ -20,21 +20,18 @@ export function SiteNav() {
       <div className="mx-auto mt-4 w-[min(96%,1200px)]">
         <div className="glass flex items-center justify-between rounded-full px-5 py-3">
           {/* Logo Brand matching Fable style */}
-          <Link to="/" className="flex items-center gap-2 group">
+          {/* Logo Brand container - fixed width reserves space so logo sizing won't shift navbar items */}
+          <Link to="/" className="flex items-center gap-2 group relative h-9 w-[160px]">
             <img
               src="/logo.png"
               alt="Notestalgia Logo"
               className="h-9 w-9 object-contain rounded-lg select-none"
             />
-            <span className="flex flex-col leading-none">
-              <span className="font-serif text-2xl tracking-tight font-bold">
-                <span className="text-brand-note">Note</span>
-                <span className="text-dusty">stalgia</span>
-              </span>
-              <span className="text-[9px] tracking-[0.32em] text-muted-foreground uppercase">
-                Digital Library
-              </span>
-            </span>
+            <img 
+              src="/gold-logo.png" 
+              alt="NOTEstalgia" 
+              className="absolute left-11 top-1/2 -translate-y-1/2 h-7 w-auto object-contain select-none" 
+            />
           </Link>
 
           {/* Navigation links */}
