@@ -17,9 +17,9 @@ function Hero() {
   // =======================================================
   // ⚙️ TWEAK ONLY THESE NUMBERS TO CHANGE LOGO SIZE & POSITION:
   // =======================================================
-  const LOGO_HEIGHT_MOBILE = 32;       // Mobile logo height in pixels (default: 32)
+  const LOGO_HEIGHT_MOBILE = 75;       // Mobile logo height in pixels (default: 32)
   const LOGO_HEIGHT_DESKTOP = 100;     // Desktop logo height in pixels (default: 100)
-  const LOGO_SHIFT_MOBILE = 10;        // Mobile down shift in pixels (use negative to shift UP, e.g. -5)
+  const LOGO_SHIFT_MOBILE = 0;        // Mobile down shift in pixels (use negative to shift UP, e.g. -5)
   const LOGO_SHIFT_DESKTOP = 10;       // Desktop down shift in pixels (use negative to shift UP, e.g. -10)
   // =======================================================
 
