@@ -32,12 +32,25 @@ function Hero() {
 
       <div className="relative mx-auto max-w-4xl px-6 md:px-10 z-20 w-full text-center flex flex-col items-center justify-center">
         {/* Brand Logo and Subtitle */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col items-center mt--20 sm:mt-10"
-        >
+       <motion.div
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ 
+    opacity: 1, 
+    // This slowly floats the logo up 4px and back down in a loop
+    y: [0, -4, 0] 
+  }}
+  transition={{ 
+    // This loops the motion forever with a smooth, slow ease
+    y: {
+      duration: 5,         // Takes 5 seconds per float cycle (very slow & organic)
+      repeat: Infinity,    // Loops forever
+      ease: "easeInOut"    // Smooth deceleration at the top and bottom
+    },
+    // Keep the entry fade transition at 0.6 seconds
+    opacity: { duration: 0.6 }
+  }}
+  className="flex flex-col items-center mt--20 sm:mt-10"
+>
           {/* Logo image - adjust variables at the top of Hero() to control size and position */}
           <img 
             src="/gold-logo.png?v=2" 
