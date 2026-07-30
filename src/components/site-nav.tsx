@@ -16,7 +16,7 @@ export function SiteNav() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <header className="absolute top-0 left-0 right-0 z-50 w-full">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full">
       <div className="mx-auto mt-4 w-[min(96%,1200px)]">
         <div className="glass flex items-center justify-between rounded-full px-5 py-3">
           {/* Logo Brand matching Fable style */}
