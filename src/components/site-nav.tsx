@@ -28,7 +28,7 @@ export function SiteNav() {
               className="h-9 w-9 object-contain rounded-lg select-none"
             />
             <img 
-              src="/gold-logo.png" 
+              src="/gold-logo.png?v=2" 
               alt="NOTEstalgia" 
               className="absolute left-11 top-1/2 -translate-y-1/2 h-7 w-auto object-contain select-none" 
             />
