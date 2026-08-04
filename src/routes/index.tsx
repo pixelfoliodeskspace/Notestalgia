@@ -169,7 +169,7 @@ function CollectionPreview() {
       </div>
 
       {/* Grid of Clean Minimalist Cards */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
         {filteredBooks.length === 0 ? (
           <div className="sm:col-span-2 lg:col-span-4 text-center py-16 text-xs font-serif text-foreground/60 italic">
             No matching volumes found in the library.
