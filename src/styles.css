@@ -97,8 +97,8 @@
   --accent-foreground: var(--cream);
   --destructive: oklch(50% 0.18 20);
   --destructive-foreground: oklch(98% 0 0);
-  --border: rgba(0, 0, 0, 0.12); /* Semi-transparent border for clean integration */
-  --input: rgba(0, 0, 0, 0.1);
+  --border: rgba(255, 255, 255, 0.45); /* Smooth white separating border */
+  --input: rgba(255, 255, 255, 0.3);
   --ring: var(--ink);
 
   --gradient-page: var(--cream);
