@@ -30,19 +30,6 @@ export function SiteNav() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 w-full bg-background border-b border-border">
-      {/* 1. TOP UTILITY BAR (Desktop Only) */}
-      <div className="hidden md:block bg-muted/60 border-b border-border/50 py-2 text-xs text-muted-foreground">
-        <div className="mx-auto max-w-7xl px-6 md:px-10 flex justify-between items-center">
-          <div>High-quality PDFs. Instant Access. Lifelong Learning.</div>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-foreground transition-colors">Sell on Notestalgia</a>
-            <span className="text-border/85">|</span>
-            <a href="#" className="hover:text-foreground transition-colors">Become an Author</a>
-            <span className="text-border/85">|</span>
-            <a href="#" className="hover:text-foreground transition-colors">Help Center</a>
-          </div>
-        </div>
-      </div>
 
       {/* 2. MAIN HEADER ROW */}
       <div className="bg-background py-4">

@@ -160,7 +160,7 @@ function RootComponent() {
       <div className="min-h-screen text-foreground">
         <Grain />
         <SiteNav />
-        <main className="pt-[64px] md:pt-[140px]">
+        <main className="pt-[64px] md:pt-[110px]">
           <Outlet />
         </main>
         <SiteFooter />
