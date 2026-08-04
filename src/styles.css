@@ -66,12 +66,12 @@
   --radius: 0.5rem;
 
   /* Raw palette */
-  --cream: oklch(0.99 0.005 85); /* Off-white cream #F9F8F6 */
-  --paper: oklch(0.975 0.008 85); /* Light grey-cream #F4F3ED */
+  --cream: oklch(81% 0.15 200); /* Vibrant cyan background #45D4DF */
+  --paper: oklch(77% 0.13 200); /* Shaded cyan #35C4CF */
   --ink: oklch(15% 0.01 85); /* Dark charcoal/ink #111111 */
   --mustard: oklch(82% 0.14 90); /* Warm mustard */
   --dusty: oklch(25% 0.01 85); /* Dark grey */
-  --faded: oklch(93% 0.01 85); /* Faded warm grey */
+  --faded: oklch(88% 0.08 200); /* Soft light cyan */
 
   --forest: oklch(40% 0.10 160); /* Forest green accent */
   --sage: oklch(93% 0.01 85); /* Soft sage grey */
@@ -80,7 +80,7 @@
   --berry: oklch(45% 0.15 15); /* Red/crimson */
   --gold: oklch(75% 0.10 90); /* Warm gold */
 
-  /* Semantic - Minimalist light paper theme */
+  /* Semantic - Minimalist light paper theme with Cyan background */
   --background: var(--cream); 
   --foreground: var(--ink); 
   --card: oklch(100% 0 0); /* Pure white for cards #FFFFFF */
@@ -89,16 +89,16 @@
   --popover-foreground: var(--ink);
   --primary: var(--ink); 
   --primary-foreground: var(--cream);
-  --secondary: oklch(95% 0.008 85);
+  --secondary: rgba(0, 0, 0, 0.06);
   --secondary-foreground: var(--ink);
-  --muted: oklch(95% 0.008 85);
-  --muted-foreground: oklch(50% 0.01 85);
+  --muted: rgba(0, 0, 0, 0.04);
+  --muted-foreground: oklch(40% 0.01 85);
   --accent: var(--ink);
   --accent-foreground: var(--cream);
   --destructive: oklch(50% 0.18 20);
   --destructive-foreground: oklch(98% 0 0);
-  --border: oklch(90% 0.01 85); /* Soft borders #E5E4DE */
-  --input: oklch(90% 0.01 85);
+  --border: rgba(0, 0, 0, 0.12); /* Semi-transparent border for clean integration */
+  --input: rgba(0, 0, 0, 0.1);
   --ring: var(--ink);
 
   --gradient-page: var(--cream);

@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
 function Hero() {
   return (
     <section className="mx-auto mt-6 w-[min(96%,1200px)]">
-      <div className="bg-[#f5f4ef] rounded-[2rem] border border-border/80 overflow-hidden grid md:grid-cols-12 items-center gap-8 p-8 md:p-12 min-h-[60vh]">
+      <div className="bg-card rounded-[2rem] border border-border/80 overflow-hidden grid md:grid-cols-12 items-center gap-8 p-8 md:p-12 min-h-[60vh] shadow-sm">
         {/* Left Info Column */}
         <div className="md:col-span-6 space-y-6 text-left">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-foreground/5 text-foreground/80 text-[10px] font-sans uppercase tracking-widest font-semibold">
@@ -54,7 +54,7 @@ function Hero() {
 
         {/* Right Visual Image Column */}
         <div className="md:col-span-6 h-full flex items-center justify-center">
-          <div className="w-full h-[280px] md:h-[400px] rounded-2xl overflow-hidden shadow-soft border border-border/50 bg-[#F9F8F6]">
+          <div className="w-full h-[280px] md:h-[400px] rounded-2xl overflow-hidden shadow-soft border border-border/50 bg-background">
             <img 
               src="/hero-desk.jpg" 
               alt="Notestalgia Lifestyle Mockup" 
