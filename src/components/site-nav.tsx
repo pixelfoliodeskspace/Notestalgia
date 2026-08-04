@@ -1,7 +1,8 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useIsAdmin } from "@/hooks/use-is-admin";
-import { Menu } from "lucide-react";
+import { Menu, Search, Heart, ShoppingBag, ChevronDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -14,101 +15,140 @@ import {
 export function SiteNav() {
   const { isAdmin, user } = useIsAdmin();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
+  const [searchVal, setSearchVal] = useState("");
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchVal.trim()) {
+      navigate({
+        to: "/collection",
+        // We can pass state or search parameter if the catalog page uses local search state
+      });
+    }
+  };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full">
-      <div className="mx-auto mt-4 w-[min(96%,1200px)]">
-        <div className="glass flex items-center justify-between rounded-full px-5 py-3">
-          {/* Logo Brand matching Fable style */}
-          {/* Logo Brand container - fixed width reserves space so logo sizing won't shift navbar items */}
-          <Link to="/" className="flex items-center gap-2 group relative h-9 w-[160px]">
-            <img
-              src="/logo.png"
-              alt="Notestalgia Logo"
-              className="h-9 w-9 object-contain rounded-lg select-none"
-            />
-            <img 
-              src="/gold-logo.png?v=2" 
-              alt="NOTEstalgia" 
-              className="absolute left-11 top-1/2 -translate-y-1/2 h-7 w-auto object-contain select-none" 
-            />
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-background border-b border-border">
+      {/* 1. TOP UTILITY BAR (Desktop Only) */}
+      <div className="hidden md:block bg-muted/60 border-b border-border/50 py-2 text-xs text-muted-foreground">
+        <div className="mx-auto max-w-7xl px-6 md:px-10 flex justify-between items-center">
+          <div>High-quality PDFs. Instant Access. Lifelong Learning.</div>
+          <div className="flex gap-4">
+            <a href="#" className="hover:text-foreground transition-colors">Sell on Notestalgia</a>
+            <span className="text-border/85">|</span>
+            <a href="#" className="hover:text-foreground transition-colors">Become an Author</a>
+            <span className="text-border/85">|</span>
+            <a href="#" className="hover:text-foreground transition-colors">Help Center</a>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. MAIN HEADER ROW */}
+      <div className="bg-background py-4">
+        <div className="mx-auto max-w-7xl px-6 md:px-10 flex items-center justify-between gap-4">
+          
+          {/* Logo & Sub-tagline */}
+          <Link to="/" className="flex flex-col select-none">
+            <span className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-foreground leading-tight">
+              Notestalgia
+            </span>
+            <span className="hidden md:inline text-[9px] tracking-wider text-muted-foreground mt-0.5">
+              Notes that stay. Knowledge that lasts.
+            </span>
           </Link>
 
-          {/* Navigation links */}
-          <nav className="hidden items-center gap-8 lg:flex">
-            <Link
-              to="/"
-              className="text-sm text-foreground/80 transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground font-semibold" }}
-            >
-              Home
-            </Link>
-            <Link
-              to="/collection"
-              className="text-sm text-foreground/80 transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground font-semibold" }}
-            >
-              Collection
-            </Link>
-            <Link
-              to="/about"
-              className="text-sm text-foreground/80 transition-colors hover:text-foreground"
-              activeProps={{ className: "text-foreground font-semibold" }}
-            >
-              About
-            </Link>
-            {user && (
-              <Link
-                to="/library"
-                className="text-sm text-foreground/80 transition-colors hover:text-foreground"
-                activeProps={{ className: "text-foreground font-semibold" }}
-              >
-                Library
-              </Link>
-            )}
-            {isAdmin && (
-              <Link
-                to="/admin"
-                className="text-sm text-foreground/80 transition-colors hover:text-foreground"
-                activeProps={{ className: "text-foreground font-semibold" }}
-              >
-                Admin
-              </Link>
-            )}
-          </nav>
+          {/* Search bar (Hidden on mobile) */}
+          <form onSubmit={handleSearch} className="hidden md:flex items-center flex-1 max-w-xl border border-border rounded-md overflow-hidden bg-muted/30 focus-within:border-primary/50 transition-colors">
+            <div className="flex items-center px-3 text-muted-foreground border-r border-border/85 bg-muted/10 shrink-0 select-none text-xs gap-1.5 cursor-pointer hover:bg-muted/35">
+              <span>All Categories</span>
+              <ChevronDown className="w-3.5 h-3.5" />
+            </div>
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="Search for PDFs, EBooks, Notes..."
+                value={searchVal}
+                onChange={(e) => setSearchVal(e.target.value)}
+                className="w-full pl-3 pr-10 py-2 bg-transparent text-xs text-foreground focus:outline-none placeholder:text-muted-foreground/60"
+              />
+            </div>
+            <button type="submit" className="bg-foreground text-background px-4 py-2 hover:bg-foreground/90 transition-colors shrink-0 flex items-center justify-center">
+              <Search className="w-4 h-4" />
+            </button>
+          </form>
 
-          {/* Action Cabin/Auth button */}
-          <div className="flex items-center gap-2">
-            {user ? (
-              <button
-                onClick={() => supabase.auth.signOut()}
-                className="btn-ghost text-xs hidden sm:inline-flex cursor-pointer"
-              >
-                Sign Out
-              </button>
-            ) : (
-              <Link
-                to="/auth"
-                className="btn-primary text-xs hidden sm:inline-flex"
-                search={{ redirect: pathname }}
-              >
-                Enter Cabin
-              </Link>
-            )}
+          {/* Right side controls */}
+          <div className="flex items-center gap-6">
+            {/* Wishlist Link */}
+            <a href="#" className="hidden lg:flex items-center gap-1.5 text-xs text-foreground hover:opacity-85 transition-opacity">
+              <Heart className="w-4 h-4" />
+              <span>Wishlist</span>
+            </a>
 
-            {/* Mobile menu trigger */}
+            {/* Cart Link */}
+            <a href="#" className="flex items-center gap-1.5 text-xs text-foreground hover:opacity-85 transition-opacity">
+              <ShoppingBag className="w-4 h-4" />
+              <span>Cart</span>
+              <span className="flex items-center justify-center bg-foreground text-background w-4 h-4 rounded-full text-[9px] font-bold">
+                0
+              </span>
+            </a>
+
+            {/* Auth Actions / Profile */}
+            <div className="hidden sm:flex items-center gap-2">
+              {user ? (
+                <>
+                  {isAdmin && (
+                    <Link to="/admin" className="text-xs text-foreground/80 hover:text-foreground font-semibold px-2 py-1">
+                      Admin
+                    </Link>
+                  )}
+                  {user && (
+                    <Link to="/library" className="text-xs text-foreground/80 hover:text-foreground font-semibold px-2 py-1">
+                      Library
+                    </Link>
+                  )}
+                  <button
+                    onClick={() => supabase.auth.signOut()}
+                    className="btn-ghost text-xs cursor-pointer py-1.5 px-3.5"
+                  >
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/auth"
+                    className="btn-ghost text-xs py-1.5 px-3.5"
+                    search={{ redirect: pathname }}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/auth"
+                    className="btn-primary text-xs py-1.5 px-3.5"
+                    search={{ redirect: pathname }}
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
+            </div>
+
+            {/* Mobile hamburger menu */}
             <Sheet>
               <SheetTrigger asChild>
                 <button
                   aria-label="Toggle menu"
-                  className="grid h-10 w-10 place-items-center rounded-full border border-border/60 bg-white/40 lg:hidden cursor-pointer hover:bg-white/60 transition-colors"
+                  className="grid h-8 w-8 place-items-center rounded-md border border-border bg-muted/40 md:hidden cursor-pointer hover:bg-muted/60 transition-colors"
                 >
                   <Menu className="h-4 w-4" />
                 </button>
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="paper-bg flex flex-col justify-between h-full border-l border-border w-72"
+                className="bg-background flex flex-col justify-between h-full border-l border-border w-72 p-6"
               >
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
                 <SheetDescription className="sr-only">
@@ -116,66 +156,40 @@ export function SiteNav() {
                 </SheetDescription>
 
                 <div className="flex flex-col gap-6 mt-4">
-                  <div className="flex items-center justify-between">
-                    <Link to="/" className="flex items-center gap-2">
-                      <img
-                        src="/logo.png"
-                        alt="Notestalgia Logo"
-                        className="h-9 w-9 object-contain rounded-lg select-none"
-                      />
-                      <span className="flex flex-col leading-none">
-                        <span className="font-serif text-2xl tracking-tight font-bold">
-                          <span className="text-brand-note">Note</span>
-                          <span className="text-dusty">stalgia</span>
-                        </span>
-                        <span className="text-[9px] tracking-[0.32em] text-muted-foreground uppercase">
-                          Library
-                        </span>
+                  <div className="flex items-center justify-between pb-4 border-b border-border">
+                    <Link to="/" className="flex flex-col select-none">
+                      <span className="font-serif text-2xl font-bold tracking-tight text-foreground">
+                        Notestalgia
                       </span>
                     </Link>
                   </div>
 
-                  <nav className="flex flex-col gap-4 mt-6">
+                  <nav className="flex flex-col gap-4 mt-2">
                     <SheetClose asChild>
-                      <Link
-                        to="/"
-                        className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200"
-                      >
+                      <Link to="/" className="text-sm font-medium text-foreground/80 hover:text-foreground">
                         Home
                       </Link>
                     </SheetClose>
                     <SheetClose asChild>
-                      <Link
-                        to="/collection"
-                        className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200"
-                      >
+                      <Link to="/collection" className="text-sm font-medium text-foreground/80 hover:text-foreground">
                         Collection
                       </Link>
                     </SheetClose>
                     <SheetClose asChild>
-                      <Link
-                        to="/about"
-                        className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200"
-                      >
+                      <Link to="/about" className="text-sm font-medium text-foreground/80 hover:text-foreground">
                         About
                       </Link>
                     </SheetClose>
                     {user && (
                       <SheetClose asChild>
-                        <Link
-                          to="/library"
-                          className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200"
-                        >
+                        <Link to="/library" className="text-sm font-medium text-foreground/80 hover:text-foreground">
                           My Library
                         </Link>
                       </SheetClose>
                     )}
                     {isAdmin && (
                       <SheetClose asChild>
-                        <Link
-                          to="/admin"
-                          className="text-lg font-medium text-foreground/80 transition-all hover:text-foreground hover:translate-x-1 duration-200 font-semibold"
-                        >
+                        <Link to="/admin" className="text-sm font-medium text-foreground/80 hover:text-foreground">
                           Admin Panel
                         </Link>
                       </SheetClose>
@@ -187,7 +201,7 @@ export function SiteNav() {
                   {user ? (
                     <button
                       onClick={() => supabase.auth.signOut()}
-                      className="btn-ink w-full text-center text-sm font-display py-3 cursor-pointer"
+                      className="btn-ink w-full text-center text-xs py-2.5 cursor-pointer"
                     >
                       Sign Out
                     </button>
@@ -195,10 +209,10 @@ export function SiteNav() {
                     <SheetClose asChild>
                       <Link
                         to="/auth"
-                        className="btn-ink w-full text-center text-sm font-display py-3"
+                        className="btn-ink w-full text-center text-xs py-2.5"
                         search={{ redirect: pathname }}
                       >
-                        Sign in to Cabin
+                        Sign In
                       </Link>
                     </SheetClose>
                   )}
@@ -206,6 +220,36 @@ export function SiteNav() {
               </SheetContent>
             </Sheet>
           </div>
+        </div>
+      </div>
+
+      {/* 3. CATEGORIES SUB-NAV ROW (Desktop Only) */}
+      <div className="hidden md:block border-t border-border bg-background py-2">
+        <div className="mx-auto max-w-7xl px-6 md:px-10 flex items-center gap-8 text-xs font-medium">
+          <div className="flex items-center gap-2 cursor-pointer py-1 text-foreground/80 hover:text-foreground select-none">
+            <Menu className="w-3.5 h-3.5" />
+            <span className="font-semibold uppercase tracking-wider">Categories</span>
+          </div>
+
+          <div className="h-4 w-px bg-border/80" />
+
+          <nav className="flex items-center gap-8">
+            <Link to="/" className="text-foreground font-semibold border-b border-foreground pb-1 -mb-2 transition-all">
+              Home
+            </Link>
+            <Link to="/collection" className="text-muted-foreground hover:text-foreground transition-colors">
+              New Arrivals
+            </Link>
+            <Link to="/collection" className="text-muted-foreground hover:text-foreground transition-colors">
+              Best Sellers
+            </Link>
+            <Link to="/collection" className="text-muted-foreground hover:text-foreground transition-colors">
+              Bundles
+            </Link>
+            <Link to="/collection" className="text-muted-foreground hover:text-foreground transition-colors">
+              Free Resources
+            </Link>
+          </nav>
         </div>
       </div>
     </header>

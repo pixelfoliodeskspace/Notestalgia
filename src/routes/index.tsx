@@ -1,9 +1,18 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { Suspense, useState, useEffect } from "react";
+import { useState } from "react";
 import { publishedBooksQuery } from "@/lib/books";
-import { ArrowRight, Sparkles, Search, BookOpen, Check, Star } from "lucide-react";
+import { 
+  ArrowRight, 
+  Sparkles, 
+  Search, 
+  Check, 
+  Star, 
+  FileDown, 
+  ShieldCheck, 
+  LifeBuoy 
+} from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/")({
@@ -11,117 +20,45 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const TITLE = "NOTEStalgia";
-
 function Hero() {
-  // =======================================================
-  // ⚙️ TWEAK ONLY THESE NUMBERS TO CHANGE LOGO SIZE & POSITION:
-  // =======================================================
-  const LOGO_HEIGHT_MOBILE = 75;       // Mobile logo height in pixels (default: 32)
-  const LOGO_HEIGHT_DESKTOP = 100;     // Desktop logo height in pixels (default: 100)
-  const LOGO_SHIFT_MOBILE = 0;        // Mobile down shift in pixels (use negative to shift UP, e.g. -5)
-  const LOGO_SHIFT_DESKTOP = 10;       // Desktop down shift in pixels (use negative to shift UP, e.g. -10)
-  // =======================================================
-
   return (
-    <section 
-      className="hero-background-section relative overflow-hidden pt-50 sm:pt-35 pb-28 min-h-[70vh] flex flex-col justify-center bg-cover bg-center bg-no-repeat"
-    >
-      {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-background/55 z-10 pointer-events-none" />
+    <section className="mx-auto mt-6 w-[min(96%,1200px)]">
+      <div className="bg-[#f5f4ef] rounded-[2rem] border border-border/80 overflow-hidden grid md:grid-cols-12 items-center gap-8 p-8 md:p-12 min-h-[60vh]">
+        {/* Left Info Column */}
+        <div className="md:col-span-6 space-y-6 text-left">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-foreground/5 text-foreground/80 text-[10px] font-sans uppercase tracking-widest font-semibold">
+            <Sparkles className="w-3 h-3 text-primary" />
+            <span>Welcome to Notestalgia</span>
+          </div>
 
-      <div className="relative mx-auto max-w-4xl px-6 md:px-10 z-20 w-full text-center flex flex-col items-center justify-center">
-        {/* Brand Logo and Subtitle */}
-       <motion.div
-  initial={{ opacity: 0, y: 10 }}
-  animate={{ 
-    opacity: 1, 
-    // This slowly floats the logo up 4px and back down in a loop
-    y: [0, -4, 0] 
-  }}
-  transition={{ 
-    // This loops the motion forever with a smooth, slow ease
-    y: {
-      duration: 5,         // Takes 5 seconds per float cycle (very slow & organic)
-      repeat: Infinity,    // Loops forever
-      ease: "easeInOut"    // Smooth deceleration at the top and bottom
-    },
-    // Keep the entry fade transition at 0.6 seconds
-    opacity: { duration: 0.6 }
-  }}
-  className="flex flex-col items-center mt--20 sm:mt-10"
->
-          {/* Logo image - adjust variables at the top of Hero() to control size and position */}
-          <img 
-            src="/gold-logo.png?v=2" 
-            alt="NOTEstalgia" 
-            className="h-[var(--logo-h-mobile)] sm:h-[var(--logo-h-desktop)] w-auto object-contain select-none filter drop-shadow-[0_0_12px_rgba(234,179,8,0.2)] translate-y-[var(--logo-y-mobile)] sm:translate-y-[var(--logo-y-desktop)]" 
-            style={{
-              "--logo-h-mobile": `${LOGO_HEIGHT_MOBILE}px`,
-              "--logo-h-desktop": `${LOGO_HEIGHT_DESKTOP}px`,
-              "--logo-y-mobile": `${LOGO_SHIFT_MOBILE}px`,
-              "--logo-y-desktop": `${LOGO_SHIFT_DESKTOP}px`,
-            } as React.CSSProperties}
-          />
-        </motion.div>
-
-        {/* Cinematic Headline - mt-6 controls space between logo and headline */}
-        <div className="mt-6 sm:mt-8 space-y-3 max-w-3xl">
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-[4rem] leading-[1.2] sm:leading-[1.1] tracking-[-0.02em] text-foreground">
-            Where Every Book <br />
-            Keeps a <span className="text-primary italic">Memory</span>
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.1] tracking-tight text-foreground font-bold">
+            Premium PDFs.<br />
+            Timeless Knowledge.
           </h1>
 
-          {/* Paragraph description - mt-3 controls space below headline */}
-          <p className="mt-3 sm:mt-4 max-w-2xl mx-auto text-xs sm:text-base text-foreground/80 leading-relaxed font-serif italic">
-            Acquire beautifully formatted volumes, handwritten study journals, and AI
-            character blueprints. Classic physical reading meets modern digital notes.
+          <p className="text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed">
+            Explore expertly crafted PDFs across academics, self-growth, business, design, and more. Download instantly to start learning.
           </p>
+
+          <div className="flex flex-wrap gap-3 pt-2">
+            <a href="#collection" className="btn-primary flex items-center gap-2 text-xs py-2.5 px-6">
+              <span>Explore PDFs</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+            <Link to="/collection" className="btn-ghost flex items-center gap-2 text-xs py-2.5 px-6">
+              <span>Browse Categories</span>
+            </Link>
+          </div>
         </div>
 
-        {/* Call to Actions - mt-8 controls space below paragraph description */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="flex flex-wrap items-center justify-center gap-4 mt-8 sm:mt-10"
-        >
-          <a href="#collection" className="btn-primary group flex items-center gap-2">
-            <span>Explore Bookstore</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </a>
-        </motion.div>
-
-        {/* Happy Reader trust panel - mt-10 controls space below buttons */}
-        <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-border/40 w-full max-w-md justify-center">
-          <div className="flex -space-x-2">
-            <img
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150"
-              alt=""
-              className="h-9 w-9 rounded-full border-2 border-background object-cover"
+        {/* Right Visual Image Column */}
+        <div className="md:col-span-6 h-full flex items-center justify-center">
+          <div className="w-full h-[280px] md:h-[400px] rounded-2xl overflow-hidden shadow-soft border border-border/50 bg-[#F9F8F6]">
+            <img 
+              src="/hero-desk.jpg" 
+              alt="Notestalgia Lifestyle Mockup" 
+              className="w-full h-full object-cover select-none"
             />
-            <img
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150"
-              alt=""
-              className="h-9 w-9 rounded-full border-2 border-background object-cover"
-            />
-            <img
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150"
-              alt=""
-              className="h-9 w-9 rounded-full border-2 border-background object-cover"
-            />
-          </div>
-          <div className="text-left sm:text-left text-center">
-            <div className="text-[10px] font-semibold text-foreground font-display uppercase tracking-wider">
-              500+ Readers Enrolled
-            </div>
-            <div className="flex items-center justify-center sm:justify-start gap-0.5 text-primary mt-0.5">
-              <Star className="w-3.5 h-3.5 fill-current" />
-              <Star className="w-3.5 h-3.5 fill-current" />
-              <Star className="w-3.5 h-3.5 fill-current" />
-              <Star className="w-3.5 h-3.5 fill-current" />
-              <Star className="w-3.5 h-3.5 fill-current" />
-            </div>
           </div>
         </div>
       </div>
@@ -129,73 +66,46 @@ function Hero() {
   );
 }
 
-
-
-function StatsBar() {
-  const stats = [
-    { value: "500+", label: "Happy Readers" },
-    { value: "6+", label: "Seeded Volumes" },
-    { value: "1000+", label: "Summaries & Notes" },
-    { value: "5★", label: "Average Review" },
-  ];
-
-  return (
-    <section className="mx-auto mt-8 w-[min(96%,1200px)]">
-      <div className="glass grid grid-cols-2 divide-foreground/10 rounded-[2rem] p-6 md:grid-cols-4 md:divide-x md:p-8">
-        {stats.map((s, idx) => (
-          <div key={idx} className="px-4 py-4 text-center">
-            <div className="font-serif text-4xl md:text-5xl text-foreground font-bold">
-              {s.value}
-            </div>
-            <div className="mt-2 text-xs tracking-wider text-muted-foreground uppercase font-display">
-              {s.label}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function FeatureCards() {
-  const cards = [
+function FeaturesBar() {
+  const items = [
     {
-      title: "One-to-One Notes",
-      desc: "Each guide is hand-bound with personal margin summaries to ensure faster comprehension.",
-      icon: "📖",
+      title: "High Quality Content",
+      subtitle: "Curated and verified PDFs",
+      icon: <Star className="w-5 h-5 text-foreground" />,
     },
     {
-      title: "AI Blueprints",
-      desc: "Get instant character blueprints, map indexes, and thematic logs for active reference.",
-      icon: "✨",
+      title: "Instant Access",
+      subtitle: "Download immediately",
+      icon: <FileDown className="w-5 h-5 text-foreground" />,
     },
     {
-      title: "Curated Catalog",
-      desc: "Only the most timeless and beloved children's classics, structured for modern learning.",
-      icon: "🌿",
+      title: "Secure Payments",
+      subtitle: "Safe & trusted checkout",
+      icon: <ShieldCheck className="w-5 h-5 text-foreground" />,
     },
     {
-      title: "Community Access",
-      desc: "Join a growing circle of digital collectors, students, and readers worldwide.",
-      icon: "👥",
+      title: "24/7 Support",
+      subtitle: "We're here to help",
+      icon: <LifeBuoy className="w-5 h-5 text-foreground" />,
     },
   ];
 
   return (
-    <section className="mx-auto mt-8 w-[min(96%,1200px)]">
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
-        {cards.map((c, idx) => (
-          <div
-            key={idx}
-            className="glass group rounded-3xl p-6 text-center transition-all duration-500 hover:-translate-y-1"
-          >
-            <div className="mx-auto grid h-10 w-10 place-items-center rounded-xl bg-white/50 border border-border/40 text-2xl select-none">
-              {c.icon}
+    <section className="mx-auto mt-12 w-[min(96%,1200px)] border-y border-border/70 py-8 bg-background">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4 divide-y md:divide-y-0 md:divide-x divide-border/60">
+        {items.map((item, idx) => (
+          <div key={idx} className="flex items-start gap-3 px-4 pt-4 md:pt-0 first:pt-0">
+            <div className="p-2 rounded-lg bg-muted/40 border border-border/50 shrink-0">
+              {item.icon}
             </div>
-            <div className="mt-4 font-serif text-lg font-bold text-foreground leading-snug">
-              {c.title}
+            <div className="text-left">
+              <h3 className="font-sans text-xs md:text-sm font-semibold text-foreground leading-tight">
+                {item.title}
+              </h3>
+              <p className="text-[10px] md:text-xs text-muted-foreground mt-0.5">
+                {item.subtitle}
+              </p>
             </div>
-            <p className="mt-2 text-xs text-muted-foreground md:text-sm font-sans">{c.desc}</p>
           </div>
         ))}
       </div>
@@ -228,38 +138,43 @@ function CollectionPreview() {
   );
 
   return (
-    <section id="collection" className="mx-auto mt-8 w-[min(96%,1200px)]">
-      <div className="flex flex-col items-center text-center space-y-4 mb-10 max-w-2xl mx-auto">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/5 text-primary text-[10px] font-display uppercase tracking-widest font-semibold">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Popular Volumes</span>
+    <section id="collection" className="mx-auto mt-14 w-[min(96%,1200px)]">
+      {/* Header Row */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 text-left">
+        <div>
+          <h2 className="font-serif text-3xl md:text-4xl text-foreground font-bold tracking-tight">
+            Featured PDFs
+          </h2>
+          <p className="text-xs md:text-sm text-muted-foreground mt-1 font-serif italic">
+            Begin your study journey with our popular formatted guides.
+          </p>
         </div>
-        <h2 className="font-serif text-3xl md:text-5xl text-foreground font-bold tracking-tight">
-          Explore Our Collection
-        </h2>
-        <p className="text-sm text-muted-foreground font-serif italic">
-          Begin your study journey with our popular formatted guides.
-        </p>
-
-        <div className="relative w-full max-w-md pt-2">
-          <input
-            type="text"
-            placeholder="Search collection..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white/10 pl-10 pr-4 py-2.5 border border-border/40 rounded-full font-sans text-xs focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20 text-foreground shadow-sm transition-all placeholder:text-foreground/40"
-          />
-          <Search className="w-4 h-4 text-foreground/60 absolute left-3.5 top-[18px]" />
+        <div className="flex items-center gap-4">
+          {/* Simple search bar next to title */}
+          <div className="relative w-full max-w-xs">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-muted/40 pl-8 pr-4 py-1.5 border border-border rounded-md font-sans text-xs focus:outline-none focus:border-foreground/45 text-foreground transition-all"
+            />
+            <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-2.5 top-2.5" />
+          </div>
+          <Link to="/collection" className="text-xs font-semibold hover:underline shrink-0">
+            View All
+          </Link>
         </div>
       </div>
 
+      {/* Grid of Clean Minimalist Cards */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {filteredBooks.length === 0 ? (
           <div className="sm:col-span-2 lg:col-span-4 text-center py-16 text-xs font-serif text-foreground/60 italic">
             No matching volumes found in the library.
           </div>
         ) : (
-          filteredBooks.map((book) => {
+          filteredBooks.slice(0, 8).map((book) => {
             const discount =
               book.original_price && book.original_price > book.current_price
                 ? Math.round(
@@ -270,80 +185,107 @@ function CollectionPreview() {
             return (
               <article
                 key={book.id}
-                className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-border/40 bg-card p-4 transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_20px_40px_-15px_rgba(59,17,62,0.3)] hover:border-primary/30 text-left"
+                className="group flex flex-col justify-between overflow-hidden rounded-xl border border-border bg-card p-3.5 transition-all duration-300 hover:-translate-y-1 hover:shadow-soft text-left"
               >
-                <div className="space-y-4">
+                <div className="space-y-3.5">
                   {/* Book cover img */}
-                  <div className="aspect-[4/3] overflow-hidden relative rounded-2xl bg-secondary/40 border border-border/20">
+                  <Link to="/book/$slug" params={{ slug: book.slug }} className="aspect-[4/3] block overflow-hidden relative rounded-lg bg-muted border border-border/40">
                     <img
                       src={book.cover_image || ""}
                       alt={book.title}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                     />
                     {discount && (
-                      <span className="absolute top-2.5 left-2.5 bg-berry text-cream text-[9px] font-display tracking-wider uppercase px-2 py-0.5 rounded-full font-semibold">
+                      <span className="absolute top-2 left-2 bg-foreground text-background text-[9px] font-sans tracking-wide uppercase px-2 py-0.5 rounded font-semibold">
                         -{discount}%
                       </span>
                     )}
-                  </div>
+                  </Link>
 
                   {/* Title & info */}
                   <div className="space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[9px] font-display uppercase tracking-widest text-primary font-semibold">
-                        {book.category}
-                      </span>
-                      <span className="text-[9px] text-muted-foreground uppercase font-mono">
-                        PDF
-                      </span>
-                    </div>
-                    <h3 className="font-serif text-base font-bold text-foreground truncate group-hover:text-primary transition-colors">
-                      {book.title}
-                    </h3>
-                    <p className="text-xs text-muted-foreground line-clamp-2 h-8 font-serif italic leading-relaxed">
-                      {book.tagline || book.description}
+                    <span className="text-[9px] font-sans uppercase tracking-widest text-muted-foreground/80 font-bold">
+                      {book.category || "General"}
+                    </span>
+                    <Link to="/book/$slug" params={{ slug: book.slug }}>
+                      <h3 className="font-serif text-base font-bold text-foreground leading-tight hover:underline">
+                        {book.title}
+                      </h3>
+                    </Link>
+                    <p className="text-[11px] text-muted-foreground mt-0.5 truncate font-sans">
+                      by Notestalgia Editorial
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-border/40 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-muted-foreground font-display uppercase tracking-wider">
-                      Price
-                    </span>
-                    <div className="flex items-baseline gap-1.5">
+                <div className="mt-4 pt-3 border-t border-border/50">
+                  {/* Rating indicator */}
+                  <div className="flex items-center gap-1 mb-3">
+                    <div className="flex items-center text-amber-500 gap-0.5">
+                      <Star className="w-3 h-3 fill-current" />
+                    </div>
+                    <span className="text-[10px] font-bold text-foreground">4.8</span>
+                    <span className="text-[10px] text-muted-foreground">(210)</span>
+                  </div>
+
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex flex-col">
                       {book.original_price && book.original_price > book.current_price && (
-                        <span className="text-[10px] text-muted-foreground line-through">
+                        <span className="text-[10px] text-muted-foreground line-through leading-none">
                           ₹{Number(book.original_price).toFixed(0)}
                         </span>
                       )}
-                      <span className="font-display font-bold text-sm text-foreground">
+                      <span className="font-sans font-bold text-sm text-foreground">
                         ₹{Number(book.current_price).toFixed(0)}
                       </span>
                     </div>
-                  </div>
 
-                  <div className="grid grid-cols-2 gap-2">
                     <button
                       onClick={(e) => handleBuyNow(e, book)}
-                      className="btn-primary !px-2 !py-2 text-[10px] text-center w-full shadow-sm rounded-xl font-semibold cursor-pointer"
+                      className="btn-primary !px-4.5 !py-2 text-[10px] font-semibold cursor-pointer rounded-md"
                     >
                       Buy Now
                     </button>
-                    <Link
-                      to="/book/$slug"
-                      params={{ slug: book.slug }}
-                      className="btn-ghost !px-2 !py-2 text-[10px] text-center w-full rounded-xl"
-                    >
-                      Details
-                    </Link>
                   </div>
                 </div>
               </article>
             );
           })
         )}
+      </div>
+    </section>
+  );
+}
+
+function TopCategories() {
+  const categories = [
+    "Business",
+    "Education",
+    "Self Help",
+    "Design",
+    "Technology",
+    "Health & Fitness"
+  ];
+
+  return (
+    <section className="mx-auto mt-14 w-[min(96%,1200px)]">
+      <div className="text-center space-y-4 mb-8">
+        <h2 className="font-serif text-3xl text-foreground font-bold tracking-tight">
+          Top Categories
+        </h2>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        {categories.map((c, idx) => (
+          <Link
+            key={idx}
+            to="/collection"
+            className="px-6 py-3 border border-border rounded-md text-xs font-semibold text-foreground hover:bg-muted hover:border-foreground/40 transition-all font-sans"
+          >
+            {c}
+          </Link>
+        ))}
       </div>
     </section>
   );
@@ -366,35 +308,35 @@ function Testimonials() {
   ];
 
   return (
-    <section className="mx-auto mt-12 w-[min(96%,1200px)] pb-12">
-      <div className="mb-8 flex items-end justify-between gap-4 text-left">
-        <h2 className="font-serif text-3xl md:text-5xl text-foreground font-bold">
+    <section className="mx-auto mt-16 w-[min(96%,1200px)] pb-12">
+      <div className="mb-8 flex items-end justify-between gap-4 text-left border-b border-border pb-4">
+        <h2 className="font-serif text-2xl md:text-3xl text-foreground font-bold">
           Reader Results
         </h2>
         <a
           href="https://wa.me/919645767284?text=I%27d%20like%20to%20know%20more%20about%20Notestalgia"
           target="_blank"
           rel="noreferrer"
-          className="btn-ghost hidden md:inline-flex items-center gap-1.5"
+          className="text-xs font-semibold hover:underline flex items-center gap-1"
         >
           Start Your Journey
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-3.5 h-3.5" />
         </a>
       </div>
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2">
         {reviews.map((r, idx) => (
-          <figure key={idx} className="glass rounded-[2rem] p-8 shadow-sm text-left">
-            <div className="text-4xl font-serif leading-none text-foreground/20">“</div>
-            <blockquote className="mt-2 font-serif text-lg leading-snug md:text-xl text-foreground italic">
+          <figure key={idx} className="bg-card border border-border rounded-xl p-6 shadow-sm text-left">
+            <div className="text-3xl font-serif leading-none text-muted-foreground/30">“</div>
+            <blockquote className="mt-2 font-serif text-sm md:text-base leading-relaxed text-foreground italic">
               {r.quote}
             </blockquote>
-            <figcaption className="mt-6 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center border border-border/40 font-serif font-bold text-foreground">
+            <figcaption className="mt-6 flex items-center gap-3 border-t border-border/50 pt-4">
+              <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center border border-border font-sans font-bold text-foreground text-xs">
                 {r.author.slice(0, 1)}
               </div>
               <div>
-                <div className="text-sm font-medium text-foreground">{r.author}</div>
-                <div className="text-xs text-muted-foreground font-serif">{r.role}</div>
+                <div className="text-xs font-semibold text-foreground">{r.author}</div>
+                <div className="text-[10px] text-muted-foreground font-sans">{r.role}</div>
               </div>
             </figcaption>
           </figure>
@@ -406,11 +348,11 @@ function Testimonials() {
 
 function Home() {
   return (
-    <div className="space-y-16 pb-12">
+    <div className="space-y-16 pb-12 bg-background">
       <Hero />
+      <FeaturesBar />
       <CollectionPreview />
-      <FeatureCards />
-      <StatsBar />
+      <TopCategories />
       <Testimonials />
     </div>
   );
