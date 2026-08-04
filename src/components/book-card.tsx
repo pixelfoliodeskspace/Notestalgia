@@ -1,13 +1,35 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import type { Book } from "@/lib/books";
-import { Star } from "lucide-react";
+import { Star, Heart, ShoppingBag, Check } from "lucide-react";
+import { useCartWishlist } from "@/hooks/use-cart-wishlist";
 
 export function BookCard({ book, index = 0 }: { book: Book; index?: number }) {
+  const { isInCart, addToCart, removeFromCart, isInWishlist, toggleWishlist } = useCartWishlist();
+  
   const discount =
     book.original_price && book.original_price > book.current_price
       ? Math.round(((book.original_price - book.current_price) / book.original_price) * 100)
       : null;
+
+  const inCart = isInCart(book.id);
+  const inWishlist = isInWishlist(book.id);
+
+  const handleCartClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (inCart) {
+      removeFromCart(book.id);
+    } else {
+      addToCart(book.id);
+    }
+  };
+
+  const handleWishlistClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleWishlist(book.id);
+  };
 
   return (
     <motion.div
@@ -31,11 +53,45 @@ export function BookCard({ book, index = 0 }: { book: Book; index?: number }) {
               {book.title.slice(0, 1)}
             </div>
           )}
+          
+          {/* Discount Badge */}
           {discount && (
-            <span className="absolute top-2.5 left-2.5 bg-foreground text-background text-[9px] font-sans tracking-wide uppercase px-2 py-0.5 rounded font-semibold">
+            <span className="absolute top-2.5 left-2.5 bg-foreground text-background text-[9px] font-sans tracking-wide uppercase px-2 py-0.5 rounded font-semibold select-none z-10">
               -{discount}%
             </span>
           )}
+
+          {/* Interactive Floating Wishlist Heart Toggle */}
+          <button
+            onClick={handleWishlistClick}
+            aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
+            className="absolute top-2.5 right-2.5 z-10 p-2 rounded-full bg-background/85 hover:bg-background border border-border/40 shadow-sm backdrop-blur transition-all duration-200 cursor-pointer active:scale-95"
+          >
+            <Heart 
+              className={`w-3.5 h-3.5 transition-colors ${
+                inWishlist 
+                  ? "fill-red-500 text-red-500" 
+                  : "text-foreground/70 group-hover:text-foreground"
+              }`} 
+            />
+          </button>
+
+          {/* Interactive Floating Add-To-Cart Toggle */}
+          <button
+            onClick={handleCartClick}
+            aria-label={inCart ? "Remove from cart" : "Add to cart"}
+            className={`absolute bottom-2.5 right-2.5 z-10 p-2 rounded-full border shadow-sm backdrop-blur transition-all duration-200 cursor-pointer active:scale-95 ${
+              inCart
+                ? "bg-foreground text-background border-foreground"
+                : "bg-background/85 hover:bg-background border-border/40 text-foreground/70"
+            }`}
+          >
+            {inCart ? (
+              <Check className="w-3.5 h-3.5 stroke-[3px]" />
+            ) : (
+              <ShoppingBag className="w-3.5 h-3.5" />
+            )}
+          </button>
         </div>
 
         {/* Text Metadata Stack */}
