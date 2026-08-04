@@ -33,8 +33,8 @@ function Hero() {
           </div>
 
           <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] leading-[1.1] tracking-tight text-foreground font-bold">
-            Premium PDFs.<br />
-            Timeless Knowledge.
+            Where every page <br />
+            Keeps a <span className="text-primary italic">memory</span>
           </h1>
 
           <p className="text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed">
