@@ -97,8 +97,8 @@
   --accent-foreground: var(--cream);
   --destructive: oklch(50% 0.18 20);
   --destructive-foreground: oklch(98% 0 0);
-  --border: rgba(255, 255, 255, 0.45); /* Smooth white separating border */
-  --input: rgba(255, 255, 255, 0.3);
+  --border: rgba(255, 255, 255, 0.85); /* High-contrast white border */
+  --input: rgba(255, 255, 255, 0.55);
   --ring: var(--ink);
 
   --gradient-page: var(--cream);
@@ -195,12 +195,12 @@
 
 /* --- Editorial rules --- */
 @utility rule-hair {
-  height: 1px;
+  height: 2px;
   background: linear-gradient(
     to right,
     transparent,
-    var(--border) 15%,
-    var(--border) 85%,
+    rgba(255, 255, 255, 0.9) 15%,
+    rgba(255, 255, 255, 0.9) 85%,
     transparent
   );
 }
