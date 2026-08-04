@@ -40,13 +40,13 @@ export function BookCard({ book, index = 0 }: { book: Book; index?: number }) {
     >
       <Link to="/book/$slug" params={{ slug: book.slug }} className="group block text-left">
         {/* Cover Image Container (aspect-3/4 rounded-xl) */}
-        <div className="aspect-[3/4] overflow-hidden relative rounded-xl border-2 border-border/80 bg-muted/30">
+        <div className="aspect-[3/4] overflow-hidden relative rounded-2xl border-2 border-border/85 bg-muted/30 shadow-sm transition-all duration-300 ease-out group-hover:-translate-y-1.5 group-hover:rotate-1.5 group-hover:shadow-soft">
           {book.cover_image ? (
             <img
               src={book.cover_image}
               alt={book.title}
               loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.03]"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[600ms] ease-out group-hover:scale-[1.02]"
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center font-serif text-2xl text-muted-foreground/35 bg-muted/40">

@@ -63,7 +63,7 @@
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 1.25rem;
 
   /* Raw palette */
   --cream: oklch(81% 0.15 200); /* Vibrant cyan background #45D4DF */

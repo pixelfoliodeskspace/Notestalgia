@@ -207,7 +207,8 @@ function TopCategories() {
           <Link
             key={idx}
             to="/collection"
-            className="px-6 py-3 border border-border rounded-md text-xs font-semibold text-foreground hover:bg-muted hover:border-foreground/40 transition-all font-sans"
+            search={{ category: c }}
+            className="px-6 py-3 border-2 border-border rounded-full text-xs font-semibold text-foreground hover:bg-white hover:border-foreground transition-all font-sans shadow-sm"
           >
             {c}
           </Link>

@@ -96,10 +96,10 @@ function CollectionPage() {
                       search: (prev) => ({ ...prev, category: c }),
                     });
                   }}
-                  className={`tag-pill transition-all cursor-pointer py-1.5 px-4 rounded-full border text-xs font-semibold uppercase tracking-wider ${
+                  className={`tag-pill transition-all cursor-pointer py-1.5 px-4 rounded-full border-2 text-xs font-semibold uppercase tracking-wider ${
                     isActive 
                       ? "bg-ink text-cream border-ink" 
-                      : "bg-muted/40 hover:bg-muted/70 text-muted-foreground border-border/80"
+                      : "bg-muted/40 hover:bg-white text-muted-foreground border-border"
                   }`}
                 >
                   {c === "all" ? "All" : c}
@@ -121,7 +121,7 @@ function CollectionPage() {
                 search: (prev) => ({ ...prev, search: val || undefined }),
               });
             }}
-            className="w-full bg-muted/40 pl-8.5 pr-4 py-2 border border-border rounded-md font-sans text-xs focus:outline-none focus:border-foreground/50 text-foreground transition-all"
+            className="w-full bg-muted/40 pl-8.5 pr-4 py-2.5 border-2 border-border rounded-full font-sans text-xs focus:outline-none focus:border-foreground/50 text-foreground transition-all shadow-sm"
           />
           <Search className="w-3.5 h-3.5 text-muted-foreground absolute left-3 top-3.5" />
         </div>

@@ -75,20 +75,20 @@ export function SiteNav() {
           </Link>
 
           {/* Search bar (Hidden on mobile) */}
-          <form onSubmit={handleSearch} className="hidden md:flex items-center flex-1 max-w-xl border border-border rounded-md overflow-hidden bg-muted/30 focus-within:border-primary/50 transition-colors">
+          <form onSubmit={handleSearch} className="hidden md:flex items-center flex-1 max-w-xl border border-border rounded-full bg-muted/30 focus-within:border-primary/50 transition-all shadow-sm">
             
             {/* Category Dropdown inside Search Bar */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <div className="flex items-center px-3 py-2 text-muted-foreground border-r border-border/85 bg-muted/10 shrink-0 select-none text-[11px] gap-1.5 cursor-pointer hover:bg-muted/35 uppercase tracking-wider font-semibold">
+                <div className="flex items-center px-4 py-2 text-muted-foreground border-r border-border/85 bg-muted/10 shrink-0 select-none text-[11px] gap-1.5 cursor-pointer hover:bg-muted/35 rounded-l-full uppercase tracking-wider font-semibold">
                   <span>{selectedCategory === "all" ? "All Categories" : selectedCategory}</span>
                   <ChevronDown className="w-3.5 h-3.5" />
                 </div>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="bg-background border border-border p-1 rounded-md min-w-[140px]">
+              <DropdownMenuContent align="start" className="bg-background border border-border p-1 rounded-2xl min-w-[140px] shadow-soft">
                 <DropdownMenuItem 
                   onClick={() => setSelectedCategory("all")}
-                  className="text-xs uppercase py-1.5 px-3 rounded hover:bg-muted font-semibold cursor-pointer"
+                  className="text-xs uppercase py-1.5 px-3 rounded-full hover:bg-muted font-semibold cursor-pointer"
                 >
                   All Categories
                 </DropdownMenuItem>
@@ -96,7 +96,7 @@ export function SiteNav() {
                   <DropdownMenuItem
                     key={c}
                     onClick={() => setSelectedCategory(c)}
-                    className="text-xs py-1.5 px-3 rounded hover:bg-muted cursor-pointer"
+                    className="text-xs py-1.5 px-3 rounded-full hover:bg-muted cursor-pointer"
                   >
                     {c}
                   </DropdownMenuItem>
@@ -111,10 +111,10 @@ export function SiteNav() {
                 placeholder="Search for PDFs, EBooks, Notes..."
                 value={searchVal}
                 onChange={(e) => setSearchVal(e.target.value)}
-                className="w-full pl-3 pr-10 py-2 bg-transparent text-xs text-foreground focus:outline-none placeholder:text-muted-foreground/60 font-sans"
+                className="w-full pl-4.5 pr-10 py-2 bg-transparent text-xs text-foreground focus:outline-none placeholder:text-muted-foreground/60 font-sans"
               />
             </div>
-            <button type="submit" className="bg-foreground text-background px-4 py-2 hover:bg-foreground/90 transition-colors shrink-0 flex items-center justify-center cursor-pointer">
+            <button type="submit" className="bg-foreground text-background px-5 py-2 hover:bg-foreground/90 transition-colors shrink-0 flex items-center justify-center cursor-pointer rounded-r-full">
               <Search className="w-4 h-4" />
             </button>
           </form>
@@ -421,12 +421,12 @@ export function SiteNav() {
                 <ChevronDown className="w-3 h-3 text-muted-foreground" />
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="bg-background border border-border p-1 rounded-md min-w-[180px]">
+            <DropdownMenuContent align="start" className="bg-background border border-border p-1 rounded-2xl min-w-[180px] shadow-soft">
               {categories.map((c) => (
                 <DropdownMenuItem
                   key={c}
                   onClick={() => navigate({ to: "/collection", search: { category: c } })}
-                  className="text-xs py-2 px-3 rounded hover:bg-muted cursor-pointer"
+                  className="text-xs py-2 px-3 rounded-full hover:bg-muted cursor-pointer font-medium"
                 >
                   {c}
                 </DropdownMenuItem>
