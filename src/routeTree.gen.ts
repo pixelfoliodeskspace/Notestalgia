@@ -19,6 +19,7 @@ import { Route as BookSlugRouteImport } from './routes/book.$slug'
 import { Route as AuthenticatedLibraryRouteImport } from './routes/_authenticated/library'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as ApiAuthCallbackRouteImport } from './routes/api/auth/callback'
 import { Route as AuthenticatedLibraryClaimRouteImport } from './routes/_authenticated/library.claim'
 import { Route as AuthenticatedAdminNewRouteImport } from './routes/_authenticated/admin.new'
 import { Route as AuthenticatedAdminEditIdRouteImport } from './routes/_authenticated/admin.edit.$id'
@@ -72,6 +73,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const ApiAuthCallbackRoute = ApiAuthCallbackRouteImport.update({
+  id: '/api/auth/callback',
+  path: '/api/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedLibraryClaimRoute =
   AuthenticatedLibraryClaimRouteImport.update({
     id: '/claim',
@@ -101,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/book/$slug': typeof BookSlugRoute
   '/admin/new': typeof AuthenticatedAdminNewRoute
   '/library/claim': typeof AuthenticatedLibraryClaimRoute
+  '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/edit/$id': typeof AuthenticatedAdminEditIdRoute
 }
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/book/$slug': typeof BookSlugRoute
   '/admin/new': typeof AuthenticatedAdminNewRoute
   '/library/claim': typeof AuthenticatedLibraryClaimRoute
+  '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/edit/$id': typeof AuthenticatedAdminEditIdRoute
 }
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/book/$slug': typeof BookSlugRoute
   '/_authenticated/admin/new': typeof AuthenticatedAdminNewRoute
   '/_authenticated/library/claim': typeof AuthenticatedLibraryClaimRoute
+  '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/edit/$id': typeof AuthenticatedAdminEditIdRoute
 }
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/book/$slug'
     | '/admin/new'
     | '/library/claim'
+    | '/api/auth/callback'
     | '/admin/'
     | '/admin/edit/$id'
   fileRoutesByTo: FileRoutesByTo
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/book/$slug'
     | '/admin/new'
     | '/library/claim'
+    | '/api/auth/callback'
     | '/admin'
     | '/admin/edit/$id'
   id:
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/book/$slug'
     | '/_authenticated/admin/new'
     | '/_authenticated/library/claim'
+    | '/api/auth/callback'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/edit/$id'
   fileRoutesById: FileRoutesById
@@ -186,6 +198,7 @@ export interface RootRouteChildren {
   CollectionRoute: typeof CollectionRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   BookSlugRoute: typeof BookSlugRoute
+  ApiAuthCallbackRoute: typeof ApiAuthCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -260,6 +273,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
     }
+    '/api/auth/callback': {
+      id: '/api/auth/callback'
+      path: '/api/auth/callback'
+      fullPath: '/api/auth/callback'
+      preLoaderRoute: typeof ApiAuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/library/claim': {
       id: '/_authenticated/library/claim'
       path: '/claim'
@@ -331,6 +351,7 @@ const rootRouteChildren: RootRouteChildren = {
   CollectionRoute: CollectionRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   BookSlugRoute: BookSlugRoute,
+  ApiAuthCallbackRoute: ApiAuthCallbackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
