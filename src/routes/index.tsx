@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { BookCard } from "@/components/book-card";
-import { NotesalgiaBrandShowcase } from "@/components/notesalgia-wordmark";
 
 export const Route = createFileRoute("/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(publishedBooksQuery),
@@ -278,7 +277,6 @@ function Home() {
   return (
     <div className="space-y-16 pb-12 bg-background">
       <Hero />
-      <NotesalgiaBrandShowcase />
       <FeaturesBar />
       <CollectionPreview />
       <TopCategories />
