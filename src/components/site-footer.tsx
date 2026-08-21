@@ -1,12 +1,17 @@
 import { Link } from "@tanstack/react-router";
+import { NotesalgiaWordmark } from "@/components/notesalgia-wordmark";
 
 export function SiteFooter() {
   return (
     <footer className="mt-32 border-t border-border">
       <div className="mx-auto max-w-7xl px-6 md:px-10 py-14 grid gap-10 md:grid-cols-3">
         <div>
-          <div className="font-display text-2xl">
-            Notestalgia<span className="text-primary">.</span>
+          <div>
+            <NotesalgiaWordmark
+              notesColor="var(--foreground)"
+              algiaColor="#19C7D9"
+              className="text-2xl"
+            />
           </div>
           <p className="mt-3 text-sm text-muted-foreground max-w-xs">
             Made for learners. A quiet library of premium AI notes, guides and digital resources.

@@ -20,6 +20,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { NotesalgiaWordmark } from "@/components/notesalgia-wordmark";
 
 export function SiteNav() {
   const { isAdmin, user } = useIsAdmin();
@@ -65,12 +66,14 @@ export function SiteNav() {
         <div className="mx-auto max-w-7xl px-6 md:px-10 flex items-center justify-between gap-4">
           
           {/* Logo & Sub-tagline */}
-          <Link to="/" className="flex flex-col select-none">
-            <span className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-foreground leading-tight">
-              Notestalgia
-            </span>
-            <span className="hidden md:inline text-[9px] tracking-wider text-muted-foreground mt-0.5">
-              Notes that stay. Knowledge that lasts.
+          <Link to="/" className="flex flex-col select-none group">
+            <NotesalgiaWordmark
+              notesColor="var(--foreground)"
+              algiaColor="#19C7D9"
+              className="text-2xl md:text-3xl tracking-tight transition-transform duration-200 group-hover:scale-[1.02]"
+            />
+            <span className="hidden md:inline text-[9px] tracking-wider text-muted-foreground mt-1">
+              Where every page keeps a memory
             </span>
           </Link>
 
